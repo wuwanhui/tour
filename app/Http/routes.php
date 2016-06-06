@@ -15,14 +15,14 @@ Route::get('/', function () {
 /**
  * 后台管理
  */
-Route::group(['prefix' => 'manage'], function () {
+Route::group(['prefix' => 'supplier'], function () {
 
 
     /**
      * 主页
      */
     Route::get('/', function () {
-        return view('manage.home');
+        return view('supplier.home');
     });
 
     /**
@@ -34,7 +34,7 @@ Route::group(['prefix' => 'manage'], function () {
          * 主页
          */
         Route::get('/', function () {
-            return view('manage/business/index', ['model' => 'business', 'menu' => 'config']);
+            return view('supplier/business/index', ['model' => 'business', 'menu' => 'config']);
 
         });
 
@@ -48,7 +48,7 @@ Route::group(['prefix' => 'manage'], function () {
          * 主页
          */
         Route::get('/', function () {
-            return view('manage/customer/index', ['model' => 'customer', 'menu' => 'config']);
+            return view('supplier/customer/index', ['model' => 'customer', 'menu' => 'config']);
 
         });
 
@@ -64,7 +64,7 @@ Route::group(['prefix' => 'manage'], function () {
          * 主页
          */
         Route::get('/', function () {
-            return view('manage/finance/index', ['model' => 'finance', 'menu' => 'config']);
+            return view('supplier/finance/index', ['model' => 'finance', 'menu' => 'config']);
 
         });
 
@@ -80,7 +80,7 @@ Route::group(['prefix' => 'manage'], function () {
          * 主页
          */
         Route::get('/', function () {
-            return view('manage/resources/index', ['model' => 'resources', 'menu' => 'config']);
+            return view('supplier/resources/index', ['model' => 'resources', 'menu' => 'config']);
 
         });
 
@@ -97,7 +97,7 @@ Route::group(['prefix' => 'manage'], function () {
          * 统计报表主页
          */
         Route::get('/', function () {
-            return view('manage/report/index', ['model' => 'report', 'menu' => 'config']);
+            return view('supplier/report/index', ['model' => 'report', 'menu' => 'config']);
 
         });
 
@@ -113,9 +113,10 @@ Route::group(['prefix' => 'manage'], function () {
          * 参数设置
          */
         Route::get('/', function () {
-            return view('manage/system/config/index', ['model' => 'system', 'menu' => 'config']);
+            return view('supplier/system/config/index', ['model' => 'system', 'menu' => 'config']);
 
         });
+    
 
     });
 
@@ -129,7 +130,7 @@ Route::group(['prefix' => 'manage'], function () {
          * 参数设置
          */
         Route::get('/', function () {
-            return view('manage/docking/index', ['model' => 'docking', 'menu' => 'config']);
+            return view('supplier/docking/index', ['model' => 'docking', 'menu' => 'config']);
 
         });
 
@@ -148,7 +149,7 @@ Route::group(['prefix' => 'manage'], function () {
  */
 Route::get('/task', function () {
     $tasks = Task::orderBy('created_at', 'asc')->get();
-    return view('manage/user/index', [
+    return view('supplier/user/index', [
         'tasks' => $tasks
     ]);
 
@@ -159,7 +160,7 @@ Route::get('/task', function () {
  * 新增
  */
 Route::get('/task/create', function () {
-    return view('manage/user/create');
+    return view('supplier/user/create');
 
 });
 
