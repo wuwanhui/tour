@@ -1,0 +1,316 @@
+/*!
+ * AngularJS 重载
+ */
+.ng-invalid.ng-dirty {
+	border-color: #FA787E;
+}
+
+.ng-valid.ng-dirty {
+	border-color: #78FA89;
+}
+
+.ng-pristine.ng-pristine {
+	
+}
+
+/*!
+ * Bootstrap 重载
+ */
+.form-control {
+	width: auto;
+	display: inline-block;
+	border-radius: 0px;
+}
+
+.form-control:focus {
+	box-shadow: none;
+}
+
+.form-group {
+	margin-bottom: 8px;
+}
+
+.btn {
+	border-radius: 0px;
+}
+
+.modal {
+	border-radius: 0px;
+	border: 0px solid rgba(0, 0, 0, 0);
+	border: 0px solid #999999;
+}
+
+.panel {
+	border-radius: 0px;
+}
+
+.required {
+	color: #FF0000;
+}
+
+.container-fluid .row {
+	margin-bottom: 5px;
+}
+
+.container-fluid {
+	
+}
+
+.panel .panel-heading {
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #dcdcdc;
+	padding: 0px 0px 5px 0px;
+	line-height: 30px;
+}
+
+.field-validation-error {
+	line-height: 30px;
+	text-indent: 10px;
+	display: inline-block;
+	text-decoration: none;
+	color: #FF0000;
+}
+
+legend {
+	cursor: pointer;
+}
+
+legend.show span {
+	font-size: 16px;
+	font-family: Arial, 微软雅黑, 黑体;
+	text-decoration: none;
+	line-height: 2em;
+	color: #008000;
+	cursor: pointer;
+}
+
+.control-label {
+	font-weight: normal;
+	font-size: 15px;
+	font-family: Arial, 微软雅黑, 黑体;
+}
+
+.validation-summary-errors {
+	margin: 10px;
+	border: 1px solid #FF9900;
+	background-color: #ffffcc;
+	line-height: 25px;
+	padding: 5px;
+}
+
+.errors {
+	display: inline-block;
+	color: #FF9900;
+	line-height: 25px;
+	padding: 5px;
+}
+
+.navbar {
+	border-width: 0px;
+	color: #FFFFFF;
+	margin-bottom: 15px;
+	font-family: Arial, 微软雅黑, 黑体;
+	font-size: 16px;
+	border-radius: 0px;
+}
+
+.navbar-default {
+	background-color: #488fbc;
+}
+
+.navbar-default .navbar-nav>li>a {
+	color: #ffffff;
+}
+
+.navbar-nav a {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+.navbar-nav a:hover {
+	color: #008000;
+	text-decoration: none;
+	background-color: #FF9900;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+	color: #FFFFFF;
+}
+
+.navbar-inverse .navbar-brand {
+	color: #FFFFFF;
+}
+
+.navbar-inverse .navbar-text {
+	color: #FFFFFF;
+}
+
+.nav-tabs>li>a {
+	margin-right: 2px;
+	line-height: 1.42857143;
+	border: 1px solid transparent;
+	border-radius: 0px 0px 0 0;
+}
+
+.table thead th {
+	font-family: Arial, 微软雅黑, 黑体;
+	font-size: 13px;
+	text-decoration: none;
+	text-align: center;
+	background-color: #f1f1f1;
+	line-height: 30px;
+}
+
+/*!
+ * 常用辅助
+ */
+.breadcrumb {
+	margin-bottom: 10px;
+}
+
+.show {
+	display: block;
+}
+
+.hide {
+	display: none;
+}
+
+.clearRow {
+	margin-right: 0px;
+	margin-left: 0px;
+}
+
+.clear {
+	clear: both;
+}
+
+.thumbnail {
+	height: 100px;
+	width: 100px;
+	display: inline-block;
+}
+
+#message {
+	padding: 5px;
+	text-align: center;
+	line-height: 50px;
+	position: absolute;
+	display: none;
+	bottom: 0px;
+	left: 10px;
+	right: 10px;
+	bottom: 0px;
+}
+
+span.a {
+	cursor: pointer;
+}
+
+/*!
+ * 页面布局
+ */
+.page {
+	background-color: #f2f2f2;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	min-height: 500px;
+}
+
+/*!
+ * 列表页
+ */
+.page-list {
+	padding: 5px;
+}
+
+.page-list-search {
+	margin-bottom: 10px;
+	border-bottom-color: #e1e1e1;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	padding-bottom: 10px;
+}
+
+.page-list-search .input-group {
+	padding-bottom: 10px;
+}
+
+.page-list-input {
+	padding-bottom: 10px;
+}
+
+.page-list-input-btn {
+	padding-bottom: 5px;
+	border-bottom-color: #e1e1e1;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #e1e1e1;
+}
+
+.page-list-input .control-label {
+	min-width: 100px;
+	max-width: 200px;
+	color: #747474;
+}
+
+.page-list-footer {
+	line-height: 40px;
+	text-align: center;
+	display: block;
+	color: #c0c0c0;
+	display: none;
+	bottom: 0px;
+	left: 0px;
+	background-color: #f3f3f3;
+	right: 0px;
+	bottom: 0px;
+}
+
+/*!
+ * 新增编辑页
+ */
+.page-input {
+	margin: 15px;
+}
+
+.page-input-header {
+	line-height: 40px;
+	text-align: center;
+	display: block;
+	color: #c0c0c0;
+	display: none;
+	bottom: 0px;
+	left: 0px;
+	background-color: #f3f3f3;
+	right: 0px;
+	bottom: 0px;
+}
+
+.page-input-btn {
+	padding-bottom: 5px;
+	border-bottom-color: #e1e1e1;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #e1e1e1;
+}
+
+.page-input .control-label {
+	min-width: 100px;
+	max-width: 200px;
+	color: #747474;
+}
+
+.page-input-footer {
+	line-height: 40px;
+	text-align: center;
+	display: block;
+	color: #c0c0c0;
+	display: none;
+	bottom: 0px;
+	left: 0px;
+	background-color: #f3f3f3;
+	right: 0px;
+	bottom: 0px;
+}

@@ -1,0 +1,159 @@
+html {
+	
+}
+
+body {
+	color: #333333;
+	font-size: 13px;
+	font-family: Arial, 微软雅黑, 黑体;
+}
+
+ul, ul>li {
+	padding: 0px;
+	margin: 0px;
+	list-style-type: none;
+}
+
+a {
+	color: #666666;
+	outline: none;
+	text-decoration: none;
+}
+
+a {
+	blr: expression(this.onFocus = this.blur ())
+}
+
+a:link, a:visited, a:active, a:hover {
+	color: #333;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+a.btn-primary {
+	color: #FFFFFF;
+}
+
+form {
+	padding: 0px;
+	margin: 0px;
+}
+
+Label {
+	font-weight: normal;
+	text-decoration: none;
+	font-family: Arial, 微软雅黑, 黑体;
+}
+
+legend {
+	font-size: 16px;
+	font-family: Arial, 微软雅黑, 黑体;
+	text-decoration: none;
+	line-height: 2em;
+	color: #008000;
+}
+
+legend span {
+	cursor: pointer;
+}
+
+hr {
+	margin: 5px;
+}
+
+span {
+	font-family: Arial, 微软雅黑, 黑体;
+}
+
+a.active {
+	color: #008000;
+}
+
+.table thead th {
+	font-family: Arial, 微软雅黑, 黑体;
+	font-size: 13px;
+	text-decoration: none;
+	text-align: center;
+	background-color: #f1f1f1;
+	line-height: 30px;
+}
+
+table.tableMain {
+	width: 100%;
+}
+
+table.tableMain tr {
+	border-style: solid;
+	border-width: 1px;
+	border-color: #e1e1e1;
+}
+
+table.tableMain th {
+	text-align: right;
+	line-height: 3px;
+	padding: 5px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #e1e1e1;
+}
+
+table.tableMain td {
+	padding: 5px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #e1e1e1;
+}
+
+table.tableDetail {
+	width: 100%;
+}
+
+table.tableDetail thead {
+	background-color: #f1f1f1;
+	line-height: 30px;
+}
+
+table.tableDetail tbody {
+	
+}
+
+table.tableDetail tr {
+	
+}
+
+table.tableDetail th {
+	text-align: center;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #e1e1e1;
+}
+
+table.tableDetail td {
+	padding: 3px;
+	margin: 0px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #e1e1e1;
+	border-style: solid;
+}
+
+table.tableDetail td input[type="text"] {
+	width: 100%;
+	Position: relative;
+	height: 30px;
+	border-width: 0px;
+	border-bottom-width: 1px;
+	border-color: #e1e1e1;
+	right: 0px;
+	bottom: 0px;
+}
+
+table.table tbody a {
+	color: #666;
+}
+
+input[type=file] {
+	 border-width: 0px;
+}

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>供应商系统-@yield('title')</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('/resources/js/bootstrap/css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/resources/css/base.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/resources/css/home.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/resources/css/page.css') }}">
+    @yield('style')
+
+</head>
+<body>
+<div class="page">
+    <div class="page-header">
+        <div class="page-header-top">
+            <div class="page-header-top-logo">千番旅行</div>
+            <div class="page-header-top-nav">
+                <span class="a" onclick="exit();">退出</span> | <span class="a" onclick="about();">关于我们</span>
+            </div>
+        </div>
+        <div class="page-header-nav">
+            <div class="page-header-nav-user">
+                <div class="page-header-nav-user-img">
+                    <i class="icon-fire" style="color: red;"></i>
+                </div>
+                吴红（管理员）
+            </div>
+            <div class="page-header-nav-menu">
+                <a href="/manage/business/" <?php echo($model === 'business' ? ' class="active"' : '');?>>业务中心</a>
+                <a href="/manage/customer/" <?php echo($model === 'customer' ? ' class="active"' : '');?>>客服关系</a>
+                <a href="/manage/finance/" <?php echo($model === 'finance' ? ' class="active"' : '');?>>财务结算</a>
+                <a href="/manage/resources/" <?php echo($model === 'resources' ? ' class="active"' : '');?> >资源中心</a>
+                <a href="/manage/report/" <?php echo($model === 'report' ? ' class="active"' : '');?>>统计报表</a>
+                <a href="/manage/system/" <?php echo($model === 'system' ? ' class="active"' : '');?>>系统管理</a>
+                <a href="/manage/docking/" <?php echo($model === 'docking' ? ' class="active"' : '');?> >三方对接</a>
+            </div>
+            <form class="page-header-nav-search">
+                <input type="text" placeholder="团期、订单、客户、组团社"/> <input
+                        type="submit" class="icon-search " value="搜索"/>
+            </form>
+
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <div class="page-content">
+        <div class="page-side">
+            <?php if( $model === 'business'){ ?>
+            <div class="model-business">
+                <div class="page-side-nav">业务中心</div>
+                <div class="page-side-menu">
+                    <a href="/manage/activity/">增加团队</a> <a
+                            href="/manage/analysis/">增加散拼</a> <a
+                            href="/manage/analysis/">团队操作</a> <a
+                            href="/manage/analysis/">订单列表</a> <a
+                            href="/manage/analysis/">到账认领</a> <a
+                            href="/manage/analysis/">收款记录</a> <a
+                            href="/manage/analysis/">付款记录</a>
+                    <hr/>
+                    <a href="/manage/activity/">控位管理</a> <a
+                            href="/manage/analysis/">团队成本</a>
+                </div>
+            </div>
+            <?php }?>
+            <?php if( $model === 'customer'){ ?>
+            <div class="model-customer">
+                <div class="page-side-nav">客户关系</div>
+                <div class="page-side-menu">
+                    <a href="/manage/crm/directories/">资源名录</a> <a
+                            href="/manage/crm/customer/">客户档案</a> <a
+                            href="/manage/crm/following/">联系记录</a> <a
+                            href="/manage/crm/orders/">订单管理</a> <a
+                            href="/manage/crm/product/">产品管理</a> <a
+                            href="/manage/crm/logs/">业务分析</a>
+                </div>
+            </div>
+            <?php }?>
+            <?php if( $model === 'finance'){ ?>
+            <div class="model-finance">
+                <div class="page-side-nav">财务结算</div>
+                <div class="page-side-menu">
+                    <a href="/manage/finance/detailed/">单团明细台帐</a> <a
+                            href="/manage/finance/detailed/">封团结算审核</a> <a
+                            href="/manage/finance/detailed/">付款管理</a> <a
+                            href="/manage/finance/detailed/">付款审核</a> <a
+                            href="/manage/finance/detailed/">收款管理</a> <a
+                            href="/manage/finance/detailed/">发票管理</a> <a
+                            href="/manage/finance/detailed/">现金日记帐</a> <a
+                            href="/manage/finance/detailed/">科目管理</a> <a
+                            href="/manage/finance/detailed/">绩效管理</a> <a
+                            href="/manage/finance/detailed/">积分管理</a>
+                    <hr/>
+                    <a href="#/manage/finance/analysis/">财务分析</a>
+                </div>
+            </div>
+            <?php }?>
+            <?php if( $model === 'resources'){ ?>
+            <div class="model-resources">
+                <div class="page-side-nav">资源中心</div>
+                <div class="page-side-menu">
+                    <a href="/manage/system/config/">线路资源 </a> <a
+                            href="/manage/system/config/">导游领队 </a>
+                    <hr>
+                    <a href="/manage/system/enterprise/">航空公司</a> <a
+                            href="/manage/system/depts/">地接社</a> <a
+                            href="/manage/system/user/">酒店</a> <a
+                            href="/manage/system/roles/">景区</a> <a
+                            href="/manage/system/logs/">车队</a> <a
+                            href="/manage/system/admin/">签证</a> <a
+                            href="/manage/system/admin/">保险</a>
+                </div>
+            </div>
+            <?php }?>
+            <?php if( $model === 'report'){ ?>
+            <div class="model-report">
+                <div class="page-side-nav">统计报表</div>
+                <div class="page-side-menu">
+                    <a href="/manage/system/config/">月收客分析</a><a
+                            href="/manage/system/enterprise/">月销售统计</a> <a
+                            href="/manage/system/depts/">按线路统计</a> <a
+                            href="/manage/system/user/">按地区统计</a> <a
+                            href="/manage/system/roles/">大社贡献率</a> <a
+                            href="/manage/system/logs/">回访统计</a>
+                    <hr>
+                    <a href="/manage/system/admin/">日收客销售报表</a> <a
+                            href="/manage/system/admin/">月绩效表</a>
+                </div>
+            </div>
+            <?php }?>
+            <?php if( $model === 'system'){ ?>
+            <div class="model-system">
+                <div class="page-side-nav">系统设置</div>
+                <div class="page-side-menu">
+
+                    <a href="/manage/system/config/">系统参数</a><a
+                            href="/manage/system/enterprise/">企业信息</a> <a
+                            href="/manage/system/depts/">部门管理</a> <a
+                            href="/manage/system/user/">用户管理</a> <a
+                            href="/manage/system/roles/">角色管理</a> <a
+                            href="/manage/system/base/">基础数据</a> <a
+                            href="/manage/system/logs/">信息模板</a> <a
+                            href="/manage/system/tags/">标签管理</a> <a
+                            href="/manage/system/model/">模块权限</a>
+                    <hr>
+                    <a href="/manage/system/admin/">日志分析报表</a>
+                </div>
+            </div>
+            <?php }?>
+            <?php if( $model === 'docking'){ ?>
+            <div class="model-docking">
+                <div class="page-side-nav">三方对接</div>
+                <div class="page-side-menu">
+
+                    <a href="/manage/system/config/">系统参数</a><a
+                            href="/manage/system/enterprise/">企业信息</a> <a
+                            href="/manage/system/depts/">部门管理</a> <a
+                            href="/manage/system/user/">用户管理</a> <a
+                            href="/manage/system/roles/">角色管理</a> <a
+                            href="/manage/system/logs/">基础数据</a> <a
+                            href="/manage/system/logs/">信息模板</a> <a
+                            href="/manage/system/logs/">信息模板</a> <a
+                            href="/manage/system/logs/">模块权限</a>
+                    <hr>
+                    <a href="/manage/system/admin/">日志分析报表</a>
+                </div>
+            </div>
+            <?php }?>
+        </div>
+        <div class="page-area">
+            @yield('content')
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="page-footer">重庆爱旅游科技有限公司</div>
+</div>
+<script type="text/javascript">
+    //系统退出
+    function exit() {
+        //询问框
+        layer.confirm('确认退出？', {
+            btn: ['确认', '取消']
+            //按钮
+        }, function () {
+            window.location.href = '/manage/login';
+
+        });
+    }
+
+    //关于我们
+    function about() {
+        layer.open({
+            type: 2,
+            title: '关于我们',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['60%', '50%'],
+            content: 'http://www.baidu.com/' //iframe的url
+        });
+
+    }
+</script>
+
+<script src="{{ asset('/resources/js/angularJs/angular1.5.5.min.js') }}"></script>
+<script src="{{ asset('/resources/js/angularJs/angular-messages.min.js') }}"></script>
+<script src="{{ asset('/resources/js/angularJs/angularBase.js') }}"></script>
+<script src="{{ asset('/resources/js/jquery-2.1.1.min.js') }}"></script>
+<script src="{{ asset('/resources/js/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('/resources/js/layer/layer.js') }}"></script>
+<script src="{{ asset('/resources/js/common.js') }}"></script>
+@yield('script')
+</body>
+</html>
