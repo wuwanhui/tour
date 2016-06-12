@@ -1,21 +1,78 @@
 <?php
 
-
-use App\Task;
 use Illuminate\Http\Request;
 
 /**
  * 主页
  */
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 
+Route::auth();
+
+Route::get('/home', 'HomeController@index');
 
 /**
  * 后台管理
  */
-Route::group(['prefix' => 'supplier'], function () {
+Route::group(['prefix' => 'manage', 'middleware' => ['manage']], function () {
+
+
+    /**
+     * 系统设置
+     */
+    Route::group(['prefix' => 'system'], function () {
+
+        /**
+         * 权限管理
+         */
+        Route::resource('permission', 'Manage\PermissionController', ['model' => 'system', 'menu' => 'permission']);
+
+
+        /**
+         * 角色管理
+         */
+        Route::resource('role', 'Manage\RoleController', ['model' => 'system', 'menu' => 'role']);
+
+        /**
+         * 用户管理
+         */
+        Route::resource('user', 'Manage\UserController', ['model' => 'system', 'menu' => 'user']);
+
+        /**
+         * 企业信息
+         */
+        Route::resource('enterprise', 'Manage\EnterpriseController', ['model' => 'system', 'menu' => 'enterprise']);
+
+    });
+
+
+    /**
+     * 主页
+     */
+    Route::get('/', function () {
+        return view('manage.home');
+    });
+
+    /**
+     * 业务中心
+     */
+    Route::group(['prefix' => 'business'], function () {
+
+        /**
+         * 主页
+         */
+        Route::get('/', function () {
+            return view('supplier/business/index', ['model' => 'business', 'menu' => 'config']);
+
+        });
+
+    });
+});
+
+/**
+ * 供应商管理
+ */
+Route::group(['prefix' => 'supplier', 'middleware' => ['supplier']], function () {
 
 
     /**
@@ -23,6 +80,7 @@ Route::group(['prefix' => 'supplier'], function () {
      */
     Route::get('/', function () {
         return view('supplier.home');
+
     });
 
     /**
@@ -53,6 +111,18 @@ Route::group(['prefix' => 'supplier'], function () {
         });
 
 
+    });
+
+    /**
+     * 微信营销
+     */
+    Route::group(['prefix' => 'weixin'], function () {
+
+        Route::resource('config', 'Supplier\WeixinConfigController');
+
+        Route::get('/', function () {
+            return Redirect::to('supplier/weixin/config');
+        });
 
     });
     /**
@@ -116,7 +186,7 @@ Route::group(['prefix' => 'supplier'], function () {
             return view('supplier/system/config/index', ['model' => 'system', 'menu' => 'config']);
 
         });
-    
+
 
     });
 
@@ -136,61 +206,6 @@ Route::group(['prefix' => 'supplier'], function () {
 
     });
 
-
-
-    Route::group(['namespace' => 'User'], function () {
-        // 控制器在 "App\Http\Controllers\Admin\User" 命名空间下
-    });
 });
 
 
-/**
- * 列表
- */
-Route::get('/task', function () {
-    $tasks = Task::orderBy('created_at', 'asc')->get();
-    return view('supplier/user/index', [
-        'tasks' => $tasks
-    ]);
-
-});
-
-
-/**
- * 新增
- */
-Route::get('/task/create', function () {
-    return view('supplier/user/create');
-
-});
-
-
-/**
- * 新增
- */
-Route::post('/task/create', function (Request $request) {
-    $validator = Validator::make($request->all(), [
-        'name' => 'required|max:255',
-    ]);
-
-    if ($validator->fails()) {
-        return redirect('/task/create')
-            ->withInput()
-            ->withErrors($validator);
-    }
-
-    $task = new Task;
-    $task->name = $request->name;
-    $task->save();
-
-    return redirect('/task');
-
-});
-
-/**
- * 删除
- */
-Route::delete('/task/delete/{id}', function ($id) {
-    Task::findOrFail($id)->delete();
-    return redirect('/task');
-});

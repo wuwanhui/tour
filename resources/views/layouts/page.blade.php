@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN" ng-app="app">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,7 +11,14 @@
 
 </head>
 <body>
-@yield('content')
+<div class="container-fluid">
+    @yield('content')
+    @if (session('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+    @endif
+</div>
 <script src="{{ asset('/resources/js/angularJs/angular1.5.5.min.js') }}"></script>
 <script src="{{ asset('/resources/js/angularJs/angular-messages.min.js') }}"></script>
 <script src="{{ asset('/resources/js/angularJs/angularBase.js') }}"></script>

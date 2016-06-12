@@ -15,6 +15,7 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+
     ];
 
     /**
@@ -30,7 +31,14 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
         ],
-
+        'manage' => [
+            \App\Http\Middleware\Authenticate::class,
+            \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        ],
+        'supplier' => [
+            \App\Http\Middleware\Authenticate::class,
+            \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        ],
         'api' => [
             'throttle:60,1',
         ],
@@ -49,5 +57,9 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,
+        'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
+        'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
+
     ];
 }
