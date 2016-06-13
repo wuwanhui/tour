@@ -59,7 +59,6 @@
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: #dcdcdc;
-    padding: 0px 0px 5px 0px;
     line-height: 30px;
 }
 
@@ -512,23 +511,22 @@ span.a {
     padding: 5px;
 }
 
-.page-list-search {
+.page-list-header {
     margin-bottom: 10px;
-    border-bottom-color: #e1e1e1;
+    border-bottom-color: #f0f0f0;
     border-bottom-width: 1px;
     border-bottom-style: solid;
+}
+
+.page-list-header .input-group {
     padding-bottom: 10px;
 }
 
-.page-list-search .input-group {
-    padding-bottom: 10px;
+.page-list-body {
+    padding-bottom: 5px;
 }
 
-.page-list-input {
-    padding-bottom: 10px;
-}
-
-.page-list-input-btn {
+.page-list-body-btn {
     padding-bottom: 5px;
     border-bottom-color: #e1e1e1;
     border-bottom-width: 1px;
@@ -536,23 +534,14 @@ span.a {
     border-bottom-color: #e1e1e1;
 }
 
-.page-list-input .control-label {
+.page-list-body .control-label {
     min-width: 100px;
     max-width: 200px;
     color: #747474;
 }
 
 .page-list-footer {
-    line-height: 40px;
-    text-align: center;
-    display: block;
-    color: #c0c0c0;
-    display: none;
-    bottom: 0px;
-    left: 0px;
-    background-color: #f3f3f3;
-    right: 0px;
-    bottom: 0px;
+
 }
 
 /*!
@@ -561,46 +550,33 @@ span.a {
 .page-input {
     background-color: #FFFFFF;
 }
-.page-input .panel-heading {
-   padding-top: 5px;
-    padding-bottom: 5px;
-}
-.page-input-header {
-    line-height: 40px;
-    text-align: center;
-    display: block;
-    color: #c0c0c0;
-    display: none;
-    bottom: 0px;
-    left: 0px;
-    background-color: #f3f3f3;
-    right: 0px;
-    bottom: 0px;
-}
 
-.page-input-btn {
-    padding-bottom: 5px;
-    border-bottom-color: #e1e1e1;
+.page-input-header {
+    padding-bottom: 10px;
+    margin-left: 10px;
+    border-bottom-color: #f0f0f0;
     border-bottom-width: 1px;
     border-bottom-style: solid;
-    border-bottom-color: #e1e1e1;
 }
 
-.page-input .control-label {
+.page-input-body {
+    padding-bottom: 5px;
+}
+
+.page-input-body .control-label {
     min-width: 100px;
     max-width: 200px;
     color: #747474;
 }
 
 .page-input-footer {
-    line-height: 40px;
-    text-align: center;
-    display: block;
-    color: #c0c0c0;
-    display: none;
-    bottom: 0px;
-    left: 0px;
-    background-color: #f3f3f3;
-    right: 0px;
-    bottom: 0px;
+
+}
+
+.page-login {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    margin: -15% 0 0 -25%;
 }

@@ -1,35 +1,32 @@
-@extends('layouts.app')
+@extends('layouts.manage')
+@section("script")
+
+@endsection
+
 @section('content')
+    <div class="row page-input">
+        <div class="col-xs-12">
+            <form class="form-horizontal" method="Post"
+                  enctype="multipart/form-data" action="{{url('/manage/system/permission/create')}}">
+                <div class="row page-input-header">
+                    <div class="col-xs-2  text-left">
+                        <button type="button" class="btn btn-default"
+                                onclick="vbscript:window.history.back()">返回
+                        </button>
+                        <button type="submit" class="btn  btn-primary">保存</button>
 
-    <!-- Bootstrap Boilerplate... -->
-
-    <div class="panel-body">
-        <!-- Display Validation Errors -->
-    @include('common.errors')
-
-    <!-- New Task Form -->
-        <form action="/task/create" method="POST" class="form-horizontal">
-        {{ csrf_field() }}
-
-        <!-- Task Name -->
-            <div class="form-group">
-                <label for="task" class="col-sm-3 control-label">Task</label>
-
-                <div class="col-sm-6">
-                    <input type="text" name="name" id="task-name" class="form-control">
+                    </div>
+                    <div class="col-xs-10 text-right"></div>
                 </div>
-            </div>
-
-            <!-- Add Task Button -->
-            <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-6">
-                    <button type="submit" class="btn btn-default">
-                        <i class="fa fa-plus"></i> Add Task
-                    </button>
+                <div class="row page-input-body">
+                    <div class="col-xs-12">
+                        @include('manage.system.permission._form')
+                    </div>
                 </div>
-            </div>
-        </form>
+                <div clas="row page-input-footer">
+                    <div class="col-xs-12">@include('common.errors')</div>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <!-- TODO: Current Tasks -->
 @endsection

@@ -16,7 +16,7 @@
         <div class="page-header-top">
             <div class="page-header-top-logo">千番旅行</div>
             <div class="page-header-top-nav">
-                <span class="a" onclick="exit();">退出</span> | <span class="a" onclick="about();">关于我们</span>
+                {{ Auth::user()->name }}  <span class="a" onclick="exit();">退出</span> | <span class="a" onclick="about();">关于我们</span>
             </div>
         </div>
         <div class="page-header-nav">
@@ -172,40 +172,6 @@
     </div>
     <div class="page-footer">重庆爱旅游科技有限公司</div>
 </div>
-<script type="text/javascript">
-    //系统退出
-    function exit() {
-        //询问框
-        layer.confirm('确认退出？', {
-            btn: ['确认', '取消']
-            //按钮
-        }, function () {
-            window.location.href = '/supplier/login';
 
-        });
-    }
-
-    //关于我们
-    function about() {
-        layer.open({
-            type: 2,
-            title: '关于我们',
-            shadeClose: true,
-            shade: 0.8,
-            area: ['60%', '50%'],
-            content: 'http://www.baidu.com/' //iframe的url
-        });
-
-    }
-</script>
-
-<script src="{{ asset('/resources/js/angularJs/angular1.5.5.min.js') }}"></script>
-<script src="{{ asset('/resources/js/angularJs/angular-messages.min.js') }}"></script>
-<script src="{{ asset('/resources/js/angularJs/angularBase.js') }}"></script>
-<script src="{{ asset('/resources/js/jquery-2.1.1.min.js') }}"></script>
-<script src="{{ asset('/resources/js/bootstrap/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('/resources/js/layer/layer.js') }}"></script>
-<script src="{{ asset('/resources/js/common.js') }}"></script>
-@yield('script')
 </body>
 </html>
