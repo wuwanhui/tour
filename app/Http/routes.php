@@ -3,14 +3,14 @@
 use Illuminate\Http\Request;
 use App\Http\Controllers;
 
+Route::auth();
 /**
  * 主页
  */
 Route::get('/', 'HomeController@index');
 
-Route::auth();
 
-Route::get('/home', 'HomeController@index');
+Route::resource('api/v1', 'WeixinController', ['middleware' => 'weixin']);
 
 /**
  * 后台管理
@@ -26,7 +26,7 @@ Route::group(['prefix' => 'manage', 'middleware' => ['manage']], function () {
          * 权限管理
          */
         Route::group(['prefix' => 'permission'], function () {
-            Route::get('/', 'Manage\PermissionController@index', ['as'=>'system.permission','model' => 'system', 'menu' => 'permission']);
+            Route::get('/', 'Manage\PermissionController@index', ['as' => 'system.permission', 'model' => 'system', 'menu' => 'permission']);
             Route::get('/create', 'Manage\PermissionController@getCreate', ['model' => 'system', 'menu' => 'permission']);
             Route::post('/create', 'Manage\PermissionController@postCreate', ['model' => 'system', 'menu' => 'permission']);
             Route::get('/edit/{id}', 'Manage\PermissionController@getEdit', ['model' => 'system', 'menu' => 'permission']);
