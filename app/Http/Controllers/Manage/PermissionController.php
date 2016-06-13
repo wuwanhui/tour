@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Manage;
 
 use App\Models\Permission;
-use Cache;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * 权限管理
@@ -15,59 +17,82 @@ class PermissionController extends BaseController
     /**
      * 主页
      */
-    public function index(Request $request)
+    public function index()
     {
-        if ($request->user()) {
-            return ("用户已进入");
-        } else {
-            return ("用户未进入");
-
-        }
-
-        $permission = Permission::all();
-
-
-        return view('manage.system.permission.index', ['model' => 'system', 'menu' => 'permission']) . with('permissions', $permission);
+        $permissions = Permission::all();
+        return view('manage.system.permission.index', ['model' => 'system', 'menu' => 'permission', 'permissions' => $permissions]);
     }
 
-    public function create()
+    public function getCreate()
     {
-        $parents = Permission::all();
-        return view('manage.system.permission.create', ['model' => 'system', 'menu' => 'permission']) . with('permissions', $parents);
+        $permission = new Permission();
+        return view('manage.system.permission.create', ['model' => 'system', 'menu' => 'permission', 'permission' => $permission]);
     }
 
-    public function store()
+    public function postCreate(Request $request)
     {
         $permission = new Permission();
 
-        $permission->Name = Input::get('Name');
+        $validator = Validator::make($request->all(), $permission->rules(), $permission->messages());
+        if ($validator->fails()) {
+            return redirect('/manage/system/permission/create')
+                ->withInput()
+                ->withErrors($validator);
+        }
+
+        $permission->name = $request->input('name');
+        $permission->display_name = $request->input('display_name');
+        $permission->description = $request->input('description');
 
         if ($permission->save()) {
-            return response()->json(array('status' => 1, 'msg' => 'ok'
-            ));
+            return URL::to('index');
         } else {
             return Redirect::back()->withInput()->withErrors('保存失败！');
         }
     }
 
-    public function show()
+    public function getEdit($id)
     {
-        return view('manage.system.permission.show', ['model' => 'system', 'menu' => 'permission']);
+        $permission = Permission::find($id);
+        return view('manage.system.permission.edit', ['model' => 'system', 'menu' => 'permission', 'permission' => $permission]);
     }
 
-    public function edit()
+    public function postEdit(Request $request, $id)
     {
-        return view('manage.system.permission.edit', ['model' => 'system', 'menu' => 'permission']);
+        $permission = new Permission();
+
+        $validator = Validator::make($request->all(), $permission->rules(), $permission->messages());
+        if ($validator->fails()) {
+            return redirect('/manage/system/permission/create')
+                ->withInput()
+                ->withErrors($validator);
+        }
+
+        $permission->name = $request->input('name');
+        $permission->display_name = $request->input('display_name');
+        $permission->description = $request->input('description');
+
+        if ($permission->save()) {
+            return Redirect::to(action($this->controller . '@index'));
+        } else {
+            return Redirect::back()->withInput()->withErrors('保存失败！');
+        }
     }
 
-    public function update()
+    public function getShow($id)
     {
-        return view('manage.system.permission.update', ['model' => 'system', 'menu' => 'permission']);
+        $permission = Permission::find($id);
+        return view('manage.system.permission.edit', ['model' => 'system', 'menu' => 'permission', 'permission' => $permission]);
     }
 
-    public function destroy()
+
+    public function getDelete($id)
     {
-        return view('manage.system.permission.destroy', ['model' => 'system', 'menu' => 'permission']);
+        $permission = Permission::find($id);
+        $permission->delete();
+        return redirect()->route('permission');
+
     }
+
 
 }

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Controllers;
 
 /**
  * 主页
@@ -21,11 +22,17 @@ Route::group(['prefix' => 'manage', 'middleware' => ['manage']], function () {
      * 系统设置
      */
     Route::group(['prefix' => 'system'], function () {
-
         /**
          * 权限管理
          */
-        Route::resource('permission', 'Manage\PermissionController', ['model' => 'system', 'menu' => 'permission']);
+        Route::group(['prefix' => 'permission'], function () {
+            Route::get('/', 'Manage\PermissionController@index', ['as'=>'system.permission','model' => 'system', 'menu' => 'permission']);
+            Route::get('/create', 'Manage\PermissionController@getCreate', ['model' => 'system', 'menu' => 'permission']);
+            Route::post('/create', 'Manage\PermissionController@postCreate', ['model' => 'system', 'menu' => 'permission']);
+            Route::get('/edit/{id}', 'Manage\PermissionController@getEdit', ['model' => 'system', 'menu' => 'permission']);
+            Route::post('/edit', 'Manage\PermissionController@postEdit', ['model' => 'system', 'menu' => 'permission']);
+            Route::get('/delete/{id}', 'Manage\PermissionController@getDelete', ['model' => 'system', 'menu' => 'permission']);
+        });
 
 
         /**
@@ -78,10 +85,7 @@ Route::group(['prefix' => 'supplier', 'middleware' => ['supplier']], function ()
     /**
      * 主页
      */
-    Route::get('/', function () {
-        return view('supplier.home');
-
-    });
+    Route::get('/', 'Supplier\HomeController@index');
 
     /**
      * 业务中心
