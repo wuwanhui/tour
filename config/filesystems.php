@@ -61,6 +61,18 @@ return [
             'region' => 'your-region',
             'bucket' => 'your-bucket',
         ],
+        'qiniu' => [
+            'driver' => 'qiniu',
+            'domains' => [
+                'default' => 'laravelacademy.com1.z0.glb.clouddn.com', //你的七牛域名env('APP_LOG', 'single')
+                'https' => 'dn-laravelacademy.qbox.me',         //你的HTTPS域名
+                'custom' => 'static.laravelacademy.org',     //你的自定义域名
+            ],
+            'access_key' => '',  //AccessKey
+            'secret_key' => '',  //SecretKey
+            'bucket' => '',  //Bucket名字
+            'notify_url' => '',  //持久化处理回调地址
+        ],
 
     ],
 
