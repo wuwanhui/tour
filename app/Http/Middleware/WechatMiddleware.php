@@ -3,9 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
 
-class WeixinMiddleware
+class WechatMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,6 +16,9 @@ class WeixinMiddleware
      */
     public function handle($request, Closure $next)
     {
+        // 如果取不到用户的cookie，跳转到用户登陆页面
+//       return redirect('login');
+        // $request->test = "WeixinMiddleware";
         // 获取到微信请求里包含的几项内容
         $signature = $request->input('signature');
         $timestamp = $request->input('timestamp');
@@ -33,7 +35,9 @@ class WeixinMiddleware
 
         // 用自己的 signature 去跟请求里的 signature 对比
         if ($our_signature != $signature) {
-            return false;
+           // echo('未知来源');
+            // return redirect('login');
+            //return false;
         }
         return $next($request);
     }

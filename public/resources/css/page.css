@@ -184,6 +184,20 @@ legend.show span {
     clear: both;
 }
 
+.line-top {
+    border-top-color: #f0f0f0;
+    border-top-width: 1px;
+    border-top-style: solid;
+    padding-top: 5px;
+}
+
+.line-bottom {
+    border-bottom-color: #f0f0f0;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    margin-bottom: 5px;
+}
+
 .thumbnail {
     height: 100px;
     width: 100px;
@@ -513,9 +527,6 @@ span.a {
 
 .page-list-header {
     margin-bottom: 10px;
-    border-bottom-color: #f0f0f0;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
 }
 
 .page-list-header .input-group {
@@ -554,9 +565,6 @@ span.a {
 .page-input-header {
     padding-bottom: 10px;
     margin-left: 10px;
-    border-bottom-color: #f0f0f0;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
 }
 
 .page-input-body {

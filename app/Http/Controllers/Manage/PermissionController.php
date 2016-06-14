@@ -45,7 +45,7 @@ class PermissionController extends BaseController
         $permission->description = $request->input('description');
 
         if ($permission->save()) {
-            return URL::to('index');
+            return Redirect('/manage/system/permission');
         } else {
             return Redirect::back()->withInput()->withErrors('保存失败！');
         }
@@ -53,6 +53,7 @@ class PermissionController extends BaseController
 
     public function getEdit($id)
     {
+
         $permission = Permission::find($id);
         return view('manage.system.permission.edit', ['model' => 'system', 'menu' => 'permission', 'permission' => $permission]);
     }

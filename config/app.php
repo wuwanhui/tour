@@ -108,7 +108,7 @@ return [
     |
     */
 
-    'log' => env('APP_LOG', 'single'),
+    'log' => env('APP_LOG', 'daily'),
 
     /*
     |--------------------------------------------------------------------------
@@ -158,6 +158,7 @@ return [
         Zizaco\Entrust\EntrustServiceProvider::class,
         zgldh\QiniuStorage\QiniuFilesystemServiceProvider::class,
 //        Spatie\Menu\Laravel\MenuServiceProvider::class,
+        Overtrue\LaravelWechat\ServiceProvider::class,
 
     ],
 
@@ -206,6 +207,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Entrust' => Zizaco\Entrust\EntrustFacade::class,
 //        'Menu' => Spatie\Menu\Laravel\MenuFacade::class,
+        'Wechat' => Overtrue\LaravelWechat\Facade::class,
 
     ],
 

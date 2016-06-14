@@ -4,26 +4,28 @@
 @endsection
 
 @section('content')
-    <div class="row">
-        <div class="col-xs-8 text-left">
-            <a href="create/" class="btn btn-primary">新增</a>
-        </div>
-        <div class="col-xs-4 text-right">
-            <form method="get" cssClass="form-horizontal">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="关键字"
-                           name="key" value="${key}"> <span class="input-group-btn">
+    <div class="page-list">
+        <div class="row page-list-header">
+            <div class="col-xs-8 text-left">
+                <a href="{{url('/manage/system/permission/create')}}" class="btn btn-primary">新增</a>
+            </div>
+            <div class="col-xs-4 text-right">
+
+                <form method="get" cssClass="form-horizontal">
+                    <div class="input-group">
+
+                        <input type="text" class="form-control" placeholder="关键字"
+                               name="key" value=""> <span class="input-group-btn">
 								<button class="btn btn-default" type="submit">搜索</button>
 							</span>
 
-                </div>
-            </form>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12 ">
-            <div class="panel panel-default">
-                <div class="panel-body" id="PageList">
+        <div class="row page-list-body">
+            <div class="col-md-12">
+                <form method="Post">
 
                     <table class="table table-bordered table-hover  table-condensed">
                         <thead>
@@ -31,54 +33,49 @@
                             <th style="width: 20px"><input type="checkbox"
                                                            name="CheckAll" value="Checkid"/></th>
                             <th style="width: 80px;"><a href="">编号</a></th>
-                            <th><a href="">角色名称</a></th>
-                            <th><a href="">描述</a></th>
-                            <th style="width: 80px;"><a href="">状态</a></th>
-                            <th style="width: 120px;">操作</th>
+                            <th><a href="">权限标识</a></th>
+                            <th><a href="">显示名称</a></th>
+                            <th><a href="">备注</a></th>
+
+                            <th style="width: 80px;">操作</th>
                         </tr>
                         </thead>
-                        @if (count($roles) > 0)
-                            <tbody>
-                            @foreach($roles as $role)
+                        <tbody>
+                        @foreach($permissions as $item)
+                            <tr>
+                                <td><input type="checkbox" value="{{$item->id}} "
+                                           name="id"/></td>
+                                <td style="text-align: center">{{$item->id}} </td>
+                                <td>{{$item->name}} </td>
 
-                                <tr>
-                                    <td><input type="checkbox" value="{{$role->id}}"
-                                               name="id"/></td>
-
-                                    <td style="text-align: center">{{$role->id}}</td>
-                                    <td style="text-align: center">{{$role->id}}</td>
-
-                                    <td>{{$role->id}}</td>
-
-
-                                    <td style="text-align: center">
-
-
-                                    </td>
-                                    <td><a href="edit/${item.getId()}">编辑</a> | <a
-                                                href="delete/${item.getId()}">删除</a> | <a
-                                                href="permission/${item.getId()}">许可</a></td>
-                                </tr>
-                            @endforeach
-                            @endif
-                            </tbody>
+                                <td style="text-align: center">{{$item->display_name}}</td>
+                                <td>
+                                    {{$item->description}}
+                                </td>
+                                <td style="text-align: center"><a
+                                            href="{{url('/manage/system/permission/edit/'.$item->id)}}">编辑</a> |
+                                    <a
+                                            href="{{url('/manage/system/permission/delete/'.$item->id)}}">删除</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
                     </table>
-
-
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <button class="btn btn-warning " type="submit" name="Delete"
-                                    onclick="javascript: return confirm('确定要删除选中的信息吗?');"
-                                    formaction="delete">批量删除
-                            </button>
-                        </div>
-                        <div class="col-xs-6 text-right">
-
-                        </div>
-                    </div>
-
-                </div>
+                </form>
             </div>
         </div>
+        <div class="row page-list-footer">
+            <div class="col-xs-6">
+                <button class="btn btn-warning " type="submit" name="Delete"
+                        onclick="javascript: return confirm('确定要删除选中的信息吗?');"
+                        formaction="delete">批量删除
+                </button>
+            </div>
+            <div class="col-xs-6 text-right">
+
+            </div>
+        </div>
+        @include('common.success')
+
     </div>
 @endsection

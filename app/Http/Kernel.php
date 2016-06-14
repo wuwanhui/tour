@@ -39,6 +39,9 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\Authenticate::class,
             \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         ],
+        'weixin' => [
+            \App\Http\Middleware\WechatMiddleware::class,
+        ],
         'api' => [
             'throttle:60,1',
         ],
@@ -60,7 +63,6 @@ class Kernel extends HttpKernel
         'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,
         'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
         'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
-        'weixin' => \App\Http\Middleware\WeixinMiddleware::class,
-
+        'weixin' => \App\Http\Middleware\WechatMiddleware::class,
     ];
 }

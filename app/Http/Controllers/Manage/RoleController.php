@@ -22,44 +22,75 @@ class RoleController extends BaseController
         return view('manage.system.role.index', ['model' => 'system', 'menu' => 'role', 'roles' => $role]);
     }
 
-    public function create()
+    public function getCreate()
     {
-        $role = new Role();
-        return view('manage.system.role.create', ['model' => 'system', 'menu' => 'role', 'role' => $role]);
+        $permission = new Permission();
+        return view('manage.system.permission.create', ['model' => 'system', 'menu' => 'permission', 'permission' => $permission]);
     }
 
-    public function store()
+    public function postCreate(Request $request)
     {
-        $role = new Role();
+        $permission = new Permission();
 
-        $role->Name = Input::get('Name');
+        $validator = Validator::make($request->all(), $permission->rules(), $permission->messages());
+        if ($validator->fails()) {
+            return redirect('/manage/system/permission/create')
+                ->withInput()
+                ->withErrors($validator);
+        }
 
-        if ($role->save()) {
-            return response()->json(array('status' => 1, 'msg' => 'ok'
-            ));
+        $permission->name = $request->input('name');
+        $permission->display_name = $request->input('display_name');
+        $permission->description = $request->input('description');
+
+        if ($permission->save()) {
+            return Redirect('/manage/system/permission');
         } else {
             return Redirect::back()->withInput()->withErrors('保存失败！');
         }
     }
 
-    public function show()
+    public function getEdit($id)
     {
-        return view('manage.system.role.show', ['model' => 'system', 'menu' => 'role']);
+        $permission = Permission::find($id);
+        return view('manage.system.permission.edit', ['model' => 'system', 'menu' => 'permission', 'permission' => $permission]);
     }
 
-    public function edit()
+    public function postEdit(Request $request, $id)
     {
-        return view('manage.system.role.edit', ['model' => 'system', 'menu' => 'role']);
+        $permission = new Permission();
+
+        $validator = Validator::make($request->all(), $permission->rules(), $permission->messages());
+        if ($validator->fails()) {
+            return redirect('/manage/system/permission/create')
+                ->withInput()
+                ->withErrors($validator);
+        }
+
+        $permission->name = $request->input('name');
+        $permission->display_name = $request->input('display_name');
+        $permission->description = $request->input('description');
+
+        if ($permission->save()) {
+            return Redirect::to(action($this->controller . '@index'));
+        } else {
+            return Redirect::back()->withInput()->withErrors('保存失败！');
+        }
     }
 
-    public function update()
+    public function getShow($id)
     {
-        return view('manage.system.role.update', ['model' => 'system', 'menu' => 'role']);
+        $permission = Permission::find($id);
+        return view('manage.system.permission.edit', ['model' => 'system', 'menu' => 'permission', 'permission' => $permission]);
     }
 
-    public function destroy()
+
+    public function getDelete($id)
     {
-        return view('manage.system.role.destroy', ['model' => 'system', 'menu' => 'role']);
+        $permission = Permission::find($id);
+        $permission->delete();
+        return redirect()->route('permission');
+
     }
 
 }

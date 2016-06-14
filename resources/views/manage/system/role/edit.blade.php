@@ -4,26 +4,30 @@
 @endsection
 
 @section('content')
-    <ol class="breadcrumb">
-        <li><a href="{{url('/manage/system')}}">系统管理</a></li>
-        <li><a href="{{url('/manage/system/permission')}}">权限设置</a></li>
-        <li class="active">编辑</li>
-    </ol>
     <div class="row page-input">
         <div class="col-xs-12">
             <form class="form-horizontal" method="Post"
                   enctype="multipart/form-data" action="{{url('/manage/system/permission')}}">
                 <div class="row page-input-header">
-                    <div class="col-xs-12  text-left">
-
+                    <div class="col-xs-2  text-left">
+                        <button type="button" class="btn btn-default"
+                                onclick="vbscript:window.history.back()">返回
+                        </button>
+                        <button type="submit" class="btn  btn-primary">保存</button>
+                        <button type="button" class="btn btn-danger btn-md" data-toggle="modal"
+                                data-target="#modal-delete">
+                            <i class="fa fa-times-circle"></i>
+                            Delete
+                        </button>
                     </div>
+                    <div class="col-xs-10 text-right"></div>
                 </div>
                 <div class="row page-input-body">
                     <div class="col-xs-12">
                         <fieldset>
                             <legend>基本信息</legend>
                             {!! csrf_field() !!}
-                            <input id="id" name="id" type="hidden" value="{{$permission->id}}"/>
+                            <input id="Id" name="Id" type="hidden" value="{{$permission->Id}}"/>
                             <div class="form-group">
                                 <label for="name" class="col-xs-2 control-label label-required">权限标识：</label>
                                 <div class="col-xs-10">
@@ -59,15 +63,7 @@
                         </fieldset>
                     </div>
                 </div>
-                <div clas="row page-input-footer ">
-                    <div class="col-xs-12  text-center  line-top  ">
-                        <button type=" submit" class="btn btn-primary">保存</button>
-                        <button type="button" class="btn btn-danger btn-md" data-toggle="modal"
-                                data-target="#modal-delete">
-                            <i class="fa fa-times-circle"></i>
-                            删除
-                        </button>
-                    </div>
+                <div clas="row page-input-footer">
                     <div class="col-xs-12">@include('common.errors')</div>
                 </div>
             </form>
@@ -90,7 +86,7 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <form method="POST" action="/admin/tag/{{ $permission->id }}">
+                    <form method="POST" action="/admin/tag/{{ $id }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="_method" value="DELETE">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

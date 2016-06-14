@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use Illuminate\Http\Request;
+use Log;
 
 class HomeController extends Controller
 {
@@ -14,6 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+        Log::info('Showing user profile for user: ');
         $this->middleware('auth');
     }
 
