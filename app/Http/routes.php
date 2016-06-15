@@ -50,11 +50,6 @@ Route::group(['prefix' => 'manage', 'middleware' => ['manage']], function () {
 
 
         /**
-         * 角色管理
-         */
-        Route::resource('role', 'Manage\RoleController', ['model' => 'system', 'menu' => 'role']);
-
-        /**
          * 用户管理
          */
         Route::resource('user', 'Manage\UserController', ['model' => 'system', 'menu' => 'user']);

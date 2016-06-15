@@ -6,6 +6,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+
+    /**
+     * 用户角色
+     */
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\Role');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

@@ -7,7 +7,7 @@
     <div class="page-list">
         <div class="row page-list-header">
             <div class="col-xs-8 text-left">
-                <a href="{{url('/manage/system/permission/create')}}" class="btn btn-primary">新增</a>
+                <a href="{{url('/manage/system/role/create')}}" class="btn btn-primary">新增</a>
             </div>
             <div class="col-xs-4 text-right">
 
@@ -33,7 +33,7 @@
                             <th style="width: 20px"><input type="checkbox"
                                                            name="CheckAll" value="Checkid"/></th>
                             <th style="width: 80px;"><a href="">编号</a></th>
-                            <th><a href="">权限标识</a></th>
+                            <th><a href="">角色标识</a></th>
                             <th><a href="">显示名称</a></th>
                             <th><a href="">备注</a></th>
 
@@ -41,7 +41,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($permissions as $item)
+                        @foreach($items as $item)
                             <tr>
                                 <td><input type="checkbox" value="{{$item->id}} "
                                            name="id"/></td>
@@ -53,9 +53,9 @@
                                     {{$item->description}}
                                 </td>
                                 <td style="text-align: center"><a
-                                            href="{{url('/manage/system/permission/edit/'.$item->id)}}">编辑</a> |
+                                            href="{{url('/manage/system/role/edit/'.$item->id)}}">编辑</a> |
                                     <a
-                                            href="{{url('/manage/system/permission/delete/'.$item->id)}}">删除</a>
+                                            href="{{url('/manage/system/role/delete/'.$item->id)}}">删除</a>
                                 </td>
                             </tr>
                         @endforeach

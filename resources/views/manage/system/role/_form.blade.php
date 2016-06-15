@@ -1,12 +1,12 @@
 <fieldset>
     <legend>基本信息</legend>
     {!! csrf_field() !!}
-    <input id="Id" name="Id" type="hidden" value="{{$permission->Id}}"/>
+    <input id="Id" name="Id" type="hidden" value="{{$role->Id}}"/>
     <div class="form-group">
-        <label for="name" class="col-xs-2 control-label label-required">权限标识：</label>
+        <label for="name" class="col-xs-2 control-label label-required">角色标识：</label>
         <div class="col-xs-10">
             <input id="name" name="name" class="form-control" type="text"
-                   value="{{$permission->name}}"
+                   value="{{$role->name}}"
                    style="width: 300px;"/>
 
         </div>
@@ -18,7 +18,7 @@
         <div class="col-xs-10">
             <input id="display_name" name="display_name" class="form-control"
                    style="width: 300px;"
-                   value="{{$permission->display_name}}" type="text"/>
+                   value="{{$role->display_name}}" type="text"/>
 
         </div>
     </div>
@@ -28,7 +28,7 @@
                class="col-xs-2 control-label label-required">描述：</label>
         <div class="col-xs-10">
                                             <textarea id="description" name="description" class="form-control"
-                                                      style="width: 100%;height: 100px;">{{$permission->description}}</textarea>
+                                                      style="width: 100%;height: 100px;">{{$role->description}}</textarea>
 
         </div>
     </div>

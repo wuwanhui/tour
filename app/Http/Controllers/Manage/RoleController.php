@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Manage;
 
+use App\Models\Permission;
 use App\Models\Role;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * 角色管理
@@ -19,32 +22,34 @@ class RoleController extends BaseController
         $role = Role::all();
 
 
-        return view('manage.system.role.index', ['model' => 'system', 'menu' => 'role', 'roles' => $role]);
+        return view('manage.system.role.index', ['model' => 'system', 'menu' => 'role', 'items' => $role]);
     }
 
     public function getCreate()
     {
-        $permission = new Permission();
-        return view('manage.system.permission.create', ['model' => 'system', 'menu' => 'permission', 'permission' => $permission]);
+        $role = new Role();
+        $permissions = Permission::all();
+        return view('manage.system.role.create', ['model' => 'system', 'menu' => 'role', 'role' => $role, 'permissions' => $permissions]);
     }
 
     public function postCreate(Request $request)
     {
-        $permission = new Permission();
+        $role = new Role();
 
-        $validator = Validator::make($request->all(), $permission->rules(), $permission->messages());
+        $validator = Validator::make($request->all(), $role->rules(), $role->messages());
         if ($validator->fails()) {
-            return redirect('/manage/system/permission/create')
+            return redirect('/manage/system/role/create')
                 ->withInput()
                 ->withErrors($validator);
         }
 
-        $permission->name = $request->input('name');
-        $permission->display_name = $request->input('display_name');
-        $permission->description = $request->input('description');
+        $role->name = $request->input('name');
+        $role->display_name = $request->input('display_name');
+        $role->description = $request->input('description');
 
-        if ($permission->save()) {
-            return Redirect('/manage/system/permission');
+
+        if ($role->save()) {
+            return Redirect('/manage/system/role');
         } else {
             return Redirect::back()->withInput()->withErrors('保存失败！');
         }
@@ -52,26 +57,26 @@ class RoleController extends BaseController
 
     public function getEdit($id)
     {
-        $permission = Permission::find($id);
-        return view('manage.system.permission.edit', ['model' => 'system', 'menu' => 'permission', 'permission' => $permission]);
+        $role = Role::find($id);
+        return view('manage.system.role.edit', ['model' => 'system', 'menu' => 'role', 'item' => $role]);
     }
 
     public function postEdit(Request $request, $id)
     {
-        $permission = new Permission();
+        $role = new Role();
 
-        $validator = Validator::make($request->all(), $permission->rules(), $permission->messages());
+        $validator = Validator::make($request->all(), $role->rules(), $role->messages());
         if ($validator->fails()) {
-            return redirect('/manage/system/permission/create')
+            return redirect('/manage/system/role/create')
                 ->withInput()
                 ->withErrors($validator);
         }
 
-        $permission->name = $request->input('name');
-        $permission->display_name = $request->input('display_name');
-        $permission->description = $request->input('description');
+        $role->name = $request->input('name');
+        $role->display_name = $request->input('display_name');
+        $role->description = $request->input('description');
 
-        if ($permission->save()) {
+        if ($role->save()) {
             return Redirect::to(action($this->controller . '@index'));
         } else {
             return Redirect::back()->withInput()->withErrors('保存失败！');
@@ -80,16 +85,16 @@ class RoleController extends BaseController
 
     public function getShow($id)
     {
-        $permission = Permission::find($id);
-        return view('manage.system.permission.edit', ['model' => 'system', 'menu' => 'permission', 'permission' => $permission]);
+        $role = Role::find($id);
+        return view('manage.system.role.edit', ['model' => 'system', 'menu' => 'role', 'item' => $role]);
     }
 
 
     public function getDelete($id)
     {
-        $permission = Permission::find($id);
-        $permission->delete();
-        return redirect()->route('permission');
+        $role = Role::find($id);
+        $role->delete();
+        return redirect()->route('item');
 
     }
 
