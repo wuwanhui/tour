@@ -159,7 +159,6 @@ return [
         zgldh\QiniuStorage\QiniuFilesystemServiceProvider::class,
 //        Spatie\Menu\Laravel\MenuServiceProvider::class,
         Overtrue\LaravelWechat\ServiceProvider::class,
-
     ],
 
     /*
@@ -208,7 +207,6 @@ return [
         'Entrust' => Zizaco\Entrust\EntrustFacade::class,
 //        'Menu' => Spatie\Menu\Laravel\MenuFacade::class,
         'Wechat' => Overtrue\LaravelWechat\Facade::class,
-
     ],
 
 ];

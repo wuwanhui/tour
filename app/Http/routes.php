@@ -45,6 +45,8 @@ Route::group(['prefix' => 'manage', 'middleware' => ['manage']], function () {
             Route::post('/create', 'Manage\RoleController@postCreate', ['model' => 'system', 'menu' => 'role']);
             Route::get('/edit/{id}', 'Manage\RoleController@getEdit', ['model' => 'system', 'menu' => 'role']);
             Route::post('/edit', 'Manage\RoleController@postEdit', ['model' => 'system', 'menu' => 'role']);
+            Route::get('/permission/{id}', 'Manage\RoleController@getPermission', ['model' => 'system', 'menu' => 'role']);
+            Route::post('/permission', 'Manage\RoleController@postPermission', ['model' => 'system', 'menu' => 'role']);
             Route::get('/delete/{id}', 'Manage\RoleController@getDelete', ['model' => 'system', 'menu' => 'role']);
         });
 

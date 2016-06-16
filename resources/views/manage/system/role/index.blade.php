@@ -37,7 +37,7 @@
                             <th><a href="">显示名称</a></th>
                             <th><a href="">备注</a></th>
 
-                            <th style="width: 80px;">操作</th>
+                            <th style="width: 120px;">操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -53,6 +53,7 @@
                                     {{$item->description}}
                                 </td>
                                 <td style="text-align: center"><a
+                                            href="{{url('/manage/system/role/permission/'.$item->id)}}">权限</a> |<a
                                             href="{{url('/manage/system/role/edit/'.$item->id)}}">编辑</a> |
                                     <a
                                             href="{{url('/manage/system/role/delete/'.$item->id)}}">删除</a>

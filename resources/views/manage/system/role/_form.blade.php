@@ -1,7 +1,7 @@
 <fieldset>
     <legend>基本信息</legend>
     {!! csrf_field() !!}
-    <input id="Id" name="Id" type="hidden" value="{{$role->Id}}"/>
+    <input id="id" name="id" type="hidden" value="{{$role->id}}"/>
     <div class="form-group">
         <label for="name" class="col-xs-2 control-label label-required">角色标识：</label>
         <div class="col-xs-10">

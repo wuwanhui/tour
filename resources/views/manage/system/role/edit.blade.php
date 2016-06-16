@@ -14,17 +14,15 @@
                                 onclick="vbscript:window.history.back()">返回
                         </button>
                         <button type="submit" class="btn  btn-primary">保存</button>
-                        <button type="button" class="btn btn-danger btn-md" data-toggle="modal"
-                                data-target="#modal-delete">
-                            <i class="fa fa-times-circle"></i>
-                            Delete
-                        </button>
+
                     </div>
                     <div class="col-xs-10 text-right"></div>
                 </div>
                 <div class="row page-input-body">
                     <div class="col-xs-12">
-                        @include('manage.system.role._form')
+                        <fieldset>
+                            <legend>角色权限指定</legend>
+                            @include('manage.system.role._form')</fieldset>
                     </div>
                 </div>
                 <div clas="row page-input-footer">
@@ -33,5 +31,4 @@
             </form>
         </div>
     </div>
-
 @endsection

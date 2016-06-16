@@ -5,6 +5,8 @@ use Zizaco\Entrust\EntrustRole;
 
 class Role extends EntrustRole
 {
+    protected $fillable = ['name', 'display_name', 'description'];
+    protected $guarded = ['updated_at', 'created_at'];
 
     /**
      * 角色用户
@@ -17,10 +19,9 @@ class Role extends EntrustRole
     /**
      * 获取
      */
-    public
-    function permissions()
+    public function permissions()
     {
-        return $this->belongsToMany('App\Mdels\Permission');
+        return $this->belongsToMany('App\Models\Permission');
     }
 
     /**
@@ -28,8 +29,7 @@ class Role extends EntrustRole
      *
      * @return array
      */
-    public
-    function rules()
+    public function rules()
     {
         return [
             'name' => 'required|unique:roles|max:255|min:2',
@@ -42,8 +42,7 @@ class Role extends EntrustRole
      *
      * @return array
      */
-    public
-    function messages()
+    public function messages()
     {
         return [
             'name.required' => '角色名称为必填项',
@@ -52,4 +51,6 @@ class Role extends EntrustRole
             'name.max' => '角色名称不能大于于 :max个字符',
         ];
     }
+
+
 }
