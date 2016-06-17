@@ -99,7 +99,19 @@ class RoleController extends BaseController
         $id = $request->input('id');
         $role = Role::find($id);
 
-        $permissions = $request->input('permission_id');
+        $permissionsids = $request->input('permission_id');
+//
+//        foreach ($role->permissions()->lists("id") as $item) {
+//            $key = array_search($item, $permissions);
+//            if ($key)
+//                array_splice($permissions, $item, 1);
+//        }
+
+        $permissions = Array();
+        foreach ($permissionsids as $item) {
+            array_push($permissions, (int)$item);
+        }
+
         if ($role->permissions()->sync($permissions)) {
             return Redirect('/manage/system/role');
         } else {

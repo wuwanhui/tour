@@ -18,12 +18,13 @@
                     </div>
                     <div class="col-xs-10 text-right"></div>
                 </div>
-                {{$role->permissions->whereNotIn('id', [1, 2, 3])->get()}}
+
                 <div class="row page-input-body">
                     <div class="col-xs-12">
                         <fieldset>
                             <legend>角色信息</legend>
                             {!! csrf_field() !!}
+
                             @include('manage.system.role._show')
                             <legend>权限列表</legend>
                             <table class="table table-bordered table-hover  table-condensed">
@@ -43,8 +44,13 @@
                                 <tbody>
                                 @foreach($permissions as $index =>   $item)
                                     <tr>
+
                                         <td><input type="checkbox" value="{{$item->id}} "
-                                                   name="permission_id[{{$index}}]"/></td>
+                                                   name="permission_id[{{$index}}]"
+                                                    {{count( $role->permissions->whereIn("id",[$item->id]))>0?'checked':''}}/>
+
+
+                                        </td>
                                         <td style="text-align: center">{{$item->id}} </td>
                                         <td>{{$item->name}} </td>
 
