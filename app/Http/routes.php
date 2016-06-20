@@ -25,6 +25,33 @@ Route::group(['prefix' => 'manage', 'middleware' => ['manage']], function () {
      * 系统设置
      */
     Route::group(['prefix' => 'system'], function () {
+
+        Route::get('/', function () {
+            return Redirect::to('/manage/system/user');
+        });
+        /**
+         * 企业管理
+         */
+        Route::group(['prefix' => 'enterprise'], function () {
+            Route::get('/', 'Manage\EnterpriseController@index', ['model' => 'system', 'menu' => 'enterprise']);
+            Route::get('/create', 'Manage\EnterpriseController@getCreate', ['model' => 'system', 'menu' => 'enterprise']);
+            Route::post('/create', 'Manage\EnterpriseController@postCreate', ['model' => 'system', 'menu' => 'enterprise']);
+            Route::get('/edit/{id}', 'Manage\EnterpriseController@getEdit', ['model' => 'system', 'menu' => 'enterprise']);
+            Route::post('/edit', 'Manage\EnterpriseController@postEdit', ['model' => 'system', 'menu' => 'enterprise']);
+            Route::get('/delete/{id}', 'Manage\EnterpriseController@getDelete', ['model' => 'system', 'menu' => 'enterprise']);
+        });
+
+        /**
+         * 用户管理
+         */
+        Route::group(['prefix' => 'user'], function () {
+            Route::get('/{eid?}', 'Manage\UserController@index', ['model' => 'system', 'menu' => 'user']);
+            Route::get('/create', 'Manage\UserController@getCreate', ['model' => 'system', 'menu' => 'user']);
+            Route::post('/create', 'Manage\UserController@postCreate', ['model' => 'system', 'menu' => 'user']);
+            Route::get('/edit/{id}', 'Manage\UserController@getEdit', ['model' => 'system', 'menu' => 'user']);
+            Route::post('/edit', 'Manage\UserController@postEdit', ['model' => 'system', 'menu' => 'user']);
+            Route::get('/delete/{id}', 'Manage\UserController@getDelete', ['model' => 'system', 'menu' => 'user']);
+        });
         /**
          * 权限管理
          */
@@ -50,16 +77,6 @@ Route::group(['prefix' => 'manage', 'middleware' => ['manage']], function () {
             Route::get('/delete/{id}', 'Manage\RoleController@getDelete', ['model' => 'system', 'menu' => 'role']);
         });
 
-
-        /**
-         * 用户管理
-         */
-        Route::resource('user', 'Manage\UserController', ['model' => 'system', 'menu' => 'user']);
-
-        /**
-         * 企业信息
-         */
-        Route::resource('enterprise', 'Manage\EnterpriseController', ['model' => 'system', 'menu' => 'enterprise']);
 
     });
 
