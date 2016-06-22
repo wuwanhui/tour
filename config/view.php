@@ -15,7 +15,9 @@ return [
 
     'paths' => [
         realpath(base_path('resources/views')),
+
     ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -27,7 +29,7 @@ return [
     | directory. However, as usual, you are free to change this value.
     |
     */
-
+    'pagination' => 'common/_page', //自定义分页视图路径
     'compiled' => realpath(storage_path('framework/views')),
 
 ];

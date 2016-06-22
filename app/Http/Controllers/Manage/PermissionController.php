@@ -16,9 +16,10 @@ class PermissionController extends BaseController
     /**
      * 主页
      */
-    public function index()
+    public function index(Request $request)
     {
-        $permissions = Permission::all();
+        
+        $permissions = Permission::where([])->orderBy('created_at', 'desc')->paginate($this->pageSize);
         return view('manage.system.permission.index', ['model' => 'system', 'menu' => 'permission', 'permissions' => $permissions]);
     }
 

@@ -3,6 +3,10 @@
 use App\Http\Controllers;
 
 Route::auth();
+
+Route::get('api/v1/index', 'ApiController@index');
+
+
 /**
  * 主页
  */

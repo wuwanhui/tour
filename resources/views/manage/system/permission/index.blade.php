@@ -23,6 +23,7 @@
                 </form>
             </div>
         </div>
+
         <div class="row page-list-body">
             <div class="col-md-12">
                 <form method="Post">
@@ -33,7 +34,7 @@
                             <th style="width: 20px"><input type="checkbox"
                                                            name="CheckAll" value="Checkid"/></th>
                             <th style="width: 80px;"><a href="">编号</a></th>
-                            <th><a href="">权限标识</a></th>
+                            <th><a href="?page=&sort=name">权限标识</a></th>
                             <th><a href="">显示名称</a></th>
                             <th><a href="">备注</a></th>
 
@@ -71,8 +72,10 @@
                         formaction="delete">批量删除
                 </button>
             </div>
-            <div class="col-xs-6 text-right">
-
+            <div class="col-xs-6 text-right ">
+                <nav>
+                    {!! $permissions->links() !!}
+                </nav>
             </div>
         </div>
         @include('common.success')

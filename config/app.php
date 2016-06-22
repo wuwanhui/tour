@@ -159,6 +159,7 @@ return [
         zgldh\QiniuStorage\QiniuFilesystemServiceProvider::class,
 //        Spatie\Menu\Laravel\MenuServiceProvider::class,
         Overtrue\LaravelWechat\ServiceProvider::class,
+        //Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
     ],
 
     /*

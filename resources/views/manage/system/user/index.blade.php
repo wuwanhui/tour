@@ -7,7 +7,8 @@
     <div class="page-list">
         <div class="row page-list-header">
             <div class="col-xs-8 text-left">
-                <a href="{{url('/manage/system/user/create/'.($enterprise->id or ''))}}" class="btn btn-primary">新增</a>
+                <a href="{{url('/manage/system/user/create/'.(isset($enterprise) && $enterprise->id or ''))}}"
+                   class="btn btn-primary">新增</a>
             </div>
             <div class="col-xs-4 text-right">
 
@@ -94,7 +95,7 @@
                 </button>
             </div>
             <div class="col-xs-6 text-right">
-
+                {!! $users->links() !!}
             </div>
         </div>
         @include('common.success')
