@@ -1,5 +1,4 @@
 <fieldset>
-    <legend>基本信息</legend>
     {!! csrf_field() !!}
     <input id="id" name="id" type="hidden" value="{{$role->id}}"/>
     <div class="form-group">

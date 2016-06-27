@@ -21,8 +21,45 @@
                 <div class="row page-input-body">
                     <div class="col-xs-12">
                         <fieldset>
-                            <legend>角色权限指定</legend>
+                            <legend>角色信息</legend>
                             @include('manage.system.role._form')</fieldset>
+                        <legend>权限指定</legend>
+                        <table class="table table-bordered table-hover  table-condensed">
+                            <thead>
+                            <tr style="text-align: center" class="text-center">
+                                <th style="width: 20px"><input type="checkbox"
+                                                               name="CheckAll" value="Checkid"
+                                                               onchange="checkName('permission_id')"
+                                    /></th>
+                                <th style="width: 80px;"><a href="">编号</a></th>
+                                <th><a href="">权限标识</a></th>
+                                <th><a href="">显示名称</a></th>
+                                <th><a href="">备注</a></th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($permissions as $index =>   $item)
+                                <tr>
+
+                                    <td><input type="checkbox" value="{{$item->id}} "
+                                               name="permission_id[{{$index}}]"
+                                                {{count( $role->permissions->whereIn("id",[$item->id]))>0?'checked':''}}/>
+
+
+                                    </td>
+                                    <td style="text-align: center">{{$item->id}} </td>
+                                    <td>{{$item->name}} </td>
+
+                                    <td style="text-align: center">{{$item->display_name}}</td>
+                                    <td>
+                                        {{$item->description}}
+                                    </td>
+
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div clas="row page-input-footer">

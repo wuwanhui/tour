@@ -37,7 +37,10 @@ Route::group(['prefix' => 'manage', 'middleware' => ['manage']], function () {
          * 企业管理
          */
         Route::group(['prefix' => 'enterprise'], function () {
-            Route::get('/', 'Manage\EnterpriseController@index', ['model' => 'system', 'menu' => 'enterprise']);
+            Route::get('/', function () {
+                return Redirect::to('/manage/system/enterprise/list');
+            });
+            Route::get('/list', 'Manage\EnterpriseController@index', ['model' => 'system', 'menu' => 'enterprise']);
             Route::get('/create', 'Manage\EnterpriseController@getCreate', ['model' => 'system', 'menu' => 'enterprise']);
             Route::post('/create', 'Manage\EnterpriseController@postCreate', ['model' => 'system', 'menu' => 'enterprise']);
             Route::get('/edit/{id}', 'Manage\EnterpriseController@getEdit', ['model' => 'system', 'menu' => 'enterprise']);
@@ -49,7 +52,10 @@ Route::group(['prefix' => 'manage', 'middleware' => ['manage']], function () {
          * 用户管理
          */
         Route::group(['prefix' => 'user'], function () {
-            Route::get('/{eid?}', 'Manage\UserController@index', ['model' => 'system', 'menu' => 'user']);
+            Route::get('/', function () {
+                return Redirect::to('/manage/system/user/list');
+            });
+            Route::get('/list/{eid?}', 'Manage\UserController@index', ['model' => 'system', 'menu' => 'user']);
             Route::get('/create', 'Manage\UserController@getCreate', ['model' => 'system', 'menu' => 'user']);
             Route::post('/create', 'Manage\UserController@postCreate', ['model' => 'system', 'menu' => 'user']);
             Route::get('/edit/{id}', 'Manage\UserController@getEdit', ['model' => 'system', 'menu' => 'user']);
@@ -60,7 +66,10 @@ Route::group(['prefix' => 'manage', 'middleware' => ['manage']], function () {
          * 权限管理
          */
         Route::group(['prefix' => 'permission'], function () {
-            Route::get('/', 'Manage\PermissionController@index', ['as' => 'system.permission', 'model' => 'system', 'menu' => 'permission']);
+            Route::get('/', function () {
+                return Redirect::to('/manage/system/permission/list');
+            });
+            Route::get('/list', 'Manage\PermissionController@index', ['as' => 'system.permission', 'model' => 'system', 'menu' => 'permission']);
             Route::get('/create', 'Manage\PermissionController@getCreate', ['model' => 'system', 'menu' => 'permission']);
             Route::post('/create', 'Manage\PermissionController@postCreate', ['model' => 'system', 'menu' => 'permission']);
             Route::get('/edit/{id}', 'Manage\PermissionController@getEdit', ['model' => 'system', 'menu' => 'permission']);
@@ -71,7 +80,10 @@ Route::group(['prefix' => 'manage', 'middleware' => ['manage']], function () {
          * 角色管理
          */
         Route::group(['prefix' => 'role'], function () {
-            Route::get('/', 'Manage\RoleController@index', ['model' => 'system', 'menu' => 'role']);
+            Route::get('/', function () {
+                return Redirect::to('/manage/system/role/list');
+            });
+            Route::get('/list', 'Manage\RoleController@index', ['model' => 'system', 'menu' => 'role']);
             Route::get('/create', 'Manage\RoleController@getCreate', ['model' => 'system', 'menu' => 'role']);
             Route::post('/create', 'Manage\RoleController@postCreate', ['model' => 'system', 'menu' => 'role']);
             Route::get('/edit/{id}', 'Manage\RoleController@getEdit', ['model' => 'system', 'menu' => 'role']);

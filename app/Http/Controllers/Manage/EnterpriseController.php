@@ -15,7 +15,7 @@ class EnterpriseController extends BaseController
      */
     public function index()
     {
-        $enterprise = Enterprise::all();
+        $enterprise = Enterprise::orderBy('created_at', 'desc')->paginate($this->pageSize);
         return view('manage.system.enterprise.index', ['model' => 'system', 'menu' => 'enterprise', 'enterprises' => $enterprise]);
     }
 

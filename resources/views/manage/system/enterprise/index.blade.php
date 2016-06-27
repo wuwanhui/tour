@@ -57,10 +57,10 @@
                                 <td>{{$item->phone}} </td>
                                 <td>{{$item->fax}} </td>
                                 <td class="text-center"><a
-                                            href="{{url('/manage/system/user/'.$item->id)}}">{{$item->users()->count()}}</a>
+                                            href="{{url('/manage/system/user/list/'.$item->id)}}">{{$item->users()->count()}}</a>
                                 </td>
                                 <td style="text-align: center"><a
-                                            href="{{url('/manage/system/enterprise/permission/'.$item->id)}}">权限</a>
+                                            href="{{url('/manage/system/user/list/'.$item->id)}}">用户</a>
                                     |<a
                                             href="{{url('/manage/system/enterprise/edit/'.$item->id)}}">编辑</a> |
                                     <a

@@ -24,12 +24,13 @@ class UserController extends BaseController
     {
         $enterprise = null;
         if ($eid == null) {
-            $users = User::all();
+            $users = User::orderBy('created_at', 'desc')->paginate($this->pageSize);
         } else {
             $enterprise = Enterprise::find($eid);
-            $users = DB::table('users')->where('enterprise_id', $enterprise->id)->get();
+            $users = DB::table('users')->where('enterprise_id', $enterprise->id)->orderBy('created_at', 'desc')->paginate($this->pageSize);
 
         }
+
         return view('manage.system.user.index', ['model' => 'system', 'menu' => 'user', 'enterprise' => $enterprise, 'users' => $users]);
     }
 
@@ -39,7 +40,7 @@ class UserController extends BaseController
         $user = new User();
         $enterprises = Enterprise::all();
         $roles = Role::all();
-        return view('manage.system.user.create', ['model' => 'system', 'menu' => 'user', 'user' => $user, 'roles' => $roles, 'enterprises' => $enterprises]);
+        return view('manage.system.user.create', compact('user', 'enterprises', 'roles'), ['model' => 'system', 'menu' => 'user']);
     }
 
     public function postCreate(Request $request)
