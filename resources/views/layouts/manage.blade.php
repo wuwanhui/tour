@@ -6,7 +6,6 @@
     <title>授权平台-@yield('title')</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('/resources/js/bootstrap/css/bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/resources/css/base.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('/resources/css/home.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/resources/css/page.css') }}">
     @yield('style')
 
@@ -17,7 +16,8 @@
         <div class="page-header-top">
             <div class="page-header-top-logo">千番旅行</div>
             <div class="page-header-top-nav">
-                <span class="a" onclick="exit();">退出</span> | <span class="a" onclick="about();">关于我们</span>
+                <a href="{{url('/manage/userinfo')}}">  {{ Auth::user()->name }} </a> | <a
+                        href="{{url('/logout')}}">退出</a>
             </div>
         </div>
         <div class="page-header-nav">
@@ -28,31 +28,33 @@
                 吴红（管理员）
             </div>
             <div class="page-header-nav-menu">
-                <a href="/manage/enterprise/" <?php echo($model === 'business' ? ' class="active"' : '');?>>企业中心</a>
-                <a href="/manage/customer/" <?php echo($model === 'customer' ? ' class="active"' : '');?>>资源中心</a>
-                <a href="/manage/finance/" <?php echo($model === 'finance' ? ' class="active"' : '');?>>产品调度</a>
-                <a href="/manage/system/" <?php echo($model === 'system' ? ' class="active"' : '');?>>系统管理</a>
-                <a href="/manage/docking/" <?php echo($model === 'docking' ? ' class="active"' : '');?> >三方对接</a>
+                <a href="/manage/enterprise/" <?php echo(isset($model) && $model === 'business' ? ' class="active"' : '');?>>企业中心</a>
+                <a href="/manage/customer/" <?php echo(isset($model) && $model === 'customer' ? ' class="active"' : '');?>>资源中心</a>
+                <a href="/manage/finance/" <?php echo(isset($model) && $model === 'finance' ? ' class="active"' : '');?>>产品调度</a>
+                <a href="/manage/system/" <?php echo(isset($model) && $model === 'system' ? ' class="active"' : '');?>>系统管理</a>
+                <a href="/manage/docking/" <?php echo(isset($model) && $model === 'docking' ? ' class="active"' : '');?> >三方对接</a>
             </div>
             <div class="clear"></div>
         </div>
     </div>
 
     <div class="page-content">
-        <?php if( $model != null){ ?>
-        <div class="page-side">
-            <?php if( $model === 'system'){ ?>
-            <div class="page-side-nav">系统管理</div>
-            <div class="page-side-menu">
-                <a href="/manage/system/role/">角色管理</a> <a
-                        href="/manage/system/permission/">权限管理</a>
+        @if(isset($model))
+            <div class="page-content-side">
+                <?php if( $model === 'system'){ ?>
+                <div class="page-content-side-nav">系统管理</div>
+                <div class="page-content-side-menu">
+                    <a  href="/manage/system/enterprise/">企业管理</a>
+                    <a  href="/manage/system/user/">用户管理</a>
+                    <a href="/manage/system/role/">角色管理</a> <a
+                            href="/manage/system/permission/">权限管理</a>
 
+                </div>
+
+                <?php }?>
             </div>
-
-            <?php }?>
-        </div>
-        <?php }?>
-        <div class="page-area">
+        @endif
+        <div class="page-content-area">
             @yield('content')
         </div>
         <div class="clear"></div>

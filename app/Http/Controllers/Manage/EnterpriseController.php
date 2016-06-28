@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Manage;
 
-use App\Models\System_Enterprise;
-use Cache;
+use App\Models\Enterprise;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class EnterpriseController extends BaseController
 {
@@ -12,50 +15,112 @@ class EnterpriseController extends BaseController
      */
     public function index()
     {
-        $enterprise = System_Enterprise::all();
-
-
-        return view('manage.enterprise.index', ['model' => 'enterprise', 'menu' => 'index', 'enterprises' => $enterprise]);
+        $enterprise = Enterprise::orderBy('created_at', 'desc')->paginate($this->pageSize);
+        return view('manage.system.enterprise.index', ['model' => 'system', 'menu' => 'enterprise', 'enterprises' => $enterprise]);
     }
 
-    public function create()
+    public function getCreate()
     {
-        $parents = System_Enterprise::all();
-        return view('manage.enterprise.create', ['model' => 'enterprise', 'menu' => 'index', 'parents' => $parents]);
+        $parents = Enterprise::all();
+        return view('manage.system.enterprise.create', ['model' => 'system', 'menu' => 'enterprise', 'parents' => $parents]);
     }
 
-    public function store()
+    public function postCreate(Request $request)
     {
-        $enterprise = new System_Enterprise();
+        $enterprise = new Enterprise();
+        $input = $request->except('_token');
+        $validator = Validator::make($input, $enterprise->rules(), $enterprise->messages());
+        if ($validator->fails()) {
+            return redirect('/manage/system/enterprise/create')
+                ->withInput()
+                ->withErrors($validator);
+        }
 
-        $enterprise->Name = Input::get('Name');
-
-        if ($enterprise->save()) {
-            return response()->json(array('status' => 1, 'msg' => 'ok'
-            ));
+        if (DB::table('enterprise')->insert($input)) {
+            return Redirect('/manage/system/enterprise/' . $enterprise->id);
         } else {
             return Redirect::back()->withInput()->withErrors('保存失败！');
         }
     }
 
-    public function show()
+    public function getEdit($id)
     {
-        return view('manage.enterprise.show', ['model' => 'enterprise', 'menu' => 'index']);
+        $enterprise = Enterprise::find($id);
+        return view('manage.system.enterprise.edit', ['model' => 'system', 'menu' => 'enterprise', 'enterprise' => $enterprise]);
     }
 
-    public function edit()
+    public function postEdit(Request $request)
     {
-        return view('manage.enterprise.edit', ['model' => 'enterprise', 'menu' => 'index']);
+
+        $id = $request->input('id');
+        print_r(Input::only('id'));
+        $input = $request->all();
+        $enterprise = Enterprise::find($id);
+
+//        $validator = Validator::make($input, $enterprise->rules(), $enterprise->messages());
+//        if ($validator->fails()) {
+//            return redirect('/manage/system/enterprise/create')
+//                ->withInput()
+//                ->withErrors($validator);
+//        }
+
+        $enterprise->name = $request->input('name');
+        $enterprise->display_name = $request->input('display_name');
+        $enterprise->description = $request->input('description');
+        $enterprise->permissions()->detach([5, 4]);
+        if ($enterprise->save()) {
+            return Redirect('/manage/system/enterprise/');
+        } else {
+            return Redirect::back()->withInput()->withErrors('保存失败！');
+        }
     }
 
-    public function update()
+
+    public function getPermission($id)
     {
-        return view('manage.enterprise.update', ['model' => 'enterprise', 'menu' => 'index']);
+        $enterprise = Enterprise::find($id);
+        $permissions = Permission::all();
+        return view('manage.system.enterprise.permission', ['model' => 'system', 'menu' => 'enterprise', 'enterprise' => $enterprise, 'permissions' => $permissions]);
     }
 
-    public function destroy()
+    public function postPermission(Request $request)
     {
-        return view('manage.enterprise.destroy', ['model' => 'enterprise', 'menu' => 'index']);
+
+        $id = $request->input('id');
+        $enterprise = Enterprise::find($id);
+
+        $permissionsids = $request->input('permission_id');
+//
+//        foreach ($enterprise->permissions()->lists("id") as $item) {
+//            $key = array_search($item, $permissions);
+//            if ($key)
+//                array_splice($permissions, $item, 1);
+//        }
+
+        $permissions = Array();
+        foreach ($permissionsids as $item) {
+            array_push($permissions, (int)$item);
+        }
+
+        if ($enterprise->permissions()->sync($permissions)) {
+            return Redirect('/manage/system/enterprise');
+        } else {
+            return Redirect::back()->withInput()->withErrors('保存失败！');
+        }
     }
 
+    public function getShow($id)
+    {
+        $enterprise = Enterprise::find($id);
+        return view('manage . system . enterprise . edit', ['model' => 'system', 'menu' => 'enterprise', 'item' => $enterprise]);
+    }
+
+
+    public function getDelete($id)
+    {
+        $enterprise = Enterprise::find($id);
+        $enterprise->delete();
+        return redirect()->route('item');
+
+    }
 }

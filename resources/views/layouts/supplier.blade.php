@@ -16,7 +16,8 @@
         <div class="page-header-top">
             <div class="page-header-top-logo">千番旅行</div>
             <div class="page-header-top-nav">
-                {{ Auth::user()->name }}  <span class="a" onclick="exit();">退出</span> | <span class="a" onclick="about();">关于我们</span>
+                {{ Auth::user()->name }} <a href="{{url('/logout')}}">退出</a> | <span class="a"
+                                                                                     onclick="about();">关于我们</span>
             </div>
         </div>
         <div class="page-header-nav">

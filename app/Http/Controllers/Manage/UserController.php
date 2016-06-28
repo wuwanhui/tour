@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers\Manage;
 
+use App\Models\Enterprise;
+use App\Models\Role;
 use App\Models\User;
+use ArrayUtil;
 use Cache;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * 用户管理
@@ -14,52 +20,120 @@ class UserController extends BaseController
     /**
      * 主页
      */
-    public function index()
+    public function index($eid = null)
     {
-        $user = User::all();
+        $enterprise = null;
+        if ($eid == null) {
+            $users = User::orderBy('created_at', 'desc')->paginate($this->pageSize);
+        } else {
+            $enterprise = Enterprise::find($eid);
+            $users = DB::table('users')->where('enterprise_id', $enterprise->id)->orderBy('created_at', 'desc')->paginate($this->pageSize);
 
+        }
 
-        return view('manage.system.user.index', ['model' => 'user', 'menu' => 'index', 'users' => $user]);
+        return view('manage.system.user.index', ['model' => 'system', 'menu' => 'user', 'enterprise' => $enterprise, 'users' => $users]);
     }
 
-    public function create()
-    {
-        $parents = User::all();
-        return view('manage.system.user.create', ['model' => 'user', 'menu' => 'index', 'parents' => $parents]);
-    }
 
-    public function store()
+    public function getCreate()
     {
         $user = new User();
+        $enterprises = Enterprise::all();
+        $roles = Role::all();
+        return view('manage.system.user.create', compact('user', 'enterprises', 'roles'), ['model' => 'system', 'menu' => 'user']);
+    }
 
-        $user->Name = Input::get('Name');
-
-        if ($user->save()) {
-            return response()->json(array('status' => 1, 'msg' => 'ok'
-            ));
+    public function postCreate(Request $request)
+    {
+        $user = new User();
+        $input = $request->all();
+        $validator = Validator::make($input, $user->rules(), $user->messages());
+        if ($validator->fails()) {
+            return redirect('/manage/system/user/create')
+                ->withInput()
+                ->withErrors($validator);
+        }
+        $user->enterprise_id = $request->input('enterprise_id');
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = bcrypt($request->input('password'));
+        $user->save();
+        // $user->permissions()->sync([3, 4])->sava();
+        if ($user) {
+            return Redirect('/manage/system/user/');
         } else {
             return Redirect::back()->withInput()->withErrors('保存失败！');
         }
     }
 
-    public function show()
+    public function getEdit($id)
     {
-        return view('manage.system.user.show', ['model' => 'user', 'menu' => 'index']);
+        $user = User::find($id);
+        return view('manage.system.user.edit', ['model' => 'system', 'menu' => 'user', 'user' => $user]);
     }
 
-    public function edit()
+    public function postEdit(Request $request)
     {
-        return view('manage.system.user.edit', ['model' => 'user', 'menu' => 'index']);
+
+        $id = $request->input('id');
+        $input = $request->all();
+        $user = User::find($id);
+
+//        $validator = Validator::make($input, $user->rules(), $user->messages());
+//        if ($validator->fails()) {
+//            return redirect('/manage/system/user/create')
+//                ->withInput()
+//                ->withErrors($validator);
+//        }
+
+        $user->name = $request->input('name');
+        $user->display_name = $request->input('display_name');
+        $user->description = $request->input('description');
+        $user->permissions()->detach([5, 4]);
+        if ($user->save()) {
+            return Redirect('/manage/system/user/');
+        } else {
+            return Redirect::back()->withInput()->withErrors('保存失败！');
+        }
     }
 
-    public function update()
+
+    public function getPermission($id)
     {
-        return view('manage.system.user.update', ['model' => 'user', 'menu' => 'index']);
+        $user = User::find($id);
+        $permissions = Permission::all();
+        return view('manage.system.user.permission', ['model' => 'system', 'menu' => 'user', 'user' => $user, 'permissions' => $permissions]);
     }
 
-    public function destroy()
+    public function postPermission(Request $request)
     {
-        return view('manage.system.user.destroy', ['model' => 'user', 'menu' => 'index']);
+
+        $id = $request->input('id');
+        $user = User::find($id);
+
+        $permissionsids = $request->input('permission_id');
+
+
+        if ($user->permissions()->sync(ArrayUtil::ArrayStringToInt($permissionsids))) {
+            return Redirect('/manage/system/user');
+        } else {
+            return Redirect::back()->withInput()->withErrors('保存失败！');
+        }
+    }
+
+    public function getShow($id)
+    {
+        $user = User::find($id);
+        return view('manage . system . user . edit', ['model' => 'system', 'menu' => 'user', 'item' => $user]);
+    }
+
+
+    public function getDelete($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        return redirect()->route('item');
+
     }
 
 }

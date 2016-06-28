@@ -159,16 +159,6 @@ html {
 	min-height: 500px;
 }
 
-.page-content .page-side {
-	width: 180px;
-	background-color: #4d5f85;
-	min-height: 500px;
-	position: relative;
-	top: 70px;
-	bottom: 0px;
-	float: left;
-	position: absolute;
-}
 
 .page-content .page-side-nav {
 	color: #fefefe;

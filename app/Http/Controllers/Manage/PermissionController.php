@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Manage;
 use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -17,9 +16,10 @@ class PermissionController extends BaseController
     /**
      * 主页
      */
-    public function index()
+    public function index(Request $request)
     {
-        $permissions = Permission::all();
+        
+        $permissions = Permission::where([])->orderBy('created_at', 'desc')->paginate($this->pageSize);
         return view('manage.system.permission.index', ['model' => 'system', 'menu' => 'permission', 'permissions' => $permissions]);
     }
 
@@ -32,20 +32,18 @@ class PermissionController extends BaseController
     public function postCreate(Request $request)
     {
         $permission = new Permission();
+        $input = $request->all();
 
-        $validator = Validator::make($request->all(), $permission->rules(), $permission->messages());
+        $validator = Validator::make($input, $permission->rules(), $permission->messages());
         if ($validator->fails()) {
             return redirect('/manage/system/permission/create')
                 ->withInput()
                 ->withErrors($validator);
         }
 
-        $permission->name = $request->input('name');
-        $permission->display_name = $request->input('display_name');
-        $permission->description = $request->input('description');
-
-        if ($permission->save()) {
-            return URL::to('index');
+        if (Permission::create($input)) {
+            return redirect('/manage/system/permission')
+                ->withSuccess("新增成功");
         } else {
             return Redirect::back()->withInput()->withErrors('保存失败！');
         }
@@ -53,27 +51,30 @@ class PermissionController extends BaseController
 
     public function getEdit($id)
     {
+
         $permission = Permission::find($id);
         return view('manage.system.permission.edit', ['model' => 'system', 'menu' => 'permission', 'permission' => $permission]);
     }
 
-    public function postEdit(Request $request, $id)
+    public function postEdit(Request $request)
     {
-        $permission = new Permission();
 
-        $validator = Validator::make($request->all(), $permission->rules(), $permission->messages());
+        $id = $request->input('id');
+        $permission = Permission::find($id);
+        if ($permission == null) {
+            return Redirect::back()->withInput()->withErrors('修改失败！');
+        }
+
+        $input = $request->all();
+        $validator = Validator::make($input, $permission->rules(), $permission->messages());
         if ($validator->fails()) {
             return redirect('/manage/system/permission/create')
                 ->withInput()
                 ->withErrors($validator);
         }
 
-        $permission->name = $request->input('name');
-        $permission->display_name = $request->input('display_name');
-        $permission->description = $request->input('description');
-
-        if ($permission->save()) {
-            return Redirect::to(action($this->controller . '@index'));
+        if ($permission->update($input)) {
+            return Redirect('/manage/system/permission');
         } else {
             return Redirect::back()->withInput()->withErrors('保存失败！');
         }

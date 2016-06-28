@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Manage;
 
+use App\Models\Permission;
 use App\Models\Role;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * 角色管理
@@ -19,47 +22,140 @@ class RoleController extends BaseController
         $role = Role::all();
 
 
-        return view('manage.system.role.index', ['model' => 'system', 'menu' => 'role', 'roles' => $role]);
+        return view('manage.system.role.index', ['model' => 'system', 'menu' => 'role', 'items' => $role]);
     }
 
-    public function create()
+    public function getCreate()
     {
         $role = new Role();
-        return view('manage.system.role.create', ['model' => 'system', 'menu' => 'role', 'role' => $role]);
+        $permissions = Permission::all();
+        return view('manage.system.role.create', ['model' => 'system', 'menu' => 'role', 'role' => $role, 'permissions' => $permissions]);
     }
 
-    public function store()
+    public function postCreate(Request $request)
     {
         $role = new Role();
+        //$input = $request->all();
+        $input = $request->except('_token');
+        $validator = Validator::make($input, $role->rules(), $role->messages());
+        if ($validator->fails()) {
+            return redirect('/manage/system/role/create')
+                ->withInput()
+                ->withErrors($validator);
+        }
+//        $role->name = $request->input('name');
+//        $role->display_name = $request->input('display_name');
+//        $role->description = $request->input('description');
 
-        $role->Name = Input::get('Name');
 
-        if ($role->save()) {
-            return response()->json(array('status' => 1, 'msg' => 'ok'
-            ));
+        $permissionsids = $request->input('permission_id');
+//
+//        foreach ($role->permissions()->lists("id") as $item) {
+//            $key = array_search($item, $permissions);
+//            if ($key)
+//                array_splice($permissions, $item, 1);
+//        }
+
+        $permissions = Array();
+        foreach ($permissionsids as $item) {
+            array_push($permissions, (int)$item);
+        }
+        $input->
+
+        $role->save()->permissions()->sync($permissions);
+//        if ($role->permissions()->sync($permissions)) {
+//            return Redirect('/manage/system/role');
+//        } else {
+//            return Redirect::back()->withInput()->withErrors('保存失败！');
+//        }
+//
+
+        // $role->permissions()->sync([3, 4])->sava();
+        if ($role) {
+            return Redirect('/manage/system/role/permission/' . $role->id);
         } else {
             return Redirect::back()->withInput()->withErrors('保存失败！');
         }
     }
 
-    public function show()
+    public function getEdit($id)
     {
-        return view('manage.system.role.show', ['model' => 'system', 'menu' => 'role']);
+        $role = Role::find($id);
+        return view('manage.system.role.edit', ['model' => 'system', 'menu' => 'role', 'role' => $role]);
     }
 
-    public function edit()
+    public function postEdit(Request $request)
     {
-        return view('manage.system.role.edit', ['model' => 'system', 'menu' => 'role']);
+
+        $id = $request->input('id');
+        $input = $request->all();
+        $role = Role::find($id);
+
+//        $validator = Validator::make($input, $role->rules(), $role->messages());
+//        if ($validator->fails()) {
+//            return redirect('/manage/system/role/create')
+//                ->withInput()
+//                ->withErrors($validator);
+//        }
+
+        $role->name = $request->input('name');
+        $role->display_name = $request->input('display_name');
+        $role->description = $request->input('description');
+        $role->permissions()->detach([5, 4]);
+        if ($role->save()) {
+            return Redirect('/manage/system/role/');
+        } else {
+            return Redirect::back()->withInput()->withErrors('保存失败！');
+        }
     }
 
-    public function update()
+
+    public function getPermission($id)
     {
-        return view('manage.system.role.update', ['model' => 'system', 'menu' => 'role']);
+        $role = Role::find($id);
+        $permissions = Permission::all();
+        return view('manage.system.role.permission', ['model' => 'system', 'menu' => 'role', 'role' => $role, 'permissions' => $permissions]);
     }
 
-    public function destroy()
+    public function postPermission(Request $request)
     {
-        return view('manage.system.role.destroy', ['model' => 'system', 'menu' => 'role']);
+
+        $id = $request->input('id');
+        $role = Role::find($id);
+
+        $permissionsids = $request->input('permission_id');
+//
+//        foreach ($role->permissions()->lists("id") as $item) {
+//            $key = array_search($item, $permissions);
+//            if ($key)
+//                array_splice($permissions, $item, 1);
+//        }
+
+        $permissions = Array();
+        foreach ($permissionsids as $item) {
+            array_push($permissions, (int)$item);
+        }
+
+        if ($role->permissions()->sync($permissions)) {
+            return Redirect('/manage/system/role');
+        } else {
+            return Redirect::back()->withInput()->withErrors('保存失败！');
+        }
+    }
+
+    public function getShow($id)
+    {
+        $role = Role::find($id);
+        return view('manage . system . role . edit', ['model' => 'system', 'menu' => 'role', 'item' => $role]);
+    }
+
+
+    public function getDelete($id)
+    {
+        $role = Role::find($id);
+        $role->delete();
+        return redirect()->route('item');
+
     }
 
 }

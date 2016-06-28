@@ -6,6 +6,9 @@ use Zizaco\Entrust\EntrustPermission;
 
 class Permission extends EntrustPermission
 {
+    protected $fillable = ['name', 'display_name', 'description'];
+    protected $guarded = ['updated_at', 'created_at'];
+
     /**
      * 获取应用到请求的验证规则
      *
@@ -27,8 +30,9 @@ class Permission extends EntrustPermission
     public function messages()
     {
         return [
-            'required' => '必填项',
-            'same' => 'The :attribute and :other must match.',
+            'name.required' => '权限标识必填项',
+            'display_name.required' => '权限名称必填项',
+            'name.unique' => '权限标识不可重复',
             'size' => 'The :attribute must be exactly :size.',
             'min' => '不能少于 :min个字符',
             'max' => 'The :attribute must be exactly :max.',

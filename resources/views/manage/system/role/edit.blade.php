@@ -7,7 +7,7 @@
     <div class="row page-input">
         <div class="col-xs-12">
             <form class="form-horizontal" method="Post"
-                  enctype="multipart/form-data" action="{{url('/manage/system/permission/edit')}}">
+                  enctype="multipart/form-data" action="{{url('/manage/system/role/edit')}}">
                 <div class="row page-input-header">
                     <div class="col-xs-2  text-left">
                         <button type="button" class="btn btn-default"
@@ -20,7 +20,9 @@
                 </div>
                 <div class="row page-input-body">
                     <div class="col-xs-12">
-                        @include('manage.system.permission._form')
+                        <fieldset>
+                            <legend>角色权限指定</legend>
+                            @include('manage.system.role._form')</fieldset>
                     </div>
                 </div>
                 <div clas="row page-input-footer">

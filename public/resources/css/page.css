@@ -184,6 +184,20 @@ legend.show span {
     clear: both;
 }
 
+.line-top {
+    border-top-color: #f0f0f0;
+    border-top-width: 1px;
+    border-top-style: solid;
+    padding-top: 5px;
+}
+
+.line-bottom {
+    border-bottom-color: #f0f0f0;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    margin-bottom: 5px;
+}
+
 .thumbnail {
     height: 100px;
     width: 100px;
@@ -250,7 +264,7 @@ span.a {
 
 .page-header-nav {
     height: 40px;
-    background-color: #34373c;
+    background-color: #3c8dbc;
 }
 
 .page-header-nav-user {
@@ -258,7 +272,7 @@ span.a {
     line-height: 40px;
     text-align: left;
     height: 40px;
-    background-color: #000000;
+    background-color: #367fa9;
     width: 180px;
     color: #ffffff;
 }
@@ -304,15 +318,14 @@ span.a {
     padding-right: 15px;
     padding-left: 15px;
     font-size: 15px;
-    color: #d8d8d8;
 }
 
 .page-header-nav-menu a:HOVER {
-    color: #4d5f85;
+    color: #31464b;
 }
 
 .page-header-nav-menu a.active {
-    background-color: #4d5f85;
+    background-color: #222d32;
     color: #ffffff;
 }
 
@@ -365,10 +378,12 @@ span.a {
 
 .page-content-side {
     width: 180px;
-    background-color: #4d5f85;
+    background-color: #222d32;
+    min-height: 500px;
+    position: relative;
     top: 70px;
-    float: left;
     bottom: 0px;
+    float: left;
     position: absolute;
 }
 
@@ -379,14 +394,17 @@ span.a {
     line-height: 40px;
     height: 40px;
     font-size: 16px;
-    border-left-color: #ff8000;
-    border-left-width: 3px;
-    border-left-style: solid;
+    /*border-left-color: #ff8000;*/
+    /*border-left-width: 3px;*/
+    /*border-left-style: solid;*/
+    border-bottom-color: #3c8dbc;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
     font-size: 16px;
 }
 
 .page-content-side-menu {
-    border-top-color: #5f6f91;
+    border-top-color: #222d32;
     border-top-width: 1px;
     border-top-style: solid;
     padding-top: 10px;
@@ -402,12 +420,12 @@ span.a {
     padding-left: 10px;
     margin-bottom: 5px;
     display: block;
-    color: #959fb6;
+    color: #f2f2f2;
 }
 
 .page-content-side a:HOVER {
-    color: #ffffff;
-    background-color: #5f6f91;
+    color: #31464b;
+    background-color: #f2f2f2;
     -moz-border-radius: 2px; /* Gecko browsers */
     -webkit-border-radius: 2px;
     border-radius: 2px 0px 0px 2px;
@@ -415,7 +433,7 @@ span.a {
 
 .page-content-side a.active {
     color: #4d5f85;
-    background-color: #f2f2f2;
+    background-color: #fefefe;
     -moz-border-radius: 2px; /* Gecko browsers */
     -webkit-border-radius: 2px;
     border-radius: 2px 0px 0px 2px;
@@ -513,9 +531,6 @@ span.a {
 
 .page-list-header {
     margin-bottom: 10px;
-    border-bottom-color: #f0f0f0;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
 }
 
 .page-list-header .input-group {
@@ -554,9 +569,6 @@ span.a {
 .page-input-header {
     padding-bottom: 10px;
     margin-left: 10px;
-    border-bottom-color: #f0f0f0;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
 }
 
 .page-input-body {

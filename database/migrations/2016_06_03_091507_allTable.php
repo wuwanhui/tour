@@ -18,6 +18,7 @@ class AllTable extends Migration
             // 用户表
             Schema::create('users', function (Blueprint $table) {
                 $table->increments('id');
+                $table->integer('enterprise_id');
                 $table->string('name')->unique();
                 $table->string('email')->nullable();
                 $table->string('password')->nullable();
@@ -83,56 +84,56 @@ class AllTable extends Migration
                 $table->primary(['permission_id', 'role_id']);
             });
         }
-        if (!Schema::hasTable('System_Menu')) {
+        if (!Schema::hasTable('system_menu')) {
             //系统菜单
-            Schema::create('System_Menu', function (Blueprint $table) {
-                $table->increments('Id');
-                $table->string('Name');
-                $table->string('Model');
-                $table->string('Page');
-                $table->string('Url');
-                $table->integer('ParentId');
-                $table->string('Open');
-                $table->integer('IsDisplay');
-                $table->string('Describe');
-                $table->integer('Sort');
-                $table->integer('State');
+            Schema::create('system_menu', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('name');
+                $table->string('model');
+                $table->string('page');
+                $table->string('url');
+                $table->integer('parent_id');
+                $table->string('open');
+                $table->integer('is_display');
+                $table->string('describe');
+                $table->integer('sort');
+                $table->integer('state');
                 $table->timestamps();
             });
 
         }
 
-        if (!Schema::hasTable('System_Enterprise')) {
-            Schema::create('System_Enterprise', function (Blueprint $table) {
-                $table->increments('Id');
-                $table->integer('ParentId');//所属上级
-                $table->string('Name');//企业全称
-                $table->string('ShortName');//企业简称
-                $table->string('Logo');//标志
-                $table->string('LegalPerson');//法人代表
-                $table->string('FoundTime');//成立时间
-                $table->string('Phone');//联系电话
-                $table->string('Fax');//传真号码
-                $table->string('Address');//地址
-                $table->string('Slogan');//口号
-                $table->string('Abstract');//企业简介
+        if (!Schema::hasTable('enterprise')) {
+            Schema::create('enterprise', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('parent_id');//所属上级
+                $table->string('name')->unique();;//企业全称
+                $table->string('short_name');//企业简称
+                $table->string('logo');//标志
+                $table->string('legal_person');//法人代表
+                $table->string('found_time');//成立时间
+                $table->string('phone');//联系电话
+                $table->string('fax');//传真号码
+                $table->string('address');//地址
+                $table->string('slogan');//口号
+                $table->string('abstract');//企业简介
                 $table->timestamps();
             });
         }
 
-        if (!Schema::hasTable('Weixin_Config')) {
-            Schema::create('Weixin_Config', function (Blueprint $table) {
-                $table->increments('Id');
-                $table->string('Name');
-                $table->string('WeiXin');
-                $table->string('AppID');
-                $table->string('AppSecret');
-                $table->string('Token');
-                $table->string('MchId');
-                $table->string('PayKey');
-                $table->string('EncodingAESKey');
-                $table->string('AdminOpenId');
-                $table->string('Welcom');
+        if (!Schema::hasTable('weixin_config')) {
+            Schema::create('weixin_config', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('name');
+                $table->string('weiXin');
+                $table->string('appID');
+                $table->string('appSecret');
+                $table->string('token');
+                $table->string('mchId');
+                $table->string('pay_key');
+                $table->string('encodingAESKey');
+                $table->string('admin_openId');
+                $table->string('welcom');
                 $table->timestamps();
             });
 
