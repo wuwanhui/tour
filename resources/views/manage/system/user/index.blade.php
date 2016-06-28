@@ -56,7 +56,7 @@
                                 <th style="width: 20px"><input type="checkbox"
                                                                name="CheckAll" value="Checkid"/></th>
                                 <th style="width: 80px;"><a href="">编号</a></th>
-
+                                <th><a href="">所属企业</a></th>
                                 <th><a href="">姓名</a></th>
                                 <th><a href="">邮箱</a></th>
 
@@ -69,8 +69,12 @@
                                     <td><input type="checkbox" value="{{$item->id}} "
                                                name="id"/></td>
                                     <td style="text-align: center">{{$item->id}} </td>
+                                    <td>
+                                        @if($item->enterprise!=null)
+                                            {{$item->enterprise->name}}
+                                        @endif
+                                    </td>
                                     <td>{{$item->name}} </td>
-
                                     <td style="text-align: center">{{$item->email}}</td>
 
                                     <td style="text-align: center"><a

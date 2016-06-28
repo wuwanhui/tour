@@ -56,7 +56,7 @@ Route::group(['prefix' => 'manage', 'middleware' => ['manage']], function () {
                 return Redirect::to('/manage/system/user/list');
             });
             Route::get('/list/{eid?}', 'Manage\UserController@index', ['model' => 'system', 'menu' => 'user']);
-            Route::get('/create', 'Manage\UserController@getCreate', ['model' => 'system', 'menu' => 'user']);
+            Route::get('/create/{eid?}', 'Manage\UserController@getCreate', ['model' => 'system', 'menu' => 'user']);
             Route::post('/create', 'Manage\UserController@postCreate', ['model' => 'system', 'menu' => 'user']);
             Route::get('/edit/{id}', 'Manage\UserController@getEdit', ['model' => 'system', 'menu' => 'user']);
             Route::post('/edit', 'Manage\UserController@postEdit', ['model' => 'system', 'menu' => 'user']);

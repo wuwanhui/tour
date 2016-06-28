@@ -35,42 +35,28 @@ class RoleController extends BaseController
     public function postCreate(Request $request)
     {
         $role = new Role();
-        //$input = $request->all();
-        $input = $request->except('_token');
+        $input = $request->all();
         $validator = Validator::make($input, $role->rules(), $role->messages());
         if ($validator->fails()) {
             return redirect('/manage/system/role/create')
                 ->withInput()
                 ->withErrors($validator);
         }
-//        $role->name = $request->input('name');
-//        $role->display_name = $request->input('display_name');
-//        $role->description = $request->input('description');
+        $role->name = $request->input('name');
+        $role->display_name = $request->input('display_name');
+        $role->description = $request->input('description');
 
 
         $permissionsids = $request->input('permission_id');
-//
-//        foreach ($role->permissions()->lists("id") as $item) {
-//            $key = array_search($item, $permissions);
-//            if ($key)
-//                array_splice($permissions, $item, 1);
-//        }
+
 
         $permissions = Array();
         foreach ($permissionsids as $item) {
             array_push($permissions, (int)$item);
         }
-        $input->
 
-        $role->save()->permissions()->sync($permissions);
-//        if ($role->permissions()->sync($permissions)) {
-//            return Redirect('/manage/system/role');
-//        } else {
-//            return Redirect::back()->withInput()->withErrors('保存失败！');
-//        }
-//
-
-        // $role->permissions()->sync([3, 4])->sava();
+        $role->save();
+        $role->permissions()->sync($permissions);
         if ($role) {
             return Redirect('/manage/system/role/permission/' . $role->id);
         } else {

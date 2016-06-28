@@ -69,7 +69,9 @@ class UserController extends BaseController
     public function getEdit($id)
     {
         $user = User::find($id);
-        return view('manage.system.user.edit', ['model' => 'system', 'menu' => 'user', 'user' => $user]);
+        $enterprises = Enterprise::all();
+        $roles = Role::all();
+        return view('manage.system.user.edit', compact("user", "enterprises", "roles"), ['model' => 'system', 'menu' => 'user']);
     }
 
     public function postEdit(Request $request)
