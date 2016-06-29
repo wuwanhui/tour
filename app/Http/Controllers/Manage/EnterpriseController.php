@@ -15,14 +15,15 @@ class EnterpriseController extends BaseController
      */
     public function index()
     {
-        $enterprise = Enterprise::orderBy('created_at', 'desc')->paginate($this->pageSize);
-        return view('manage.system.enterprise.index', ['model' => 'system', 'menu' => 'enterprise', 'enterprises' => $enterprise]);
+        $enterprises = Enterprise::orderBy('created_at', 'desc')->paginate($this->pageSize);
+        return view('manage.system.enterprise.index', compact("enterprises"), ['model' => 'system', 'menu' => 'enterprise']);
     }
 
     public function getCreate()
     {
         $parents = Enterprise::all();
-        return view('manage.system.enterprise.create', ['model' => 'system', 'menu' => 'enterprise', 'parents' => $parents]);
+        $enterprise = new Enterprise();
+        return view('manage.system.enterprise.create', compact("enterprise", "parents"), ['model' => 'system', 'menu' => 'enterprise']);
     }
 
     public function postCreate(Request $request)
@@ -45,34 +46,29 @@ class EnterpriseController extends BaseController
 
     public function getEdit($id)
     {
+        $parents = Enterprise::where("id", "!=", $id)->get();
         $enterprise = Enterprise::find($id);
-        return view('manage.system.enterprise.edit', ['model' => 'system', 'menu' => 'enterprise', 'enterprise' => $enterprise]);
+        return view('manage.system.enterprise.edit', compact("parents", "enterprise"), ['model' => 'system', 'menu' => 'enterprise']);
     }
 
     public function postEdit(Request $request)
     {
-
         $id = $request->input('id');
-        print_r(Input::only('id'));
-        $input = $request->all();
         $enterprise = Enterprise::find($id);
+        $input = $request->except(['id', '_token']);
+        $validator = Validator::make($input, $enterprise->rules(), $enterprise->messages());
+        if ($validator->fails()) {
+            return redirect('/manage/system/enterprise/create')
+                ->withInput()
+                ->withErrors($validator);
+        }
 
-//        $validator = Validator::make($input, $enterprise->rules(), $enterprise->messages());
-//        if ($validator->fails()) {
-//            return redirect('/manage/system/enterprise/create')
-//                ->withInput()
-//                ->withErrors($validator);
-//        }
-
-        $enterprise->name = $request->input('name');
-        $enterprise->display_name = $request->input('display_name');
-        $enterprise->description = $request->input('description');
-        $enterprise->permissions()->detach([5, 4]);
-        if ($enterprise->save()) {
-            return Redirect('/manage/system/enterprise/');
+        if (DB::table('enterprise')->where('id', $id)->update($input)) {
+            return Redirect('/manage/system/enterprise/' . $enterprise->id);
         } else {
             return Redirect::back()->withInput()->withErrors('保存失败！');
         }
+
     }
 
 
@@ -120,7 +116,7 @@ class EnterpriseController extends BaseController
     {
         $enterprise = Enterprise::find($id);
         $enterprise->delete();
-        return redirect()->route('item');
+        return back()->withInput()->withErrors('删除成功！');
 
     }
 }

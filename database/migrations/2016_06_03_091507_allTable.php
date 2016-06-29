@@ -24,6 +24,7 @@ class AllTable extends Migration
                 $table->string('password')->nullable();
                 $table->string('remember_token')->nullable();
                 $table->timestamps();
+                $table->softDeletes();
             });
         }
         if (!Schema::hasTable('password_resets')) {
@@ -118,6 +119,7 @@ class AllTable extends Migration
                 $table->string('slogan');//口号
                 $table->string('abstract');//企业简介
                 $table->timestamps();
+                $table->softDeletes();
             });
         }
 

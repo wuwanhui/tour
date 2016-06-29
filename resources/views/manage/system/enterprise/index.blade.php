@@ -36,6 +36,7 @@
 
                             <th><a href="">企业全称</a></th>
                             <th><a href="">简称</a></th>
+                            <th><a href="">所属上级</a></th>
                             <th><a href="">法人代表</a></th>
                             <th><a href="">成立时间</a></th>
                             <th><a href="">联系电话</a></th>
@@ -50,8 +51,13 @@
                                 <td><input type="checkbox" value="{{$item->id}} "
                                            name="id"/></td>
                                 <td style="text-align: center">{{$item->id}} </td>
-                                <td>{{$item->name}} </td>
+                                <td>{{$item->name}}（{{count($item->child)}}）
+                                </td>
                                 <td>{{$item->short_name}} </td>
+                                <td>
+                                    @if(isset($item->parent))
+                                        {{$item->parent->name}}
+                                    @endif</td>
                                 <td>{{$item->legal_person}} </td>
                                 <td>{{$item->found_time}} </td>
                                 <td>{{$item->phone}} </td>
@@ -59,12 +65,10 @@
                                 <td class="text-center"><a
                                             href="{{url('/manage/system/user/list/'.$item->id)}}">{{$item->users()->count()}}</a>
                                 </td>
-                                <td style="text-align: center"><a
-                                            href="{{url('/manage/system/user/list/'.$item->id)}}">用户</a>
-                                    |<a
-                                            href="{{url('/manage/system/enterprise/edit/'.$item->id)}}">编辑</a> |
-                                    <a
-                                            href="{{url('/manage/system/enterprise/delete/'.$item->id)}}">删除</a>
+                                <td style="text-align: center"><a href="{{url('/manage/system/user/list/'.$item->id)}}">用户</a>
+                                    | <a href="{{url('/manage/system/enterprise/edit/'.$item->id)}}">编辑</a> |
+                                    <a href="{{url('/manage/system/enterprise/delete/'.$item->id)}}"
+                                       onclick="return confirm('确定要删除吗？')">删除</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -80,8 +84,10 @@
                         formaction="delete">批量删除
                 </button>
             </div>
-            <div class="col-xs-6 text-right">
-
+            <div class="col-xs-6 text-right ">
+                <nav>
+                    {!! $enterprises->links() !!}
+                </nav>
             </div>
         </div>
         @include('common.success')
