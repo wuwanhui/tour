@@ -6,7 +6,7 @@
     <div class="row page-input">
         <div class="col-xs-12">
             <form class="form-horizontal" method="Post"
-                  enctype="multipart/form-data" action="{{url('/manage/system/user/create')}}">
+                  enctype="multipart/form-data" action="{{url('/manage/system/user/edit/'.$user->id)}}">
                 <div class="row page-input-header">
                     <div class="col-xs-2  text-left">
                         <button type="button" class="btn btn-default"
@@ -32,7 +32,7 @@
                                         <select name="eid" class="form-control">
                                             <option value=" 0" style="color: #002a80;">新增企业</option>
                                             @foreach($enterprises as $item)
-                                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                                <option  value="{{$item->id}}" {{$user->eid==$item->id?'selected':''}}>{{$item->name}}</option>
                                             @endforeach
                                         </select>
 
@@ -54,7 +54,7 @@
                                 <label for="email"
                                        class="col-xs-2 control-label label-required">邮箱：</label>
                                 <div class="col-xs-10">
-                                    <input id="email" name="email" class="form-control"
+                                    <input id="email" name="email" class="form-control" disabled="disabled"
                                            style="width: 300px;"
                                            value="{{$user->email}}" type="text"/>
 
@@ -89,9 +89,14 @@
                                     <tbody>
                                     @foreach($roles as $index =>$item)
                                         <tr>
-                                            <td><input type="checkbox" value="{{$item->id}}"
+
+                                            <td>
+                                                <input type="checkbox" value="{{$item->id}}"
                                                        name="role_id[{{$index}}]"
+                                                        {{count( $user->roles->whereIn("id",[$item->id]))>0?'checked':''}}
                                                 />
+
+
                                             </td>
                                             <td style="text-align: center">{{$item->id}} </td>
                                             <td>{{$item->name}} </td>
@@ -100,8 +105,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-                            @endif
-                        </fieldset>
+                            @endif    </fieldset>
                     </div>
                 </div>
                 <div clas="row page-input-footer">

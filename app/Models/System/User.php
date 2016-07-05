@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\System;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-
+    protected $table = 'System_User';//表名
 
     /**
      * The attributes that are mass assignable.
@@ -31,13 +31,27 @@ class User extends Authenticatable
      *
      * @return array
      */
-    public function rules()
+    public function createRules()
     {
         return [
-            'name' => 'required|unique:roles|max:255|min:2',
+            'name' => 'required|max:255|min:2',
+            'email' => 'required|unique:System_User',
+        ];
+    }
+
+    /**
+     * 获取应用到请求的验证规则
+     *
+     * @return array
+     */
+    public function editRules()
+    {
+        return [
+            'name' => 'required|max:255|min:2',
             'email' => 'required',
         ];
     }
+
 
     /**
      * 获取应用到请求的验证规则
@@ -49,7 +63,7 @@ class User extends Authenticatable
         return [
             'name.required' => '用户名称为必填项',
             'email.required' => '用户邮箱为必填项',
-
+            'email.unique' => '用户邮箱不能重复',
         ];
     }
 
@@ -58,7 +72,7 @@ class User extends Authenticatable
      */
     public function roles()
     {
-        return $this->belongsToMany('App\Models\Role');
+        return $this->belongsToMany('App\Models\System\Role', 'System_Role_User', 'user_id', 'role_id');
     }
 
     /**
@@ -66,6 +80,8 @@ class User extends Authenticatable
      */
     public function enterprise()
     {
-        return $this->belongsTo('App\Models\Enterprise');
+        return $this->belongsTo('App\Models\System\Enterprise', 'eid');
     }
+
+  
 }

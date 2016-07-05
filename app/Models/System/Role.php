@@ -1,10 +1,11 @@
 <?php
-namespace App\Models;
+namespace App\Models\System;
 
 use Zizaco\Entrust\EntrustRole;
 
 class Role extends EntrustRole
 {
+    protected $table = 'System_Role';//表名
     protected $fillable = ['name', 'display_name', 'description'];
     protected $guarded = ['updated_at', 'created_at'];
 
@@ -13,7 +14,7 @@ class Role extends EntrustRole
      */
     public function users()
     {
-        return $this->belongsToMany('App\Models\User');
+        return $this->belongsToMany('App\Models\System\User', 'System_Role_User', 'user_id', 'role_id');
     }
 
     /**
@@ -21,7 +22,7 @@ class Role extends EntrustRole
      */
     public function permissions()
     {
-        return $this->belongsToMany('App\Models\Permission');
+        return $this->belongsToMany('App\Models\System\Permission','System_Permission_Role', 'permission_id', 'role_id');
     }
 
     /**
@@ -32,7 +33,7 @@ class Role extends EntrustRole
     public function rules()
     {
         return [
-            'name' => 'required|unique:roles|max:255|min:2',
+            'name' => 'required|unique:System_Role|max:255|min:2',
             'display_name' => 'required',
         ];
     }

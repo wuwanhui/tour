@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Validator;
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\System\User;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Validator;
 
 class AuthController extends Controller
 {
@@ -50,7 +50,7 @@ class AuthController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
-            'email' => 'required|max:255|unique:users',
+            'email' => 'required|max:255|unique:System_User',
             'password' => 'required|min:6|confirmed',
         ]);
     }

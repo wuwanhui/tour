@@ -22,13 +22,13 @@ Route::group(['prefix' => 'wechat', 'middleware' => ['weixin']], function () {
 /**
  * 后台管理
  */
-Route::group(['prefix' => 'manage', 'middleware' => ['manage']], function () {
+Route::group(['prefix' => 'manage', 'namespace' => 'Manage', 'middleware' => ['manage']], function () {
 
 
     /**
      * 系统设置
      */
-    Route::group(['prefix' => 'system'], function () {
+    Route::group(['prefix' => 'system', 'namespace' => 'System'], function () {
 
         Route::get('/', function () {
             return Redirect::to('/manage/system/user');
@@ -40,12 +40,12 @@ Route::group(['prefix' => 'manage', 'middleware' => ['manage']], function () {
             Route::get('/', function () {
                 return Redirect::to('/manage/system/enterprise/list');
             });
-            Route::get('/list', 'Manage\EnterpriseController@index', ['model' => 'system', 'menu' => 'enterprise']);
-            Route::get('/create', 'Manage\EnterpriseController@getCreate', ['model' => 'system', 'menu' => 'enterprise']);
-            Route::post('/create', 'Manage\EnterpriseController@postCreate', ['model' => 'system', 'menu' => 'enterprise']);
-            Route::get('/edit/{id}', 'Manage\EnterpriseController@getEdit', ['model' => 'system', 'menu' => 'enterprise']);
-            Route::post('/edit', 'Manage\EnterpriseController@postEdit', ['model' => 'system', 'menu' => 'enterprise']);
-            Route::get('/delete/{id}', 'Manage\EnterpriseController@getDelete', ['model' => 'system', 'menu' => 'enterprise']);
+            Route::get('/list', 'EnterpriseController@index', ['model' => 'system', 'menu' => 'enterprise']);
+            Route::get('/create', 'EnterpriseController@getCreate', ['model' => 'system', 'menu' => 'enterprise']);
+            Route::post('/create', 'EnterpriseController@postCreate', ['model' => 'system', 'menu' => 'enterprise']);
+            Route::get('/edit/{id}', 'EnterpriseController@getEdit', ['model' => 'system', 'menu' => 'enterprise']);
+            Route::post('/edit', 'EnterpriseController@postEdit', ['model' => 'system', 'menu' => 'enterprise']);
+            Route::get('/delete/{id}', 'EnterpriseController@getDelete', ['model' => 'system', 'menu' => 'enterprise']);
         });
 
         /**
@@ -55,12 +55,12 @@ Route::group(['prefix' => 'manage', 'middleware' => ['manage']], function () {
             Route::get('/', function () {
                 return Redirect::to('/manage/system/user/list');
             });
-            Route::get('/list/{eid?}', 'Manage\UserController@index', ['model' => 'system', 'menu' => 'user']);
-            Route::get('/create/{eid?}', 'Manage\UserController@getCreate', ['model' => 'system', 'menu' => 'user']);
-            Route::post('/create', 'Manage\UserController@postCreate', ['model' => 'system', 'menu' => 'user']);
-            Route::get('/edit/{id}', 'Manage\UserController@getEdit', ['model' => 'system', 'menu' => 'user']);
-            Route::post('/edit', 'Manage\UserController@postEdit', ['model' => 'system', 'menu' => 'user']);
-            Route::get('/delete/{id}', 'Manage\UserController@getDelete', ['model' => 'system', 'menu' => 'user']);
+            Route::get('/list/{eid?}', 'UserController@index', ['model' => 'system', 'menu' => 'user']);
+            Route::get('/create/{eid?}', 'UserController@getCreate', ['model' => 'system', 'menu' => 'user']);
+            Route::post('/create', 'UserController@postCreate', ['model' => 'system', 'menu' => 'user']);
+            Route::get('/edit/{id}', 'UserController@getEdit', ['model' => 'system', 'menu' => 'user']);
+            Route::post('/edit/{id}', 'UserController@postEdit', ['model' => 'system', 'menu' => 'user']);
+            Route::get('/delete/{id}', 'UserController@getDelete', ['model' => 'system', 'menu' => 'user']);
         });
         /**
          * 权限管理
@@ -69,12 +69,12 @@ Route::group(['prefix' => 'manage', 'middleware' => ['manage']], function () {
             Route::get('/', function () {
                 return Redirect::to('/manage/system/permission/list');
             });
-            Route::get('/list', 'Manage\PermissionController@index', ['as' => 'system.permission', 'model' => 'system', 'menu' => 'permission']);
-            Route::get('/create', 'Manage\PermissionController@getCreate', ['model' => 'system', 'menu' => 'permission']);
-            Route::post('/create', 'Manage\PermissionController@postCreate', ['model' => 'system', 'menu' => 'permission']);
-            Route::get('/edit/{id}', 'Manage\PermissionController@getEdit', ['model' => 'system', 'menu' => 'permission']);
-            Route::post('/edit', 'Manage\PermissionController@postEdit', ['model' => 'system', 'menu' => 'permission']);
-            Route::get('/delete/{id}', 'Manage\PermissionController@getDelete', ['model' => 'system', 'menu' => 'permission']);
+            Route::get('/list', 'PermissionController@index', ['as' => 'system.permission', 'model' => 'system', 'menu' => 'permission']);
+            Route::get('/create', 'PermissionController@getCreate', ['model' => 'system', 'menu' => 'permission']);
+            Route::post('/create', 'PermissionController@postCreate', ['model' => 'system', 'menu' => 'permission']);
+            Route::get('/edit/{id}', 'PermissionController@getEdit', ['model' => 'system', 'menu' => 'permission']);
+            Route::post('/edit', 'PermissionController@postEdit', ['model' => 'system', 'menu' => 'permission']);
+            Route::get('/delete/{id}', 'PermissionController@getDelete', ['model' => 'system', 'menu' => 'permission']);
         });
         /**
          * 角色管理
@@ -83,14 +83,14 @@ Route::group(['prefix' => 'manage', 'middleware' => ['manage']], function () {
             Route::get('/', function () {
                 return Redirect::to('/manage/system/role/list');
             });
-            Route::get('/list', 'Manage\RoleController@index', ['model' => 'system', 'menu' => 'role']);
-            Route::get('/create', 'Manage\RoleController@getCreate', ['model' => 'system', 'menu' => 'role']);
-            Route::post('/create', 'Manage\RoleController@postCreate', ['model' => 'system', 'menu' => 'role']);
-            Route::get('/edit/{id}', 'Manage\RoleController@getEdit', ['model' => 'system', 'menu' => 'role']);
-            Route::post('/edit', 'Manage\RoleController@postEdit', ['model' => 'system', 'menu' => 'role']);
-            Route::get('/permission/{id}', 'Manage\RoleController@getPermission', ['model' => 'system', 'menu' => 'role']);
-            Route::post('/permission', 'Manage\RoleController@postPermission', ['model' => 'system', 'menu' => 'role']);
-            Route::get('/delete/{id}', 'Manage\RoleController@getDelete', ['model' => 'system', 'menu' => 'role']);
+            Route::get('/list', 'RoleController@index', ['model' => 'system', 'menu' => 'role']);
+            Route::get('/create', 'RoleController@getCreate', ['model' => 'system', 'menu' => 'role']);
+            Route::post('/create', 'RoleController@postCreate', ['model' => 'system', 'menu' => 'role']);
+            Route::get('/edit/{id}', 'RoleController@getEdit', ['model' => 'system', 'menu' => 'role']);
+            Route::post('/edit', 'RoleController@postEdit', ['model' => 'system', 'menu' => 'role']);
+            Route::get('/permission/{id}', 'RoleController@getPermission', ['model' => 'system', 'menu' => 'role']);
+            Route::post('/permission', 'RoleController@postPermission', ['model' => 'system', 'menu' => 'role']);
+            Route::get('/delete/{id}', 'RoleController@getDelete', ['model' => 'system', 'menu' => 'role']);
         });
 
 
@@ -123,18 +123,18 @@ Route::group(['prefix' => 'manage', 'middleware' => ['manage']], function () {
 /**
  * 供应商管理
  */
-Route::group(['prefix' => 'supplier', 'middleware' => ['supplier']], function () {
+Route::group(['prefix' => 'supplier', 'namespace' => 'Supplier', 'middleware' => ['supplier']], function () {
 
 
     /**
      * 主页
      */
-    Route::get('/', 'Supplier\HomeController@index');
+    Route::get('/', 'HomeController@index');
 
     /**
      * 业务中心
      */
-    Route::group(['prefix' => 'business'], function () {
+    Route::group(['prefix' => 'business', 'namespace' => 'Business'], function () {
 
         /**
          * 主页
@@ -149,7 +149,7 @@ Route::group(['prefix' => 'supplier', 'middleware' => ['supplier']], function ()
     /**
      * 客户关系
      */
-    Route::group(['prefix' => 'customer'], function () {
+    Route::group(['prefix' => 'customer', 'namespace' => 'Customer'], function () {
         /**
          * 主页
          */
@@ -164,9 +164,9 @@ Route::group(['prefix' => 'supplier', 'middleware' => ['supplier']], function ()
     /**
      * 微信营销
      */
-    Route::group(['prefix' => 'weixin'], function () {
+    Route::group(['prefix' => 'weixin', 'namespace' => 'Weixin'], function () {
 
-        Route::resource('config', 'Supplier\WeixinConfigController');
+        Route::resource('config', 'WeixinConfigController');
 
         Route::get('/', function () {
             return Redirect::to('supplier/weixin/config');
@@ -176,19 +176,19 @@ Route::group(['prefix' => 'supplier', 'middleware' => ['supplier']], function ()
          * 权限管理
          */
         Route::group(['prefix' => 'weixin'], function () {
-            Route::get('/', 'Supplier\WeixinController@index', ['model' => 'Weixin', 'menu' => 'permission']);
-            Route::get('/send', 'Supplier\WeixinController@getSend', ['model' => 'Weixin', 'menu' => 'permission']);
-            Route::post('/create', 'Supplier\WeixinController@postCreate', ['model' => 'Weixin', 'menu' => 'permission']);
-            Route::get('/edit/{id}', 'Supplier\WeixinController@getEdit', ['model' => 'Weixin', 'menu' => 'permission']);
-            Route::post('/edit', 'Supplier\WeixinController@postEdit', ['model' => 'Weixin', 'menu' => 'permission']);
-            Route::get('/delete/{id}', 'Supplier\WeixinController@getDelete', ['model' => 'Weixin', 'menu' => 'permission']);
+            Route::get('/', 'WeixinController@index', ['model' => 'Weixin', 'menu' => 'permission']);
+            Route::get('/send', 'WeixinController@getSend', ['model' => 'Weixin', 'menu' => 'permission']);
+            Route::post('/create', 'WeixinController@postCreate', ['model' => 'Weixin', 'menu' => 'permission']);
+            Route::get('/edit/{id}', 'WeixinController@getEdit', ['model' => 'Weixin', 'menu' => 'permission']);
+            Route::post('/edit', 'WeixinController@postEdit', ['model' => 'Weixin', 'menu' => 'permission']);
+            Route::get('/delete/{id}', 'WeixinController@getDelete', ['model' => 'Weixin', 'menu' => 'permission']);
         });
 
     });
     /**
      * 财务结算
      */
-    Route::group(['prefix' => 'finance'], function () {
+    Route::group(['prefix' => 'finance', 'namespace' => 'Finance'], function () {
 
         /**
          * 主页
@@ -204,7 +204,7 @@ Route::group(['prefix' => 'supplier', 'middleware' => ['supplier']], function ()
     /**
      * 资源中心
      */
-    Route::group(['prefix' => 'resources'], function () {
+    Route::group(['prefix' => 'resources', 'namespace' => 'Resources'], function () {
 
         /**
          * 主页
@@ -220,7 +220,7 @@ Route::group(['prefix' => 'supplier', 'middleware' => ['supplier']], function ()
     /**
      * 统计报表
      */
-    Route::group(['prefix' => 'report'], function () {
+    Route::group(['prefix' => 'report', 'namespace' => 'Report'], function () {
 
 
         /**
@@ -237,16 +237,69 @@ Route::group(['prefix' => 'supplier', 'middleware' => ['supplier']], function ()
     /**
      * 系统设置
      */
-    Route::group(['prefix' => 'system'], function () {
-
+    Route::group(['prefix' => 'system', 'namespace' => 'System'], function () {
+        Route::get('/', function () {
+            return Redirect::to('/supplier/system/config');
+        });
         /**
          * 参数设置
          */
-        Route::get('/', function () {
-            return view('supplier/system/config/index', ['model' => 'system', 'menu' => 'config']);
+        Route::group(['prefix' => 'config'], function () {
+            Route::any('/', 'ConfigController@index', ['model' => 'system', 'menu' => 'enterprise']);
+        });
+        /**
+         * 企业管理
+         */
+        Route::group(['prefix' => 'enterprise'], function () {
+
+            Route::any('/', 'EnterpriseController@index', ['model' => 'system', 'menu' => 'enterprise']);
 
         });
 
+        /**
+         * 用户管理
+         */
+        Route::group(['prefix' => 'user'], function () {
+            Route::get('/', function () {
+                return Redirect::to('/supplier/system/user/list');
+            });
+            Route::get('/list/{eid?}', 'UserController@index', ['model' => 'system', 'menu' => 'user']);
+            Route::get('/create/{eid?}', 'UserController@getCreate', ['model' => 'system', 'menu' => 'user']);
+            Route::post('/create', 'UserController@postCreate', ['model' => 'system', 'menu' => 'user']);
+            Route::get('/edit/{id}', 'UserController@getEdit', ['model' => 'system', 'menu' => 'user']);
+            Route::post('/edit/{id}', 'UserController@postEdit', ['model' => 'system', 'menu' => 'user']);
+            Route::get('/delete/{id}', 'UserController@getDelete', ['model' => 'system', 'menu' => 'user']);
+        });
+        /**
+         * 权限管理
+         */
+        Route::group(['prefix' => 'permission'], function () {
+            Route::get('/', function () {
+                return Redirect::to('/supplier/system/permission/list');
+            });
+            Route::get('/list', 'PermissionController@index', ['as' => 'system.permission', 'model' => 'system', 'menu' => 'permission']);
+            Route::get('/create', 'PermissionController@getCreate', ['model' => 'system', 'menu' => 'permission']);
+            Route::post('/create', 'PermissionController@postCreate', ['model' => 'system', 'menu' => 'permission']);
+            Route::get('/edit/{id}', 'PermissionController@getEdit', ['model' => 'system', 'menu' => 'permission']);
+            Route::post('/edit', 'PermissionController@postEdit', ['model' => 'system', 'menu' => 'permission']);
+            Route::get('/delete/{id}', 'PermissionController@getDelete', ['model' => 'system', 'menu' => 'permission']);
+        });
+        /**
+         * 角色管理
+         */
+        Route::group(['prefix' => 'role'], function () {
+            Route::get('/', function () {
+                return Redirect::to('/supplier/system/role/list');
+            });
+            Route::get('/list', 'RoleController@index', ['model' => 'system', 'menu' => 'role']);
+            Route::get('/create', 'RoleController@getCreate', ['model' => 'system', 'menu' => 'role']);
+            Route::post('/create', 'RoleController@postCreate', ['model' => 'system', 'menu' => 'role']);
+            Route::get('/edit/{id}', 'RoleController@getEdit', ['model' => 'system', 'menu' => 'role']);
+            Route::post('/edit', 'RoleController@postEdit', ['model' => 'system', 'menu' => 'role']);
+            Route::get('/permission/{id}', 'RoleController@getPermission', ['model' => 'system', 'menu' => 'role']);
+            Route::post('/permission', 'RoleController@postPermission', ['model' => 'system', 'menu' => 'role']);
+            Route::get('/delete/{id}', 'RoleController@getDelete', ['model' => 'system', 'menu' => 'role']);
+        });
 
     });
 
@@ -254,7 +307,7 @@ Route::group(['prefix' => 'supplier', 'middleware' => ['supplier']], function ()
     /**
      * 三方对接
      */
-    Route::group(['prefix' => 'docking'], function () {
+    Route::group(['prefix' => 'docking', 'namespace' => 'Docking'], function () {
 
         /**
          * 参数设置

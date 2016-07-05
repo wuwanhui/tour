@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Manage;
+namespace App\Http\Controllers\Manage\System;
 
-use App\Models\Enterprise;
+use App\Http\Controllers\Manage\BaseController;
+use App\Models\System\Enterprise;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
@@ -13,30 +14,34 @@ class EnterpriseController extends BaseController
     /**
      * 主页
      */
-    public function index()
+    public function index($eid = null)
     {
-        $enterprise = Enterprise::orderBy('created_at', 'desc')->paginate($this->pageSize);
-        return view('manage.system.enterprise.index', ['model' => 'system', 'menu' => 'enterprise', 'enterprises' => $enterprise]);
+        $enterprises = Enterprise::orderBy('created_at', 'desc')->paginate($this->pageSize);
+        if ($eid != null) {
+            $enterprises = Enterprise::where('pid', $eid)->orderBy('created_at', 'desc')->paginate($this->pageSize);
+        }
+        return view('manage.system.enterprise.index', compact("enterprises"), ['model' => 'system', 'menu' => 'enterprise']);
     }
 
     public function getCreate()
     {
         $parents = Enterprise::all();
-        return view('manage.system.enterprise.create', ['model' => 'system', 'menu' => 'enterprise', 'parents' => $parents]);
+        $enterprise = new Enterprise();
+        return view('manage.system.enterprise.create', compact("enterprise", "parents"), ['model' => 'system', 'menu' => 'enterprise']);
     }
 
     public function postCreate(Request $request)
     {
         $enterprise = new Enterprise();
         $input = $request->except('_token');
-        $validator = Validator::make($input, $enterprise->rules(), $enterprise->messages());
+        $validator = Validator::make($input, $enterprise->createRules(), $enterprise->messages());
         if ($validator->fails()) {
             return redirect('/manage/system/enterprise/create')
                 ->withInput()
                 ->withErrors($validator);
         }
-
-        if (DB::table('enterprise')->insert($input)) {
+        $enterprise->fill(Input::all());
+        if ($enterprise->save()) {
             return Redirect('/manage/system/enterprise/' . $enterprise->id);
         } else {
             return Redirect::back()->withInput()->withErrors('保存失败！');
@@ -45,34 +50,28 @@ class EnterpriseController extends BaseController
 
     public function getEdit($id)
     {
+        $parents = Enterprise::where("id", "!=", $id)->get();
         $enterprise = Enterprise::find($id);
-        return view('manage.system.enterprise.edit', ['model' => 'system', 'menu' => 'enterprise', 'enterprise' => $enterprise]);
+        return view('manage.system.enterprise.edit', compact("parents", "enterprise"), ['model' => 'system', 'menu' => 'enterprise']);
     }
 
     public function postEdit(Request $request)
     {
-
         $id = $request->input('id');
-        print_r(Input::only('id'));
-        $input = $request->all();
         $enterprise = Enterprise::find($id);
-
-//        $validator = Validator::make($input, $enterprise->rules(), $enterprise->messages());
-//        if ($validator->fails()) {
-//            return redirect('/manage/system/enterprise/create')
-//                ->withInput()
-//                ->withErrors($validator);
-//        }
-
-        $enterprise->name = $request->input('name');
-        $enterprise->display_name = $request->input('display_name');
-        $enterprise->description = $request->input('description');
-        $enterprise->permissions()->detach([5, 4]);
+        $validator = Validator::make(Input::all(), $enterprise->editRules(), $enterprise->messages());
+        if ($validator->fails()) {
+            return redirect('/manage/system/enterprise/create')
+                ->withInput()
+                ->withErrors($validator);
+        }
+        $enterprise->fill(Input::all());
         if ($enterprise->save()) {
-            return Redirect('/manage/system/enterprise/');
+            return Redirect('/manage/system/enterprise/' . $enterprise->id);
         } else {
             return Redirect::back()->withInput()->withErrors('保存失败！');
         }
+
     }
 
 
@@ -120,7 +119,7 @@ class EnterpriseController extends BaseController
     {
         $enterprise = Enterprise::find($id);
         $enterprise->delete();
-        return redirect()->route('item');
+        return back()->withInput()->withErrors('删除成功！');
 
     }
 }

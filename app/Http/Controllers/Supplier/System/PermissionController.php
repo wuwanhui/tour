@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Manage;
+namespace App\Http\Controllers\Supplier\System;
 
-use App\Models\Permission;
+use App\Http\Controllers\Manage\BaseController;
+use App\Models\System\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -18,7 +19,7 @@ class PermissionController extends BaseController
      */
     public function index(Request $request)
     {
-        
+
         $permissions = Permission::where([])->orderBy('created_at', 'desc')->paginate($this->pageSize);
         return view('manage.system.permission.index', ['model' => 'system', 'menu' => 'permission', 'permissions' => $permissions]);
     }

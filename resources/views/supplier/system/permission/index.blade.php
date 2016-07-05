@@ -7,7 +7,7 @@
     <div class="page-list">
         <div class="row page-list-header">
             <div class="col-xs-8 text-left">
-                <a href="{{url('/manage/system/enterprise/create')}}" class="btn btn-primary">新增</a>
+                <a href="{{url('/manage/system/permission/create')}}" class="btn btn-primary">新增</a>
             </div>
             <div class="col-xs-4 text-right">
 
@@ -23,6 +23,7 @@
                 </form>
             </div>
         </div>
+
         <div class="row page-list-body">
             <div class="col-md-12">
                 <form method="Post">
@@ -33,42 +34,29 @@
                             <th style="width: 20px"><input type="checkbox"
                                                            name="CheckAll" value="Checkid"/></th>
                             <th style="width: 80px;"><a href="">编号</a></th>
+                            <th><a href="?page=&sort=name">权限标识</a></th>
+                            <th><a href="">显示名称</a></th>
+                            <th><a href="">备注</a></th>
 
-                            <th><a href="">企业全称</a></th>
-                            <th><a href="">简称</a></th>
-                            <th><a href="">所属上级</a></th>
-                            <th><a href="">法人代表</a></th>
-                            <th><a href="">成立时间</a></th>
-                            <th><a href="">联系电话</a></th>
-                            <th><a href="">传真号码</a></th>
-                            <th><a href="">用户数</a></th>
-                            <th style="width: 120px;">操作</th>
+                            <th style="width: 80px;">操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($enterprises as $item)
+                        @foreach($permissions as $item)
                             <tr>
                                 <td><input type="checkbox" value="{{$item->id}} "
                                            name="id"/></td>
                                 <td style="text-align: center">{{$item->id}} </td>
-                                <td>{{$item->name}}（{{count($item->child)}}）
-                                </td>
-                                <td>{{$item->short_name}} </td>
+                                <td>{{$item->name}} </td>
+
+                                <td style="text-align: center">{{$item->display_name}}</td>
                                 <td>
-                                    @if(isset($item->parent))
-                                        {{$item->parent->name}}
-                                    @endif</td>
-                                <td>{{$item->legal_person}} </td>
-                                <td>{{$item->found_time}} </td>
-                                <td>{{$item->phone}} </td>
-                                <td>{{$item->fax}} </td>
-                                <td class="text-center"><a
-                                            href="{{url('/manage/system/user/list/'.$item->id)}}">{{$item->users()->count()}}</a>
+                                    {{$item->description}}
                                 </td>
-                                <td style="text-align: center"><a href="{{url('/manage/system/user/list/'.$item->id)}}">用户</a>
-                                    | <a href="{{url('/manage/system/enterprise/edit/'.$item->id)}}">编辑</a> |
-                                    <a href="{{url('/manage/system/enterprise/delete/'.$item->id)}}"
-                                       onclick="return confirm('确定要删除吗？')">删除</a>
+                                <td style="text-align: center"><a
+                                            href="{{url('/manage/system/permission/edit/'.$item->id)}}">编辑</a> |
+                                    <a
+                                            href="{{url('/manage/system/permission/delete/'.$item->id)}}">删除</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -86,7 +74,7 @@
             </div>
             <div class="col-xs-6 text-right ">
                 <nav>
-                    {!! $enterprises->links() !!}
+                    {!! $permissions->links() !!}
                 </nav>
             </div>
         </div>
