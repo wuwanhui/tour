@@ -59,7 +59,7 @@
                                 <th><a href="">所属企业</a></th>
                                 <th><a href="">姓名</a></th>
                                 <th><a href="">邮箱</a></th>
-
+                                <th><a href="">角色</a></th>
                                 <th style="width: 120px;">操作</th>
                             </tr>
                             </thead>
@@ -70,15 +70,21 @@
                                                name="id"/></td>
                                     <td style="text-align: center">{{$item->id}} </td>
                                     <td>
-                                        @if($item->enterprise!=null)
+                                        @if(isset( $item->enterprise))
                                             {{$item->enterprise->name}}
                                         @endif
+
                                     </td>
                                     <td>{{$item->name}} </td>
                                     <td style="text-align: center">{{$item->email}}</td>
+                                    <td style="text-align: center">
+                                        @if(count($item->roles)>0)
+                                            @foreach($item->roles as $roleItem)
+                                                {{$roleItem->pivot->name}}
+                                            @endforeach
 
+                                        @endif</td>
                                     <td style="text-align: center"><a
-                                                href="{{url('/manage/system/user/permission/'.$item->id)}}">权限</a> |<a
                                                 href="{{url('/manage/system/user/edit/'.$item->id)}}">编辑</a> |
                                         <a
                                                 href="{{url('/manage/system/user/delete/'.$item->id)}}">删除</a>

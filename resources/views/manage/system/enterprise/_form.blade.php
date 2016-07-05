@@ -6,7 +6,7 @@
                class="col-xs-2 control-label label-required">所属上级企业：
         </label>
         <div class="col-xs-10">
-            <select name="parent_id" class="form-control">
+            <select name="pid" class="form-control">
                 <option value="">顶级企业</option>
                 @foreach($parents as $item)
                     <option value="{{$item->id}}">{{$item->name}}</option>

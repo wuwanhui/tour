@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Manage;
+namespace App\Http\Controllers\Manage\System;
 
-use App\Models\Enterprise;
+use App\Http\Controllers\Manage\BaseController;
+use App\Models\System\Enterprise;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
@@ -13,9 +14,12 @@ class EnterpriseController extends BaseController
     /**
      * 主页
      */
-    public function index()
+    public function index($eid = null)
     {
         $enterprises = Enterprise::orderBy('created_at', 'desc')->paginate($this->pageSize);
+        if ($eid != null) {
+            $enterprises = Enterprise::where('pid', $eid)->orderBy('created_at', 'desc')->paginate($this->pageSize);
+        }
         return view('manage.system.enterprise.index', compact("enterprises"), ['model' => 'system', 'menu' => 'enterprise']);
     }
 
@@ -30,14 +34,14 @@ class EnterpriseController extends BaseController
     {
         $enterprise = new Enterprise();
         $input = $request->except('_token');
-        $validator = Validator::make($input, $enterprise->rules(), $enterprise->messages());
+        $validator = Validator::make($input, $enterprise->createRules(), $enterprise->messages());
         if ($validator->fails()) {
             return redirect('/manage/system/enterprise/create')
                 ->withInput()
                 ->withErrors($validator);
         }
-
-        if (DB::table('enterprise')->insert($input)) {
+        $enterprise->fill(Input::all());
+        if ($enterprise->save()) {
             return Redirect('/manage/system/enterprise/' . $enterprise->id);
         } else {
             return Redirect::back()->withInput()->withErrors('保存失败！');
@@ -55,15 +59,14 @@ class EnterpriseController extends BaseController
     {
         $id = $request->input('id');
         $enterprise = Enterprise::find($id);
-        $input = $request->except(['id', '_token']);
-        $validator = Validator::make($input, $enterprise->rules(), $enterprise->messages());
+        $validator = Validator::make(Input::all(), $enterprise->editRules(), $enterprise->messages());
         if ($validator->fails()) {
             return redirect('/manage/system/enterprise/create')
                 ->withInput()
                 ->withErrors($validator);
         }
-
-        if (DB::table('enterprise')->where('id', $id)->update($input)) {
+        $enterprise->fill(Input::all());
+        if ($enterprise->save()) {
             return Redirect('/manage/system/enterprise/' . $enterprise->id);
         } else {
             return Redirect::back()->withInput()->withErrors('保存失败！');

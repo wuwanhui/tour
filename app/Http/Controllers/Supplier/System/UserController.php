@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Manage;
+namespace App\Http\Controllers\Supplier\System;
 
-use App\Models\Enterprise;
-use App\Models\Role;
-use App\Models\User;
+use App\Http\Controllers\Manage\BaseController;
+use App\Models\System\Enterprise;
+use App\Models\System\Permission;
+use App\Models\System\Role;
+use App\Models\System\User;
 use ArrayUtil;
 use Cache;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -27,8 +28,7 @@ class UserController extends BaseController
             $users = User::orderBy('created_at', 'desc')->paginate($this->pageSize);
         } else {
             $enterprise = Enterprise::find($eid);
-            $users = DB::table('users')->where('enterprise_id', $enterprise->id)->orderBy('created_at', 'desc')->paginate($this->pageSize);
-
+            $users = User::where('enterprise_id', $enterprise->id)->orderBy('created_at', 'desc')->paginate($this->pageSize);
         }
 
         return view('manage.system.user.index', ['model' => 'system', 'menu' => 'user', 'enterprise' => $enterprise, 'users' => $users]);
@@ -39,8 +39,9 @@ class UserController extends BaseController
     {
         $user = new User();
         $enterprises = Enterprise::all();
-        $roles = Role::all();
-        return view('manage.system.user.create', compact('user', 'enterprises', 'roles'), ['model' => 'system', 'menu' => 'user']);
+
+        $roles = Role::where('id', 1)->get();
+        return view('manage.system.user.create', compact('user', 'enterprises'), ['model' => 'system', 'menu' => 'user']);
     }
 
     public function postCreate(Request $request)
@@ -57,8 +58,15 @@ class UserController extends BaseController
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
+
+        $roles = Array();
+        foreach ($roles as $item) {
+            array_push($roles, (int)$item);
+        }
+
         $user->save();
-        // $user->permissions()->sync([3, 4])->sava();
+        $user->roles()->sync($roles);
+
         if ($user) {
             return Redirect('/manage/system/user/');
         } else {

@@ -1,11 +1,11 @@
 <?php
-namespace App\Models;
-
+namespace App\Models\System;
 
 use Zizaco\Entrust\EntrustPermission;
 
 class Permission extends EntrustPermission
 {
+    protected $table = 'System_Permission';//表名
     protected $fillable = ['name', 'display_name', 'description'];
     protected $guarded = ['updated_at', 'created_at'];
 
@@ -17,7 +17,7 @@ class Permission extends EntrustPermission
     public function rules()
     {
         return [
-            'name' => 'required|unique:permissions|max:255|min:2',
+            'name' => 'required|unique:System_Permission|max:255|min:2',
             'display_name' => 'required',
         ];
     }

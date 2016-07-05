@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Manage;
+namespace App\Http\Controllers\Supplier\System;
 
-use App\Models\Permission;
-use App\Models\Role;
+use App\Http\Controllers\Manage\BaseController;
+use App\Models\System\Permission;
+use App\Models\System\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -20,8 +21,6 @@ class RoleController extends BaseController
     public function index()
     {
         $role = Role::all();
-
-
         return view('manage.system.role.index', ['model' => 'system', 'menu' => 'role', 'items' => $role]);
     }
 

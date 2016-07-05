@@ -15,7 +15,8 @@
     <div class="page-header">
         <div class="page-header-top">
             <div class="page-header-top-logo">千番旅行</div>
-            <div class="page-header-top-nav">
+            <div class="page-header-top-nav"><a href="{{url('/manage')}}">管理后台</a> | <a
+                        href="{{url('/supplier')}}">供应商</a> |
                 <a href="{{url('/manage/userinfo')}}">  {{ Auth::user()->name }} </a> | <a
                         href="{{url('/logout')}}">退出</a>
             </div>
@@ -44,8 +45,8 @@
                 <?php if( $model === 'system'){ ?>
                 <div class="page-content-side-nav">系统管理</div>
                 <div class="page-content-side-menu">
-                    <a  href="/manage/system/enterprise/">企业管理</a>
-                    <a  href="/manage/system/user/">用户管理</a>
+                    <a href="/manage/system/enterprise/">企业管理</a>
+                    <a href="/manage/system/user/">用户管理</a>
                     <a href="/manage/system/role/">角色管理</a> <a
                             href="/manage/system/permission/">权限管理</a>
 
@@ -56,6 +57,11 @@
         @endif
         <div class="page-content-area">
             @yield('content')
+            @if (session('message'))
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+            @endif
         </div>
         <div class="clear"></div>
     </div>

@@ -15,9 +15,11 @@
     <div class="page-header">
         <div class="page-header-top">
             <div class="page-header-top-logo">千番旅行</div>
-            <div class="page-header-top-nav">
-                {{ Auth::user()->name }} <a href="{{url('/logout')}}">退出</a> | <span class="a"
-                                                                                     onclick="about();">关于我们</span>
+            <div class="page-header-top-nav"><a href="{{url('/manage')}}">管理后台</a> | <a
+                        href="{{url('/supplier')}}">供应商</a> | {{ Auth::user()->name }} <a
+                        href="{{url('/logout')}}">退出</a>
+                | <span class="a"
+                        onclick="about();">关于我们</span>
             </div>
         </div>
         <div class="page-header-nav">
@@ -168,6 +170,12 @@
         </div>
         <div class="page-content-area">
             @yield('content')
+            @include('common.errors')
+            @if (session('message'))
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+            @endif
         </div>
         <div class="clear"></div>
     </div>
