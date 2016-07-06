@@ -6,6 +6,7 @@ use App\Http\Controllers\Manage\BaseController;
 use App\Models\System\Permission;
 use App\Models\System\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,53 +21,46 @@ class RoleController extends BaseController
      */
     public function index()
     {
-        $role = Role::all();
-        return view('manage.system.role.index', ['model' => 'system', 'menu' => 'role', 'items' => $role]);
+        $role = Role::where('eid', Auth::user()->eid);
+        return view('supplier.system.role.index', ['model' => 'system', 'menu' => 'role', 'items' => $role]);
     }
 
-    public function getCreate()
+    public function create(Request $request)
     {
-        $role = new Role();
-        $permissions = Permission::all();
-        return view('manage.system.role.create', ['model' => 'system', 'menu' => 'role', 'role' => $role, 'permissions' => $permissions]);
-    }
-
-    public function postCreate(Request $request)
-    {
-        $role = new Role();
-        $input = $request->all();
-        $validator = Validator::make($input, $role->rules(), $role->messages());
-        if ($validator->fails()) {
-            return redirect('/manage/system/role/create')
-                ->withInput()
-                ->withErrors($validator);
-        }
-        $role->name = $request->input('name');
-        $role->display_name = $request->input('display_name');
-        $role->description = $request->input('description');
+        try {
+            $role = new Role();
 
 
-        $permissionsids = $request->input('permission_id');
+            if ($request->isMethod('post')) {
+                $input = Input::all();
 
-
-        $permissions = Array();
-        foreach ($permissionsids as $item) {
-            array_push($permissions, (int)$item);
-        }
-
-        $role->save();
-        $role->permissions()->sync($permissions);
-        if ($role) {
-            return Redirect('/manage/system/role/permission/' . $role->id);
-        } else {
-            return Redirect::back()->withInput()->withErrors('保存失败！');
+                $validator = Validator::make($input, $role->createRules(), $role->messages());
+                if ($validator->fails()) {
+                    return redirect('/supplier/system/role')
+                        ->withInput()
+                        ->withErrors($validator);
+                }
+                $role->fill($input);
+                $role->eid = Auth::user()->eid;
+                $role->save();
+                if ($role) {
+                    return redirect('/supplier/system/role/list/')->withSuccess('保存成功！');
+                } else {
+                    return Redirect::back()->withErrors('保存失败！');
+                }
+            }
+            $permissions = Permission::all();
+            return view('supplier.system.role.create', compact('user', 'role', 'permissions'), ['model' => 'system', 'menu' => 'enterprise']);
+        } catch (Exception $ex) {
+            return Redirect::back()->withInput()->withErrors('异常！' . $ex->getMessage());
         }
     }
+
 
     public function getEdit($id)
     {
         $role = Role::find($id);
-        return view('manage.system.role.edit', ['model' => 'system', 'menu' => 'role', 'role' => $role]);
+        return view('supplier.system.role.edit', ['model' => 'system', 'menu' => 'role', 'role' => $role]);
     }
 
     public function postEdit(Request $request)
@@ -78,7 +72,7 @@ class RoleController extends BaseController
 
 //        $validator = Validator::make($input, $role->rules(), $role->messages());
 //        if ($validator->fails()) {
-//            return redirect('/manage/system/role/create')
+//            return redirect('/supplier/system/role/create')
 //                ->withInput()
 //                ->withErrors($validator);
 //        }
@@ -88,7 +82,7 @@ class RoleController extends BaseController
         $role->description = $request->input('description');
         $role->permissions()->detach([5, 4]);
         if ($role->save()) {
-            return Redirect('/manage/system/role/');
+            return Redirect('/supplier/system/role/');
         } else {
             return Redirect::back()->withInput()->withErrors('保存失败！');
         }
@@ -99,7 +93,7 @@ class RoleController extends BaseController
     {
         $role = Role::find($id);
         $permissions = Permission::all();
-        return view('manage.system.role.permission', ['model' => 'system', 'menu' => 'role', 'role' => $role, 'permissions' => $permissions]);
+        return view('supplier.system.role.permission', ['model' => 'system', 'menu' => 'role', 'role' => $role, 'permissions' => $permissions]);
     }
 
     public function postPermission(Request $request)
@@ -122,7 +116,7 @@ class RoleController extends BaseController
         }
 
         if ($role->permissions()->sync($permissions)) {
-            return Redirect('/manage/system/role');
+            return Redirect('/supplier/system/role');
         } else {
             return Redirect::back()->withInput()->withErrors('保存失败！');
         }
@@ -131,7 +125,7 @@ class RoleController extends BaseController
     public function getShow($id)
     {
         $role = Role::find($id);
-        return view('manage . system . role . edit', ['model' => 'system', 'menu' => 'role', 'item' => $role]);
+        return view('supplier . system . role . edit', ['model' => 'system', 'menu' => 'role', 'item' => $role]);
     }
 
 

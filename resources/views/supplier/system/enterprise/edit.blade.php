@@ -48,8 +48,9 @@
                                        class="col-xs-2 control-label label-required">企业名称：
                                 </label>
                                 <div class="col-xs-10">
-                                    <input name="name" class="form-control" value="{{$enterprise->name}}"
-                                           disabled="disabled"
+
+                                    <input type="hidden" name="name" value="{{$enterprise->name}}">
+                                    <input class="form-control " value="{{$enterprise->name}}" disabled="disabled"
                                            style="width:500px;"/>
 
                                 </div>

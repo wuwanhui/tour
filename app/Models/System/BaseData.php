@@ -1,18 +1,20 @@
 <?php
+
 namespace App\Models\System;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * 系统参数
- * @package App\Models
- */
-class Config extends Model
+class BaseData extends Model
 {
-    protected $table = 'System_Config';//表名
-    protected $primaryKey = "id";//主键
-    protected $fillable = ['eid', 'name', 'logo', 'domain', 'assets_domain', 'qiniu_access', 'qiniu_secret', 'qiniu_bucket_name',];
+    protected $table = 'System_BaseData';//表名
 
+    /**
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'eid', 'tid', 'name', 'value', 'sort',
+    ];
 
     /**
      * 获取应用到请求的验证规则
@@ -47,8 +49,16 @@ class Config extends Model
     public function messages()
     {
         return [
-            'name.required' => '系统名称为必填项',
+            'name.required' => '名称为必填项',
+
         ];
     }
 
+    /**
+     * 所属分类
+     */
+    public function dataType()
+    {
+        return $this->belongsTo('App\Models\System\BaseType', 'tid');
+    }
 }

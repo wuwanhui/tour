@@ -21,8 +21,6 @@
                         </div>
                     </div>
                     <div class="page-input-content">
-                        <input type="hidden" name="id" value="{{$config->id}}">
-                        <input type="hidden" name="eid" value="{{$config->eid}}">
                         {!! csrf_field() !!}
                         <fieldset>
                             <legend>基本信息</legend>

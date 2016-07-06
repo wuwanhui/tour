@@ -4,9 +4,9 @@ namespace App\Models\System;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User_Info extends Authenticatable
 {
-    protected $table = 'System_User';//表名
+    protected $table = 'System_User_Info';//表名
 
     /**
      * The attributes that are mass assignable.
@@ -14,7 +14,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'eid', 'did', 'name', 'email', 'password',
+        'uid', 'name', 'email', 'password',
     ];
 
     /**
@@ -76,22 +76,6 @@ class User extends Authenticatable
     }
 
     /**
-     * 所在部门
-     */
-    public function depts()
-    {
-        return $this->belongsToMany('App\Models\System\Dept', 'System_Dept_User', 'user_id', 'dept_id');
-    }
-
-    /**
-     * 用户详情
-     */
-    public function userinfo()
-    {
-        return $this->hasOne('App\Models\System\User_Info', 'uid');
-    }
-
-    /**
      * 所属企业
      */
     public function enterprise()
@@ -100,11 +84,4 @@ class User extends Authenticatable
     }
 
 
-    /**
-     * 所属部门
-     */
-    public function dept()
-    {
-        return $this->belongsTo('App\Models\System\Dept', 'did');
-    }
 }

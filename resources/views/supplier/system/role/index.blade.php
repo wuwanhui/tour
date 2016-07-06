@@ -1,4 +1,4 @@
-@extends('layouts.manage')
+@extends('layouts.supplier')
 @section("script")
 
 @endsection
@@ -7,7 +7,7 @@
     <div class="page-list">
         <div class="row page-list-header">
             <div class="col-xs-8 text-left">
-                <a href="{{url('/manage/system/role/create')}}" class="btn btn-primary">新增</a>
+                <a href="{{url('/supplier/system/role/create')}}" class="btn btn-primary">新增</a>
             </div>
             <div class="col-xs-4 text-right">
 
@@ -53,10 +53,10 @@
                                     {{$item->description}}
                                 </td>
                                 <td style="text-align: center"><a
-                                            href="{{url('/manage/system/role/permission/'.$item->id)}}">权限</a> |<a
-                                            href="{{url('/manage/system/role/edit/'.$item->id)}}">编辑</a> |
+                                            href="{{url('/supplier/system/role/permission/'.$item->id)}}">权限</a> |<a
+                                            href="{{url('/supplier/system/role/edit/'.$item->id)}}">编辑</a> |
                                     <a
-                                            href="{{url('/manage/system/role/delete/'.$item->id)}}">删除</a>
+                                            href="{{url('/supplier/system/role/delete/'.$item->id)}}">删除</a>
                                 </td>
                             </tr>
                         @endforeach

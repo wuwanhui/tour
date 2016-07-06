@@ -90,7 +90,6 @@
                 </nav>
             </div>
         </div>
-        @include('common.success')
 
     </div>
 @endsection

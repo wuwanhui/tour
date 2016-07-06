@@ -35,7 +35,13 @@ class ConfigController extends BaseController
             }
             $config->fill($input);
             $config->save();
-            return Redirect::back()->with('message', '保存成功！');
+            if ($config) {
+                return Redirect::back()->withSuccess('保存成功！');
+            } else {
+                return Redirect::back()->withErrors('保存失败！');
+
+            }
+
         }
 
         return view('supplier.system.config.edit', compact("config"), ['model' => 'system', 'menu' => 'config']);

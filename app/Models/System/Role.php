@@ -6,7 +6,7 @@ use Zizaco\Entrust\EntrustRole;
 class Role extends EntrustRole
 {
     protected $table = 'System_Role';//表名
-    protected $fillable = ['name', 'display_name', 'description'];
+    protected $fillable = ['name', 'eid', 'display_name', 'description'];
     protected $guarded = ['updated_at', 'created_at'];
 
     /**
@@ -22,7 +22,7 @@ class Role extends EntrustRole
      */
     public function permissions()
     {
-        return $this->belongsToMany('App\Models\System\Permission','System_Permission_Role', 'permission_id', 'role_id');
+        return $this->belongsToMany('App\Models\System\Permission', 'System_Permission_Role', 'permission_id', 'role_id');
     }
 
     /**

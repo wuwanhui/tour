@@ -14,7 +14,7 @@
 <div class="page">
     <div class="page-header">
         <div class="page-header-top">
-            <div class="page-header-top-logo">千番旅行</div>
+            <div class="page-header-top-logo">{{session('config')->name}}</div>
             <div class="page-header-top-nav"><a href="{{url('/manage')}}">管理后台</a> | <a
                         href="{{url('/supplier')}}">供应商</a> | {{ Auth::user()->name }} <a
                         href="{{url('/logout')}}">退出</a>
@@ -139,9 +139,9 @@
 
                 <a href="/supplier/system/config/">系统参数</a><a
                         href="/supplier/system/enterprise/">企业信息</a> <a
-                        href="/supplier/system/depts/">部门管理</a> <a
+                        href="/supplier/system/dept/">部门管理</a> <a
                         href="/supplier/system/user/">用户管理</a> <a
-                        href="/supplier/system/roles/">角色管理</a> <a
+                        href="/supplier/system/role/">角色管理</a> <a
                         href="/supplier/system/base/">基础数据</a> <a
                         href="/supplier/system/logs/">信息模板</a> <a
                         href="/supplier/system/tags/">标签管理</a> <a
@@ -170,12 +170,13 @@
         </div>
         <div class="page-content-area">
             @yield('content')
-            @include('common.errors')
             @if (session('message'))
                 <div class="alert alert-success">
                     {{ session('message') }}
                 </div>
             @endif
+            @include('common.success')
+            @include('common.errors')
         </div>
         <div class="clear"></div>
     </div>
