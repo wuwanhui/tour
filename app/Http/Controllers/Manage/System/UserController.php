@@ -24,7 +24,6 @@ class UserController extends BaseController
      */
     public function index($eid = null)
     {
-
         $enterprise = null;
         if ($eid == null) {
             $users = User::orderBy('created_at', 'desc')->paginate($this->pageSize);

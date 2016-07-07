@@ -40,6 +40,12 @@
     border: 0px solid #999999;
 }
 
+.modal-content {
+    border-radius: 0px;
+    border: 0px solid rgba(0, 0, 0, 0);
+    border: 0px solid #999999;
+}
+
 .panel {
     border-radius: 0px;
 }
@@ -593,17 +599,17 @@ span.a {
     margin: -15% 0 0 -25%;
 }
 
-
-
 .pagination {
     display: inline-block;
     padding-left: 0;
     /*margin: 18px 0;*/
     border-radius: 4px;
 }
+
 .pagination > li {
     display: inline;
 }
+
 .pagination > li > a,
 .pagination > li > span {
     position: relative;
@@ -616,17 +622,20 @@ span.a {
     border: 1px solid #dddddd;
     margin-left: -1px;
 }
+
 .pagination > li:first-child > a,
 .pagination > li:first-child > span {
     margin-left: 0;
     border-bottom-left-radius: 4px;
     border-top-left-radius: 4px;
 }
+
 .pagination > li:last-child > a,
 .pagination > li:last-child > span {
     border-bottom-right-radius: 4px;
     border-top-right-radius: 4px;
 }
+
 .pagination > li > a:hover,
 .pagination > li > span:hover,
 .pagination > li > a:focus,
@@ -635,6 +644,7 @@ span.a {
     background-color: #eeeeee;
     border-color: #dddddd;
 }
+
 .pagination > .active > a,
 .pagination > .active > span,
 .pagination > .active > a:hover,
@@ -647,6 +657,7 @@ span.a {
     border-color: #428bca;
     cursor: default;
 }
+
 .pagination > .disabled > span,
 .pagination > .disabled > span:hover,
 .pagination > .disabled > span:focus,

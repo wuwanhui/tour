@@ -14,7 +14,7 @@
 <div class="page">
     <div class="page-header">
         <div class="page-header-top">
-            <div class="page-header-top-logo">{{session('config')->name}}</div>
+            <div class="page-header-top-logo">{{Common::Config('name')}}</div>
             <div class="page-header-top-nav"><a href="{{url('/manage')}}">管理后台</a> | <a
                         href="{{url('/supplier')}}">供应商</a> | {{ Auth::user()->name }} <a
                         href="{{url('/logout')}}">退出</a>

@@ -114,7 +114,7 @@ class ARController extends Controller
     public function targetInfo($targetId)
     {
         $responseJson = $this->curlHttpGetRequest($this->host, $this->targetInfo, $targetId);
-
+        dd($responseJson);
         $response = json_decode($responseJson, true);
         if (!isset($response['statusCode'])
         ) {
@@ -143,7 +143,7 @@ class ARController extends Controller
 
     public function similar($image)
     {
-        //---
+
         $dataArr['image'] = base64_encode($image);
         $responseJson = $this->curlHttpPostRequest($this->host, $this->similar, $dataArr);
         $response = json_decode($responseJson, true);
@@ -283,7 +283,7 @@ class ARController extends Controller
 
     private function getDateTime()
     {
-        $timestamp = time() ;//- 8 * 3600;
+        $timestamp = time();//- 8 * 3600;
         return date('Y-m-d\TH:i:s.000\Z', $timestamp);
     }
 
