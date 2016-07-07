@@ -162,6 +162,7 @@ return [
         //Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
 
         App\Providers\CommonServiceProvider::class,
+        App\Providers\BaseServiceProvider::class,
     ],
 
     /*
@@ -211,6 +212,7 @@ return [
 //        'Menu' => Spatie\Menu\Laravel\MenuFacade::class,
         'Wechat' => Overtrue\LaravelWechat\Facade::class,
         'Common' => App\Http\Facades\Common::class,
+        'Base' => App\Http\Facades\Base::class,
     ],
 
 ];

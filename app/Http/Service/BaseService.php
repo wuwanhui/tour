@@ -4,12 +4,17 @@ namespace App\Http\Service;
 
 use Illuminate\Support\Facades\Auth;
 
-class CommonService
+/**
+ * 基础服务
+ * @package App\Http\Service
+ */
+class BaseService
 {
     private $user = null;
     private $userinfo = null;
     private $enterprise = null;
     private $config = null;
+    private $eid = 0;
 
     public function __construct()
     {
@@ -29,16 +34,24 @@ class CommonService
         }
     }
 
+    /**
+     * @return int
+     */
     public function eid()
     {
         if ($this->user) {
-            return $this->user->eid;
+            $this->eid = $this->user->eid;
         }
+        return $this->eid;
     }
 
-    public function user($key)
+
+    public function user($key = null)
     {
         if ($this->user) {
+            if ($key == null) {
+                return $this->user;
+            }
             return $this->user->$key;
         }
     }

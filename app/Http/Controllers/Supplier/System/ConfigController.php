@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Supplier\System;
 
 use App\Http\Controllers\Manage\BaseController;
+use App\Http\Facades\Base;
 use App\Models\System\Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,10 +21,10 @@ class ConfigController extends BaseController
     public function index(Request $request)
     {
 
-        $config = Config::where('eid', Auth::user()->eid)->first();
+        $config = Config::where('eid', Base::eid())->first();
         if ($config == null) {
             $config = new Config();
-            $config->eid = Auth::user()->eid;
+            $config->eid = Base::eid();
         }
         if ($request->isMethod('post')) {
             $input = Input::all();
