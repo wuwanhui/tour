@@ -177,8 +177,8 @@ class AllTable extends Migration
         }
 
         // 基础数据分类 'name', 'code', 'abstract', 'state',
-        if (!Schema::hasTable('System_BaseType')) {
-            Schema::create('System_BaseType', function (Blueprint $table) {
+        if (!Schema::hasTable('System_Base_Type')) {
+            Schema::create('System_Base_Type', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name');
                 $table->integer('eid')->defalut(0);//默认为0表示系统
@@ -189,8 +189,8 @@ class AllTable extends Migration
             });
         }
         // 基础数据
-        if (!Schema::hasTable('System_BaseData')) {
-            Schema::create('System_BaseData', function (Blueprint $table) {
+        if (!Schema::hasTable('System_Base_Data')) {
+            Schema::create('System_Base_Data', function (Blueprint $table) {
                 $table->increments('id');
                 $table->integer('tid');
                 $table->integer('eid');

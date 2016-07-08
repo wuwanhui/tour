@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class BaseData extends Model
 {
-    protected $table = 'System_BaseData';//表名
+    protected $table = 'System_Base_Data';//表名
 
     /**
      *

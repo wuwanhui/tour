@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class BaseType extends Model
 {
-    protected $table = 'System_BaseType';//表名
+    protected $table = 'System_Base_Type';//表名
 
     /**
      * The attributes that are mass assignable.

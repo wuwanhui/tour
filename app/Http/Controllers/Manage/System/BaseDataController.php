@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Manage\System;
 
 use App\Http\Controllers\Manage\BaseController;
+use App\Http\Facades\Base;
 use App\Models\System\BaseData;
 use App\Models\System\BaseType;
-use App\Models\System\Dept;
 use App\Models\System\User;
 use App\Models\Weixin\Config;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -22,8 +21,8 @@ class BaseDataController extends BaseController
      */
     public function index($tid = 0)
     {
-        $baseTypes = BaseType::where('eid', Auth::user()->eid)->orderBy('created_at', 'desc');
-        $baseDatas = BaseData::where('eid', Auth::user()->eid)->orderBy('created_at', 'desc');
+        $baseTypes = BaseType::where('eid', Base::eid())->orderBy('created_at', 'desc');
+        $baseDatas = BaseData::where('eid', Base::eid())->orderBy('created_at', 'desc');
         if ($tid != 0) {
 
             $baseDatas = $baseDatas->where('tid', $tid)->paginate($this->pageSize)->get();
@@ -34,40 +33,72 @@ class BaseDataController extends BaseController
     public function create(Request $request, $pid = 0)
     {
         try {
-            $dept = new Dept();
+            $dept = new BaseData();
             if ($pid != 0) {
-                $parents = Dept::find($pid);
+                $parents = BaseData::find($pid);
             }
-            $users = User::where('eid', Auth::user()->eid);
+            $users = User::where('eid', Base::eid());
             if ($request->isMethod('post')) {
                 $input = Input::all();
 
                 $validator = Validator::make($input, $dept->editRules(), $dept->messages());
                 if ($validator->fails()) {
-                    return redirect('/manage/system/dept')
+                    return redirect('/manage/system/base')
                         ->withInput()
                         ->withErrors($validator);
                 }
                 $dept->fill($input);
                 $dept->pid = $pid;
-                $dept->eid = Auth::user()->eid;
+                $dept->eid = Base::eid();
                 $dept->save();
                 if ($dept) {
-                    return redirect('/manage/system/dept/list/' . $pid)->withSuccess('保存成功！');
+                    return redirect('/manage/system/base/list/' . $pid)->withSuccess('保存成功！');
                 } else {
                     return Redirect::back()->withErrors('保存失败！');
                 }
 
             }
-            return view('manage.system.dept.create', compact('dept', 'parents', 'users'), ['model' => 'system', 'menu' => 'dept']);
+            return view('manage.system.base.create', compact('dept', 'parents', 'users'), ['model' => 'system', 'menu' => 'dept']);
         } catch (Exception $ex) {
             return Redirect::back()->withInput()->withErrors('保存异常！' . $ex->getMessage());
         }
     }
 
+
+    public function createType(Request $request)
+    {
+        try {
+            $baseType = new BaseType();
+
+            if ($request->isMethod('post')) {
+                $input = Input::all();
+
+                $validator = Validator::make($input, $baseType->editRules(), $baseType->messages());
+                if ($validator->fails()) {
+                    return redirect('/manage/system/base/type')
+                        ->withInput()
+                        ->withErrors($validator);
+                }
+                $baseType->fill($input);
+
+                $baseType->save();
+                if ($baseType) {
+                    return redirect('/manage/system/base/list/' . $baseType->id)->withSuccess('保存成功！');
+                } else {
+                    return Redirect::back()->withErrors('保存失败！');
+                }
+
+            }
+            return view('manage.system.base.type.create', compact('baseType'), ['model' => 'system', 'menu' => 'dept']);
+        } catch (Exception $ex) {
+            return Redirect::back()->withInput()->withErrors('保存异常！' . $ex->getMessage());
+        }
+    }
+
+
     public function postCreate(Request $request)
     {
-        $dept = new Dept();
+        $dept = new BaseData();
         $input = Input::all();
         $validator = Validator::make($input, $dept->createRules(), $dept->messages());
         if ($validator->fails()) {
@@ -91,15 +122,15 @@ class BaseDataController extends BaseController
 
     public function getEdit($id)
     {
-        $parents = Dept::where("id", "!=", $id)->get();
-        $dept = Dept::find($id);
+        $parents = BaseData::where("id", "!=", $id)->get();
+        $dept = BaseData::find($id);
         return view('manage.system.dept.edit', compact("parents", "dept"), ['model' => 'system', 'menu' => 'dept']);
     }
 
     public function postEdit(Request $request)
     {
         $id = $request->input('id');
-        $dept = Dept::find($id);
+        $dept = BaseData::find($id);
         $validator = Validator::make(Input::all(), $dept->editRules(), $dept->messages());
         if ($validator->fails()) {
             return redirect('/manage/system/dept/create')
@@ -128,7 +159,7 @@ class BaseDataController extends BaseController
 
     public function getPermission($id)
     {
-        $dept = Dept::find($id);
+        $dept = BaseData::find($id);
         $permissions = Permission::all();
         return view('manage.system.dept.permission', ['model' => 'system', 'menu' => 'dept', 'dept' => $dept, 'permissions' => $permissions]);
     }
@@ -137,7 +168,7 @@ class BaseDataController extends BaseController
     {
 
         $id = $request->input('id');
-        $dept = Dept::find($id);
+        $dept = BaseData::find($id);
 
         $permissionsids = $request->input('permission_id');
 //
@@ -161,14 +192,14 @@ class BaseDataController extends BaseController
 
     public function getShow($id)
     {
-        $dept = Dept::find($id);
+        $dept = BaseData::find($id);
         return view('manage . system . dept . edit', ['model' => 'system', 'menu' => 'dept', 'item' => $dept]);
     }
 
 
     public function getDelete($id)
     {
-        $dept = Dept::find($id);
+        $dept = BaseData::find($id);
         if (count($dept->users) > 0) {
             return back()->withInput()->withErrors('删除失败！请先删除企业下用户。');
         }

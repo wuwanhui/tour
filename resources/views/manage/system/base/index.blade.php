@@ -34,7 +34,7 @@
                             @endforeach
                         </ul>
                     @endif
-                    <a href="{{url('/manage/system/base/create/')}}"
+                    <a href="{{url('/manage/system/base/type/create/')}}"
                        class="btn btn-primary">新增分类</a>
                 </fieldset>
             </div>

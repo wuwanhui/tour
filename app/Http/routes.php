@@ -36,7 +36,7 @@ Route::group(['prefix' => 'manage', 'namespace' => 'Manage', 'middleware' => ['m
     Route::group(['prefix' => 'ar'], function () {
 
         Route::get('/add', 'ARController@targetAdd', ['model' => 'system', 'menu' => 'enterprise']);
-        Route::get('/delete/{targetId?}', 'ARController@targetDelete', ['model' => 'system', 'menu' => 'enterprise']);
+        Route::get('/delete/{targetId?}', 'ARController@tardelete', ['model' => 'system', 'menu' => 'enterprise']);
         Route::get('/info/{targetId?}', 'ARController@targetInfo', ['model' => 'system', 'menu' => 'enterprise']);
         Route::get('/list', 'ARController@targetsList', ['model' => 'system', 'menu' => 'enterprise']);
     });
@@ -60,7 +60,7 @@ Route::group(['prefix' => 'manage', 'namespace' => 'Manage', 'middleware' => ['m
             Route::post('/create', 'EnterpriseController@postCreate', ['model' => 'system', 'menu' => 'enterprise']);
             Route::get('/edit/{id}', 'EnterpriseController@getEdit', ['model' => 'system', 'menu' => 'enterprise']);
             Route::post('/edit', 'EnterpriseController@postEdit', ['model' => 'system', 'menu' => 'enterprise']);
-            Route::get('/delete/{id}', 'EnterpriseController@getDelete', ['model' => 'system', 'menu' => 'enterprise']);
+            Route::get('/delete/{id}', 'EnterpriseController@delete', ['model' => 'system', 'menu' => 'enterprise']);
         });
 
         /**
@@ -75,7 +75,7 @@ Route::group(['prefix' => 'manage', 'namespace' => 'Manage', 'middleware' => ['m
             Route::post('/create', 'UserController@postCreate', ['model' => 'system', 'menu' => 'user']);
             Route::get('/edit/{id}', 'UserController@getEdit', ['model' => 'system', 'menu' => 'user']);
             Route::post('/edit/{id}', 'UserController@postEdit', ['model' => 'system', 'menu' => 'user']);
-            Route::get('/delete/{id}', 'UserController@getDelete', ['model' => 'system', 'menu' => 'user']);
+            Route::get('/delete/{id}', 'UserController@delete', ['model' => 'system', 'menu' => 'user']);
         });
         /**
          * 权限管理
@@ -89,7 +89,7 @@ Route::group(['prefix' => 'manage', 'namespace' => 'Manage', 'middleware' => ['m
             Route::post('/create', 'PermissionController@postCreate', ['model' => 'system', 'menu' => 'permission']);
             Route::get('/edit/{id}', 'PermissionController@getEdit', ['model' => 'system', 'menu' => 'permission']);
             Route::post('/edit', 'PermissionController@postEdit', ['model' => 'system', 'menu' => 'permission']);
-            Route::get('/delete/{id}', 'PermissionController@getDelete', ['model' => 'system', 'menu' => 'permission']);
+            Route::get('/delete/{id}', 'PermissionController@delete', ['model' => 'system', 'menu' => 'permission']);
         });
         /**
          * 角色管理
@@ -105,10 +105,10 @@ Route::group(['prefix' => 'manage', 'namespace' => 'Manage', 'middleware' => ['m
             Route::post('/edit', 'RoleController@postEdit', ['model' => 'system', 'menu' => 'role']);
             Route::get('/permission/{id}', 'RoleController@getPermission', ['model' => 'system', 'menu' => 'role']);
             Route::post('/permission', 'RoleController@postPermission', ['model' => 'system', 'menu' => 'role']);
-            Route::get('/delete/{id}', 'RoleController@getDelete', ['model' => 'system', 'menu' => 'role']);
+            Route::get('/delete/{id}', 'RoleController@delete', ['model' => 'system', 'menu' => 'role']);
         });
         /**
-         * 角色管理
+         * 基础数据
          */
         Route::group(['prefix' => 'base'], function () {
             Route::get('/', function () {
@@ -116,12 +116,24 @@ Route::group(['prefix' => 'manage', 'namespace' => 'Manage', 'middleware' => ['m
             });
             Route::get('/list', 'BaseDataController@index', ['model' => 'system', 'menu' => 'role']);
             Route::any('/create', 'BaseDataController@create', ['model' => 'system', 'menu' => 'role']);
+
+
             Route::post('/create', 'BaseDataController@postCreate', ['model' => 'system', 'menu' => 'role']);
             Route::get('/edit/{id}', 'BaseDataController@getEdit', ['model' => 'system', 'menu' => 'role']);
             Route::post('/edit', 'BaseDataController@postEdit', ['model' => 'system', 'menu' => 'role']);
             Route::get('/permission/{id}', 'BaseDataController@getPermission', ['model' => 'system', 'menu' => 'role']);
             Route::post('/permission', 'BaseDataController@postPermission', ['model' => 'system', 'menu' => 'role']);
-            Route::get('/delete/{id}', 'BaseDataController@getDelete', ['model' => 'system', 'menu' => 'role']);
+            Route::get('/delete/{id}', 'BaseDataController@delete', ['model' => 'system', 'menu' => 'role']);
+
+            /**
+             * 基础数据
+             */
+            Route::group(['prefix' => 'type'], function () {
+                Route::get('/list', 'BaseDataController@index', ['model' => 'system', 'menu' => 'role']);
+                Route::any('/create', 'BaseDataController@createType', ['model' => 'system', 'menu' => 'role']);
+                Route::any('/edit/{id}', 'BaseDataController@editType', ['model' => 'system', 'menu' => 'role']);
+                Route::get('/delete/{id}', 'BaseDataController@delete', ['model' => 'system', 'menu' => 'role']);
+            });
         });
 
     });
@@ -204,7 +216,7 @@ Route::group(['prefix' => 'supplier', 'namespace' => 'Supplier', 'middleware' =>
             Route::post('/create', 'WeixinController@postCreate', ['model' => 'Weixin', 'menu' => 'permission']);
             Route::get('/edit/{id}', 'WeixinController@getEdit', ['model' => 'Weixin', 'menu' => 'permission']);
             Route::post('/edit', 'WeixinController@postEdit', ['model' => 'Weixin', 'menu' => 'permission']);
-            Route::get('/delete/{id}', 'WeixinController@getDelete', ['model' => 'Weixin', 'menu' => 'permission']);
+            Route::get('/delete/{id}', 'WeixinController@delete', ['model' => 'Weixin', 'menu' => 'permission']);
         });
 
     });
@@ -291,7 +303,7 @@ Route::group(['prefix' => 'supplier', 'namespace' => 'Supplier', 'middleware' =>
             // Route::post('/create', 'DeptController@postCreate', ['model' => 'system', 'menu' => 'user']);
             Route::get('/edit/{id}', 'DeptController@getEdit', ['model' => 'system', 'menu' => 'user']);
             Route::post('/edit/{id}', 'DeptController@postEdit', ['model' => 'system', 'menu' => 'user']);
-            Route::get('/delete/{id}', 'DeptController@getDelete', ['model' => 'system', 'menu' => 'user']);
+            Route::get('/delete/{id}', 'DeptController@delete', ['model' => 'system', 'menu' => 'user']);
         });
 
         /**
@@ -306,7 +318,7 @@ Route::group(['prefix' => 'supplier', 'namespace' => 'Supplier', 'middleware' =>
             Route::post('/create', 'UserController@postCreate', ['model' => 'system', 'menu' => 'user']);
             Route::get('/edit/{id}', 'UserController@getEdit', ['model' => 'system', 'menu' => 'user']);
             Route::post('/edit/{id}', 'UserController@postEdit', ['model' => 'system', 'menu' => 'user']);
-            Route::get('/delete/{id}', 'UserController@getDelete', ['model' => 'system', 'menu' => 'user']);
+            Route::get('/delete/{id}', 'UserController@delete', ['model' => 'system', 'menu' => 'user']);
         });
         /**
          * 权限管理
@@ -320,7 +332,7 @@ Route::group(['prefix' => 'supplier', 'namespace' => 'Supplier', 'middleware' =>
             Route::post('/create', 'PermissionController@postCreate', ['model' => 'system', 'menu' => 'permission']);
             Route::get('/edit/{id}', 'PermissionController@getEdit', ['model' => 'system', 'menu' => 'permission']);
             Route::post('/edit', 'PermissionController@postEdit', ['model' => 'system', 'menu' => 'permission']);
-            Route::get('/delete/{id}', 'PermissionController@getDelete', ['model' => 'system', 'menu' => 'permission']);
+            Route::get('/delete/{id}', 'PermissionController@delete', ['model' => 'system', 'menu' => 'permission']);
         });
         /**
          * 角色管理
@@ -336,7 +348,7 @@ Route::group(['prefix' => 'supplier', 'namespace' => 'Supplier', 'middleware' =>
             Route::post('/edit', 'RoleController@postEdit', ['model' => 'system', 'menu' => 'role']);
             Route::get('/permission/{id}', 'RoleController@getPermission', ['model' => 'system', 'menu' => 'role']);
             Route::post('/permission', 'RoleController@postPermission', ['model' => 'system', 'menu' => 'role']);
-            Route::get('/delete/{id}', 'RoleController@getDelete', ['model' => 'system', 'menu' => 'role']);
+            Route::get('/delete/{id}', 'RoleController@delete', ['model' => 'system', 'menu' => 'role']);
         });
 
     });
