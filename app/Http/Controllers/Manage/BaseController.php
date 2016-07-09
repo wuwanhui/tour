@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 
 class BaseController extends Controller
 {
-    public $pageSize = 2;
+    public $pageSize = 15;
 
 }
  

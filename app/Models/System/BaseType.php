@@ -1,18 +1,21 @@
 <?php
+
 namespace App\Models\System;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * 系统参数
- * @package App\Models
- */
-class Config extends Model
+class BaseType extends Model
 {
-    protected $table = 'System_Config';//表名
-    protected $primaryKey = "id";//主键
-    protected $fillable = ['eid', 'name', 'logo', 'domain', 'assets_domain', 'qiniu_access', 'qiniu_secret', 'qiniu_bucket_name',];
+    protected $table = 'System_Base_Type';//表名
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'eid', 'name', 'code', 'abstract', 'state',
+    ];
 
     /**
      * 获取应用到请求的验证规则
@@ -23,6 +26,7 @@ class Config extends Model
     {
         return [
             'name' => 'required|max:255|min:2',
+            'code' => 'required|unique:System_BaseType',
         ];
     }
 
@@ -47,8 +51,18 @@ class Config extends Model
     public function messages()
     {
         return [
-            'name.required' => '系统名称为必填项',
+            'name.required' => '名称为必填项',
+            'code.required' => '编码为必填项',
+            'code.unique' => '编码不能重复',
         ];
     }
 
+
+    /**
+     * 基础数据
+     */
+    public function datas()
+    {
+        return $this->hasMany('App\Models\System\BaseData', "tid");
+    }
 }

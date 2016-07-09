@@ -24,6 +24,7 @@ class EnterpriseController extends BaseController
 
             if ($request->isMethod('post')) {
                 $input = Input::all();
+
                 $validator = Validator::make($input, $enterprise->editRules(), $enterprise->messages());
                 if ($validator->fails()) {
                     return redirect('/supplier/system/enterprise')

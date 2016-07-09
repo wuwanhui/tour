@@ -160,6 +160,9 @@ return [
 //        Spatie\Menu\Laravel\MenuServiceProvider::class,
         Overtrue\LaravelWechat\ServiceProvider::class,
         //Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
+
+        App\Providers\CommonServiceProvider::class,
+        App\Providers\BaseServiceProvider::class,
     ],
 
     /*
@@ -208,6 +211,8 @@ return [
         'Entrust' => Zizaco\Entrust\EntrustFacade::class,
 //        'Menu' => Spatie\Menu\Laravel\MenuFacade::class,
         'Wechat' => Overtrue\LaravelWechat\Facade::class,
+        'Common' => App\Http\Facades\Common::class,
+        'Base' => App\Http\Facades\Base::class,
     ],
 
 ];

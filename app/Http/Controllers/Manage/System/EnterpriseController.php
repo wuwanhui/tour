@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Manage\System;
 
 use App\Http\Controllers\Manage\BaseController;
 use App\Models\System\Enterprise;
+use App\Models\Weixin\Config;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -14,11 +16,11 @@ class EnterpriseController extends BaseController
     /**
      * 主页
      */
-    public function index($eid = null)
+    public function index($pid = null)
     {
         $enterprises = Enterprise::orderBy('created_at', 'desc')->paginate($this->pageSize);
-        if ($eid != null) {
-            $enterprises = Enterprise::where('pid', $eid)->orderBy('created_at', 'desc')->paginate($this->pageSize);
+        if ($pid != null) {
+            $enterprises = Enterprise::where('pid', $pid)->orderBy('created_at', 'desc')->paginate($this->pageSize);
         }
         return view('manage.system.enterprise.index', compact("enterprises"), ['model' => 'system', 'menu' => 'enterprise']);
     }
@@ -33,16 +35,22 @@ class EnterpriseController extends BaseController
     public function postCreate(Request $request)
     {
         $enterprise = new Enterprise();
-        $input = $request->except('_token');
+        $input = Input::all();
         $validator = Validator::make($input, $enterprise->createRules(), $enterprise->messages());
         if ($validator->fails()) {
             return redirect('/manage/system/enterprise/create')
                 ->withInput()
                 ->withErrors($validator);
         }
-        $enterprise->fill(Input::all());
-        if ($enterprise->save()) {
-            return Redirect('/manage/system/enterprise/' . $enterprise->id);
+        $enterprise->fill($input);
+        $config = new Config();
+        $config->name = $enterprise->short_name;
+        DB::beginTransaction();
+        $enterprise->save();
+        $enterprise->config()->save($config);
+        DB::commit();
+        if ($enterprise) {
+            return Redirect('/manage/system/enterprise/')->withSuccess('新增成功!');
         } else {
             return Redirect::back()->withInput()->withErrors('保存失败！');
         }
@@ -66,8 +74,18 @@ class EnterpriseController extends BaseController
                 ->withErrors($validator);
         }
         $enterprise->fill(Input::all());
-        if ($enterprise->save()) {
-            return Redirect('/manage/system/enterprise/' . $enterprise->id);
+        DB::beginTransaction();
+        $enterprise->save();
+        if ($enterprise->config == null) {
+            $config = new Config();
+            $config->name = $enterprise->short_name;
+            $enterprise->config()->save($config);
+        }
+        DB::commit();
+
+
+        if ($enterprise) {
+            return Redirect('/manage/system/enterprise/list/' . $enterprise->id);
         } else {
             return Redirect::back()->withInput()->withErrors('保存失败！');
         }
@@ -118,8 +136,15 @@ class EnterpriseController extends BaseController
     public function getDelete($id)
     {
         $enterprise = Enterprise::find($id);
+        if (count($enterprise->users) > 0) {
+            return back()->withInput()->withErrors('删除失败！请先删除企业下用户。');
+        }
+        DB::beginTransaction();
+        $enterprise->config()->delete();
         $enterprise->delete();
-        return back()->withInput()->withErrors('删除成功！');
+        DB::commit();
+
+        return back()->withInput()->withSuccess('删除成功！');
 
     }
 }

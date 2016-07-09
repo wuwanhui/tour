@@ -14,10 +14,10 @@
 <div class="page">
     <div class="page-header">
         <div class="page-header-top">
-            <div class="page-header-top-logo">千番旅行</div>
+            <div class="page-header-top-logo">{{Base::Config('name')}}</div>
             <div class="page-header-top-nav"><a href="{{url('/manage')}}">管理后台</a> | <a
                         href="{{url('/supplier')}}">供应商</a> |
-                <a href="{{url('/manage/userinfo')}}">  {{ Auth::user()->name }} </a> | <a
+                <a href="{{url('/manage/userinfo')}}">  {{Base::user('name') }} </a> | <a
                         href="{{url('/logout')}}">退出</a>
             </div>
         </div>
@@ -26,7 +26,7 @@
                 <div class="page-header-nav-user-img">
                     <i class="icon-fire" style="color: red;"></i>
                 </div>
-                吴红（管理员）
+                {{Base::user('name')}}（管理员）
             </div>
             <div class="page-header-nav-menu">
                 <a href="/manage/enterprise/" <?php echo(isset($model) && $model === 'business' ? ' class="active"' : '');?>>企业中心</a>
@@ -49,6 +49,8 @@
                     <a href="/manage/system/user/">用户管理</a>
                     <a href="/manage/system/role/">角色管理</a> <a
                             href="/manage/system/permission/">权限管理</a>
+                    <a
+                            href="/manage/system/base/">基础数据</a>
 
                 </div>
 
@@ -62,6 +64,8 @@
                     {{ session('message') }}
                 </div>
             @endif
+            @include('common.success')
+            @include('common.errors')
         </div>
         <div class="clear"></div>
     </div>

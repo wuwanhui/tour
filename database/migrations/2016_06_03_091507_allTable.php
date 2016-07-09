@@ -16,16 +16,16 @@ class AllTable extends Migration
             Schema::create('System_Enterprise', function (Blueprint $table) {
                 $table->increments('id');
                 $table->integer('pid');//所属上级
-                $table->string('name')->unique();;//企业全称
+                $table->string('name');//企业全称
                 $table->string('short_name');//企业简称
-                $table->string('logo');//标志
-                $table->string('legal_person');//法人代表
-                $table->string('found_time');//成立时间
-                $table->string('phone');//联系电话
-                $table->string('fax');//传真号码
-                $table->string('address');//地址
-                $table->string('slogan');//口号
-                $table->string('abstract');//企业简介
+                $table->string('logo')->nullable();//标志
+                $table->string('legal_person')->nullable();//法人代表
+                $table->date('found_time')->nullable();//成立时间
+                $table->string('phone')->nullable();//联系电话
+                $table->string('fax')->nullable();//传真号码
+                $table->string('address')->nullable();//地址
+                $table->string('slogan')->nullable();//口号
+                $table->string('abstract')->nullable();//企业简介
                 $table->timestamps();
                 $table->softDeletes();
             });
@@ -36,13 +36,28 @@ class AllTable extends Migration
             Schema::create('System_Config', function (Blueprint $table) {
                 $table->increments('id');
                 $table->integer('eid');
-                $table->string('name')->unique();
-                $table->string('logo');
-                $table->string('domain');
-                $table->string('assets_domain');
-                $table->string('qiniu_access');
-                $table->string('qiniu_secret');
-                $table->string('qiniu_bucket_name');
+                $table->string('name');
+                $table->string('logo')->nullable();
+                $table->string('domain')->nullable();
+                $table->string('assets_domain')->nullable();
+                $table->string('qiniu_access')->nullable();
+                $table->string('qiniu_secret')->nullable();
+                $table->string('qiniu_bucket_name')->nullable();
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
+        //部门表
+        if (!Schema::hasTable('System_Dept')) {
+            Schema::create('System_Dept', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('eid');//所属企业
+                $table->integer('pid')->nullable();//所属上级
+                $table->string('name');//部门全称
+                $table->integer('legal_person')->nullable();//责任人
+                $table->string('phone')->nullable();//联系电话
+                $table->string('fax')->nullable();//传真号码
+                $table->string('abstract')->nullable();//企业简介
                 $table->timestamps();
                 $table->softDeletes();
             });
@@ -53,10 +68,49 @@ class AllTable extends Migration
             Schema::create('System_User', function (Blueprint $table) {
                 $table->increments('id');
                 $table->integer('eid');
-                $table->string('name')->unique();
-                $table->string('email')->nullable();
+                $table->string('name');
+                $table->string('email');
                 $table->string('password')->nullable();
                 $table->string('remember_token')->nullable();
+                $table->integer('state')->defalut(0);//状态(0正常、1禁用)
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
+
+        // 用户部门对照表 (Many-to-Many)
+        if (!Schema::hasTable('System_Dept_User')) {
+
+            Schema::create('System_Dept_User', function (Blueprint $table) {
+                $table->integer('user_id')->unsigned();
+                $table->integer('dept_id')->unsigned();
+
+                $table->foreign('user_id')->references('id')->on('System_User')
+                    ->onUpdate('cascade')->onDelete('cascade');
+
+                $table->foreign('dept_id')->references('id')->on('System_Dept')
+                    ->onUpdate('cascade')->onDelete('cascade');
+
+                $table->primary(['user_id', 'dept_id']);
+            });
+        }
+        // 用户详情表
+        if (!Schema::hasTable('System_User_Info')) {
+            Schema::create('System_User_Info', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('uid');
+                $table->string('name');//真实姓名
+                $table->integer('sex')->defalut(0);//性别(0未知、1男、2女)
+                $table->string('id_card')->nullable();//身份证号
+                $table->date('birthday')->nullable();//生日
+                $table->string('addres')->nullable();//地址
+                $table->string('mobile')->nullable();//手机号
+                $table->string('tel')->nullable();//办公电话
+                $table->string('fax')->nullable();//传真
+                $table->string('qq')->nullable();//qq
+                $table->string('weibo')->nullable();//微博
+                $table->string('weixin')->nullable();//微信号
+
                 $table->timestamps();
                 $table->softDeletes();
             });
@@ -74,6 +128,7 @@ class AllTable extends Migration
         if (!Schema::hasTable('System_Role')) {
             Schema::create('System_Role', function (Blueprint $table) {
                 $table->increments('id');
+                $table->integer('eid');
                 $table->string('name')->unique();
                 $table->string('display_name')->nullable();
                 $table->string('description')->nullable();
@@ -82,7 +137,6 @@ class AllTable extends Migration
         }
         // 用户角色对照表 (Many-to-Many)
         if (!Schema::hasTable('System_Role_User')) {
-
             Schema::create('System_Role_User', function (Blueprint $table) {
                 $table->integer('user_id')->unsigned();
                 $table->integer('role_id')->unsigned();
@@ -121,6 +175,32 @@ class AllTable extends Migration
                 $table->primary(['permission_id', 'role_id']);
             });
         }
+
+        // 基础数据分类 'name', 'code', 'abstract', 'state',
+        if (!Schema::hasTable('System_Base_Type')) {
+            Schema::create('System_Base_Type', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('name');
+                $table->integer('eid')->defalut(0);//默认为0表示系统
+                $table->string('code')->unique();
+                $table->string('abstract')->nullable();
+                $table->integer('state')->defalut(0);//0系统、1自定义
+                $table->timestamps();
+            });
+        }
+        // 基础数据
+        if (!Schema::hasTable('System_Base_Data')) {
+            Schema::create('System_Base_Data', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('tid');
+                $table->integer('eid');
+                $table->text('name');
+                $table->text('value');
+                $table->integer('sort')->defalut(0);
+                $table->timestamps();
+            });
+        }
+
 
         if (!Schema::hasTable('System_Menu')) {
             //系统菜单

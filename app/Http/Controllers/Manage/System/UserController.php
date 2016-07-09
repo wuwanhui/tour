@@ -10,6 +10,7 @@ use App\Models\System\Role;
 use App\Models\System\User;
 use Cache;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -28,7 +29,7 @@ class UserController extends BaseController
             $users = User::orderBy('created_at', 'desc')->paginate($this->pageSize);
         } else {
             $enterprise = Enterprise::find($eid);
-            $users = User::where('enterprise_id', $enterprise->id)->orderBy('created_at', 'desc')->paginate($this->pageSize);
+            $users = User::where('eid', $enterprise->id)->orderBy('created_at', 'desc')->paginate($this->pageSize);
         }
 
         return view('manage.system.user.index', ['model' => 'system', 'menu' => 'user', 'enterprise' => $enterprise, 'users' => $users]);
