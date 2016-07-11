@@ -4,7 +4,7 @@
 @endsection
 
 @section('content')
-    <div class="page-list col-md-6 col-md-offset-3" style="margin-top: 50px;">
+    <div class="page-list col-md-8 col-md-offset-2" style="margin-top: 50px;">
         <form method="post" action="{{url('/install')}}">
             {{ csrf_field() }}
             <div class="panel panel-default">

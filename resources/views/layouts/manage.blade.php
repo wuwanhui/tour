@@ -46,27 +46,23 @@
                 <?php if( $model === 'system'){ ?>
                 <div class="page-content-side-nav">系统管理</div>
                 <div class="page-content-side-menu">
-                    <a href="/manage/system/enterprise/">企业管理</a>
-                    <a href="/manage/system/user/">用户管理</a>
-                    <a href="/manage/system/role/">角色管理</a> <a
-                            href="/manage/system/permission/">权限管理</a>
+                    <a href="/manage/system/enterprise/" target="main">企业管理</a>
+                    <a href="/manage/system/user/" target="main">用户管理</a>
+                    <a href="/manage/system/role/" target="main">角色管理</a> <a
+                            href="/manage/system/permission/" target="main">权限管理</a>
                     <a
-                            href="/manage/system/base/">基础数据</a>
+                            href="/manage/system/base/" target="main">基础数据</a>
 
                 </div>
 
                 <?php }?>
             </div>
         @endif
-        <div class="page-content-area">
             @yield('content')
-            @if (session('message'))
-                <div class="alert alert-success">
-                    {{ session('message') }}
-                </div>
-            @endif
-            @include('common.success')
-            @include('common.errors')
+        <div class="page-content-area">
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" name="main"></iframe>
+            </div>
         </div>
         <div class="clear"></div>
     </div>
