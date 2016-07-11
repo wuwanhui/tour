@@ -114,15 +114,12 @@ Route::group(['prefix' => 'manage', 'namespace' => 'Manage', 'middleware' => ['m
             Route::get('/', function () {
                 return Redirect::to('/manage/system/base/list');
             });
-            Route::get('/list', 'BaseDataController@index', ['model' => 'system', 'menu' => 'role']);
-            Route::any('/create', 'BaseDataController@create', ['model' => 'system', 'menu' => 'role']);
+            Route::get('/list/{tid?}', 'BaseDataController@index', ['model' => 'system', 'menu' => 'role']);
+            Route::any('/create/{tid}', 'BaseDataController@create', ['model' => 'system', 'menu' => 'role']);
 
 
-            Route::post('/create', 'BaseDataController@postCreate', ['model' => 'system', 'menu' => 'role']);
             Route::get('/edit/{id}', 'BaseDataController@getEdit', ['model' => 'system', 'menu' => 'role']);
             Route::post('/edit', 'BaseDataController@postEdit', ['model' => 'system', 'menu' => 'role']);
-            Route::get('/permission/{id}', 'BaseDataController@getPermission', ['model' => 'system', 'menu' => 'role']);
-            Route::post('/permission', 'BaseDataController@postPermission', ['model' => 'system', 'menu' => 'role']);
             Route::get('/delete/{id}', 'BaseDataController@delete', ['model' => 'system', 'menu' => 'role']);
 
             /**
@@ -349,6 +346,32 @@ Route::group(['prefix' => 'supplier', 'namespace' => 'Supplier', 'middleware' =>
             Route::get('/permission/{id}', 'RoleController@getPermission', ['model' => 'system', 'menu' => 'role']);
             Route::post('/permission', 'RoleController@postPermission', ['model' => 'system', 'menu' => 'role']);
             Route::get('/delete/{id}', 'RoleController@delete', ['model' => 'system', 'menu' => 'role']);
+        });
+
+        /**
+         * 基础数据
+         */
+        Route::group(['prefix' => 'base'], function () {
+            Route::get('/', function () {
+                return Redirect::to('/supplier/system/base/list');
+            });
+            Route::get('/list/{tid?}', 'BaseDataController@index', ['model' => 'system', 'menu' => 'role']);
+            Route::any('/create/{tid}', 'BaseDataController@create', ['model' => 'system', 'menu' => 'role']);
+
+
+            Route::get('/edit/{id}', 'BaseDataController@getEdit', ['model' => 'system', 'menu' => 'role']);
+            Route::post('/edit', 'BaseDataController@postEdit', ['model' => 'system', 'menu' => 'role']);
+            Route::get('/delete/{id}', 'BaseDataController@delete', ['model' => 'system', 'menu' => 'role']);
+
+            /**
+             * 基础数据
+             */
+            Route::group(['prefix' => 'type'], function () {
+                Route::get('/list', 'BaseDataController@index', ['model' => 'system', 'menu' => 'role']);
+                Route::any('/create', 'BaseDataController@createType', ['model' => 'system', 'menu' => 'role']);
+                Route::any('/edit/{id}', 'BaseDataController@editType', ['model' => 'system', 'menu' => 'role']);
+                Route::get('/delete/{id}', 'BaseDataController@delete', ['model' => 'system', 'menu' => 'role']);
+            });
         });
 
     });

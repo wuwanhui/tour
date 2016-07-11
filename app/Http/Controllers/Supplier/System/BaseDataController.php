@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Manage\System;
+namespace App\Http\Controllers\Supplier\System;
 
-use App\Http\Controllers\Manage\BaseController;
-use App\Http\Facades\Base;
+use App\Http\Controllers\Supplier\BaseController;
 use App\Models\System\BaseData;
 use App\Models\System\BaseType;
-use App\Models\System\User;
-use App\Models\Weixin\Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -24,12 +21,12 @@ class BaseDataController extends BaseController
         $baseTypes = BaseType::all();
         if ($tid == 0) {
             $baseType = BaseType::first();
-            $baseDatas = BaseData::orderBy('created_at', 'desc')->paginate($this->pageSize);
+            $baseDatas = BaseData::where('','')->orderBy('created_at', 'desc')->paginate($this->pageSize);
         } else {
             $baseType = BaseType::find($tid);
             $baseDatas = BaseData::where('tid', $tid)->paginate($this->pageSize);
         }
-        return view('manage.system.base.index', compact('baseType', 'baseTypes', 'baseDatas'), ['model' => 'system', 'menu' => 'dept']);
+        return view('supplier.system.base.index', compact('baseType', 'baseTypes', 'baseDatas'), ['model' => 'system', 'menu' => 'dept']);
     }
 
     public function create(Request $request, $tid = 0)
@@ -47,20 +44,21 @@ class BaseDataController extends BaseController
 
                 $validator = Validator::make($input, $baseData->editRules(), $baseData->messages());
                 if ($validator->fails()) {
-                    return redirect('/manage/system/base/list/'.$tid)
+                    return redirect('/supplier/system/base/list/'.$tid)
                         ->withInput()
                         ->withErrors($validator);
                 }
                 $baseData->fill($input);
+                $baseData->eid=Base::eid();
                 $baseData->save();
                 if ($baseData) {
-                    return redirect('/manage/system/base/list/' . $tid)->withSuccess('保存成功！');
+                    return redirect('/supplier/system/base/list/' . $tid)->withSuccess('保存成功！');
                 } else {
                     return Redirect::back()->withErrors('保存失败！');
                 }
 
             }
-            return view('manage.system.base.create', compact('baseType', 'baseData'), ['model' => 'system', 'menu' => 'dept']);
+            return view('supplier.system.base.create', compact('baseType', 'baseData'), ['model' => 'system', 'menu' => 'dept']);
         } catch (Exception $ex) {
             return Redirect::back()->withInput()->withErrors('保存异常！' . $ex->getMessage());
         }
@@ -77,7 +75,7 @@ class BaseDataController extends BaseController
 
                 $validator = Validator::make($input, $baseType->editRules(), $baseType->messages());
                 if ($validator->fails()) {
-                    return redirect('/manage/system/base/type')
+                    return redirect('/supplier/system/base/type')
                         ->withInput()
                         ->withErrors($validator);
                 }
@@ -85,13 +83,13 @@ class BaseDataController extends BaseController
 
                 $baseType->save();
                 if ($baseType) {
-                    return redirect('/manage/system/base/list/' . $baseType->id)->withSuccess('保存成功！');
+                    return redirect('/supplier/system/base/list/' . $baseType->id)->withSuccess('保存成功！');
                 } else {
                     return Redirect::back()->withErrors('保存失败！');
                 }
 
             }
-            return view('manage.system.base.type.create', compact('baseType'), ['model' => 'system', 'menu' => 'dept']);
+            return view('supplier.system.base.type.create', compact('baseType'), ['model' => 'system', 'menu' => 'dept']);
         } catch (Exception $ex) {
             return Redirect::back()->withInput()->withErrors('保存异常！' . $ex->getMessage());
         }
@@ -101,7 +99,7 @@ class BaseDataController extends BaseController
     {
         $parents = BaseData::where("id", "!=", $id)->get();
         $dept = BaseData::find($id);
-        return view('manage.system.dept.edit', compact("parents", "dept"), ['model' => 'system', 'menu' => 'dept']);
+        return view('supplier.system.dept.edit', compact("parents", "dept"), ['model' => 'system', 'menu' => 'dept']);
     }
 
 

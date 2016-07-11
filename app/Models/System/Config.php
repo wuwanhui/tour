@@ -51,4 +51,11 @@ class Config extends Model
         ];
     }
 
+    /**
+     * 所属企业
+     */
+    public function enterprise()
+    {
+        return $this->belongsTo('App\Models\System\Enterprise', 'eid');
+    }
 }

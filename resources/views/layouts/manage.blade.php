@@ -11,10 +11,13 @@
 
 </head>
 <body>
+
 <div class="page">
     <div class="page-header">
         <div class="page-header-top">
-            <div class="page-header-top-logo">{{Base::Config('name')}}</div>
+
+            {{$user->name}}
+            <div class="page-header-top-logo">{{$sitename}}  {{Base::Config('name')}}</div>
             <div class="page-header-top-nav"><a href="{{url('/manage')}}">管理后台</a> | <a
                         href="{{url('/supplier')}}">供应商</a> |
                 <a href="{{url('/manage/userinfo')}}">  {{Base::user('name') }} </a> | <a

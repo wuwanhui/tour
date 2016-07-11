@@ -161,8 +161,9 @@ return [
         Overtrue\LaravelWechat\ServiceProvider::class,
         //Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
 
-        App\Providers\CommonServiceProvider::class,
         App\Providers\BaseServiceProvider::class,
+        App\Providers\CommonServiceProvider::class,
+        App\Providers\ComposerServiceProvider::class,
     ],
 
     /*

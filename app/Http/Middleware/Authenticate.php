@@ -24,12 +24,12 @@ class Authenticate
                 return redirect()->guest('login');
             }
         }
-        if (!$request->session()->has('enterprise')) {
-            $request->session()->put('enterprise', Auth::user()->enterprise);
-        }
-        if (!$request->session()->has('config')) {
-            $request->session()->put('config', Auth::user()->enterprise->config);
-        }
+//        if ($request->session()->has('enterprise')) {
+//            $request->session()->put('enterprise', Auth::user()->enterprise);
+//        }
+//        if ($request->session()->has('config')) {
+//            $request->session()->put('config', Auth::user()->enterprise->config);
+//        }
         return $next($request);
     }
 }

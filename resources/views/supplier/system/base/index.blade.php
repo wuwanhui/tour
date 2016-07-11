@@ -1,4 +1,4 @@
-@extends('layouts.manage')
+@extends('layouts.supplier')
 @section("script")
 
 @endsection
@@ -40,8 +40,6 @@
                         </ul>
                     @endif
 
-                    <div class="panel-footer"><a href="{{url('/manage/system/base/type/create/')}}"
-                                                 class="btn btn-primary btn-block">新增分类</a></div>
                 </div>
             </div>
             <div class="col-md-10">

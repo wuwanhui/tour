@@ -8,6 +8,12 @@ class BaseData extends Model
 {
     protected $table = 'System_Base_Data';//表名
 
+    public function __construct()
+    {
+        $this->sort = 999;
+
+    }
+
     /**
      *
      * @var array
@@ -24,7 +30,8 @@ class BaseData extends Model
     public function createRules()
     {
         return [
-            'name' => 'required|max:255|min:2',
+            'name' => 'required',
+            'tid' => 'required',
         ];
     }
 
@@ -36,7 +43,7 @@ class BaseData extends Model
     public function editRules()
     {
         return [
-            'name' => 'required|max:255|min:2',
+            'name' => 'required',
         ];
     }
 
@@ -50,6 +57,7 @@ class BaseData extends Model
     {
         return [
             'name.required' => '名称为必填项',
+            'tid.required' => '请选择数据分类项',
 
         ];
     }

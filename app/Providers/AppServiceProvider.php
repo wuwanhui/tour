@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Http\Service\BaseService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,6 +15,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        //视图间共享数据
+        view()->share('sitename', '元佑旅游圈');
+
+//        //视图Composer
+//        view()->composer('*',function($view){
+//            $view->with('user',Auth::user());
+//        });
     }
 
     /**
@@ -24,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-       
+
 
     }
 }

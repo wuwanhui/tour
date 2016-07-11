@@ -11,11 +11,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('menus')->truncate();
+        //企业信息
+        $enterprise = new \App\Models\System\Enterprise();
+        $enterprise->name = '重庆元佑科技有限公司';
+        $enterprise->short_name = '元佑科技';
+        $enterprise->save();
 
+        //系统参数
+        $config = new \App\Models\System\Config();
+        $config->name = "重庆元佑科技有限公司";
+        $enterprise->config()->save($config);
 
-        $menuid = DB::table('menus')->insertGetId(array('id' => md5(uniqid(rand())), 'Name' => '系统设置', 'Model' => 'system', 'Page' => 'config', 'Url' => '/system/config/'));
-        echo($menuid);
-        DB::table('menus')->insert(array('id' => md5(uniqid(rand())), 'Name' => '系统设置', 'Model' => 'system', 'Page' => 'config', 'Url' => '/system/config/', 'ParentId' => $menuid));
+        //管理员
+        $user = new \App\Models\System\User();
+        $user->name = "管理员";
+        $user->email = "wuhong@yeah.net";
+        $user->password = bcrypt('admin');
+
+        $enterprise->users()->save($user);
     }
 }

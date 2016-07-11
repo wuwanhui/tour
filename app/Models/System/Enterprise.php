@@ -15,7 +15,6 @@ class Enterprise extends Model
     protected $primaryKey = "id";//主键
 
     protected $fillable = ['name', 'short_name', 'logo', 'legal_person', 'found_time', 'phone', 'fax', 'address', 'slogan', 'abstract'];
-
     public function __construct()
     {
 
