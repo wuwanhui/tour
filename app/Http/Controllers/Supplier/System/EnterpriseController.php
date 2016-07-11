@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Supplier\System;
 
 use App\Http\Controllers\Manage\BaseController;
-use App\Models\System\Enterprise;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;

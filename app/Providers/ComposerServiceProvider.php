@@ -15,7 +15,7 @@ class ComposerServiceProvider extends ServiceProvider
     {
         // 使用基于类的composers...
         view()->composer(
-            'manage.*', 'App\Http\ViewComposers\ProfileComposer'
+            ['manage.*', 'supplier.*'], 'App\Http\ViewComposers\ProfileComposer'
         );
 
         // 使用基于闭包的composers...

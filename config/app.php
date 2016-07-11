@@ -164,6 +164,8 @@ return [
         App\Providers\BaseServiceProvider::class,
         App\Providers\CommonServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
+        App\Providers\SmsServiceProvider::class,
+
     ],
 
     /*
@@ -214,6 +216,7 @@ return [
         'Wechat' => Overtrue\LaravelWechat\Facade::class,
         'Common' => App\Http\Facades\Common::class,
         'Base' => App\Http\Facades\Base::class,
+        'SMS' => App\Http\Facades\SMS::class,
     ],
 
 ];

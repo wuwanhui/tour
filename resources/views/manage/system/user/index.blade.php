@@ -59,6 +59,7 @@
                                 <th><a href="">所属企业</a></th>
                                 <th><a href="">姓名</a></th>
                                 <th><a href="">邮箱</a></th>
+                                <th><a href="">手机</a></th>
                                 <th><a href="">角色</a></th>
                                 <th style="width: 120px;">操作</th>
                             </tr>
@@ -76,7 +77,12 @@
 
                                     </td>
                                     <td>{{$item->name}} </td>
-                                    <td style="text-align: center">{{$item->email}}</td>
+                                    <td style="text-align: center">{{$item->email}}
+                                        ({{$item->email_check==0?'已验证':'未验证'}})
+                                    </td>
+                                    <td style="text-align: center">{{$item->mobile}}
+                                        ({{$item->email_check==0?'已验证':'未验证'}})
+                                    </td>
                                     <td style="text-align: center">
                                         @if(count($item->roles)>0)
                                             @foreach($item->roles as $roleItem)

@@ -102,10 +102,12 @@ class BaseService
      */
     public function data($key)
     {
-        $baseType=BaseType::where('code',$key)->first();
+        $baseType = BaseType::where('code', $key)->first();
         if ($baseType) {
             return $baseType->datas();
         }
     }
+
+   
 
 }

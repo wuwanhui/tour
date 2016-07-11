@@ -12,6 +12,11 @@ Route::get('api/v1/index', 'ApiController@index');
  */
 Route::get('/', 'HomeController@index');
 
+/**
+ * 安装
+ */
+Route::any('/install', 'InstallController@index');
+
 
 Route::resource('api/v1', 'WeixinController', ['middleware' => 'weixin']);
 
@@ -71,8 +76,7 @@ Route::group(['prefix' => 'manage', 'namespace' => 'Manage', 'middleware' => ['m
                 return Redirect::to('/manage/system/user/list');
             });
             Route::get('/list/{eid?}', 'UserController@index', ['model' => 'system', 'menu' => 'user']);
-            Route::get('/create/{eid?}', 'UserController@getCreate', ['model' => 'system', 'menu' => 'user']);
-            Route::post('/create', 'UserController@postCreate', ['model' => 'system', 'menu' => 'user']);
+            Route::any('/create/{eid?}', 'UserController@create', ['model' => 'system', 'menu' => 'user']);
             Route::get('/edit/{id}', 'UserController@getEdit', ['model' => 'system', 'menu' => 'user']);
             Route::post('/edit/{id}', 'UserController@postEdit', ['model' => 'system', 'menu' => 'user']);
             Route::get('/delete/{id}', 'UserController@delete', ['model' => 'system', 'menu' => 'user']);

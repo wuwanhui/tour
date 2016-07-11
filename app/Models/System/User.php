@@ -6,7 +6,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+
+
     protected $table = 'System_User';//表名
+
 
     /**
      * The attributes that are mass assignable.
@@ -14,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'eid', 'did', 'name', 'email', 'password',
+        'eid', 'did', 'name', 'email', 'mobile', 'password', 'email_check', 'mobile_check', 'state',
     ];
 
     /**
@@ -36,6 +39,7 @@ class User extends Authenticatable
         return [
             'name' => 'required|max:255|min:2',
             'email' => 'required|unique:System_User',
+            'mobile' => 'required|unique:System_User',
         ];
     }
 
@@ -49,6 +53,7 @@ class User extends Authenticatable
         return [
             'name' => 'required|max:255|min:2',
             'email' => 'required',
+            'mobile' => 'required',
         ];
     }
 
@@ -64,6 +69,8 @@ class User extends Authenticatable
             'name.required' => '用户名称为必填项',
             'email.required' => '用户邮箱为必填项',
             'email.unique' => '用户邮箱不能重复',
+            'mobile.required' => '手机号为必填项',
+            'mobile.unique' => '手机号不能重复',
         ];
     }
 

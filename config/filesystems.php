@@ -15,8 +15,9 @@ return [
     |
     */
 
-    'default' => 'local',
+    // 'default' => 'local',
 
+    'default' => 'qiniu',
     /*
     |--------------------------------------------------------------------------
     | Default Cloud Filesystem Disk
@@ -68,10 +69,10 @@ return [
                 'https' => 'dn-laravelacademy.qbox.me',         //你的HTTPS域名
                 'custom' => 'static.laravelacademy.org',     //你的自定义域名
             ],
-            'access_key' => '',  //AccessKey
-            'secret_key' => '',  //SecretKey
-            'bucket' => '',  //Bucket名字
-            'notify_url' => '',  //持久化处理回调地址
+            'access_key' => 'hexBRHOH4YjkHohx8k7d_gnx1Zj5q0Or-0BDE8Kb',  //AccessKey
+            'secret_key' => 'sK2lp5_1bTd8Qkhh7xSXj2ZC6f1WaD6Km7CjJixa',  //SecretKey
+            'bucket' => 'tour',  //Bucket名字
+            'notify_url' => 'http://oa4ykfuon.bkt.clouddn.com',  //持久化处理回调地址
         ],
 
     ],

@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class AllTable extends Migration
 {
@@ -70,9 +70,12 @@ class AllTable extends Migration
                 $table->integer('eid');
                 $table->string('name');
                 $table->string('email');
+                $table->string('mobile');
                 $table->string('password')->nullable();
+                $table->integer('email_check')->default(1);//状态(0已验证、1未验证)
+                $table->integer('mobile_check')->default(1);//状态(0已验证、1未验证)
+                $table->integer('state')->default(0);//状态(0正常、1禁用)
                 $table->string('remember_token')->nullable();
-                $table->integer('state')->defalut(0);//状态(0正常、1禁用)
                 $table->timestamps();
                 $table->softDeletes();
             });
@@ -100,7 +103,7 @@ class AllTable extends Migration
                 $table->increments('id');
                 $table->integer('uid');
                 $table->string('name');//真实姓名
-                $table->integer('sex')->defalut(0);//性别(0未知、1男、2女)
+                $table->integer('sex')->default(0);//性别(0未知、1男、2女)
                 $table->string('id_card')->nullable();//身份证号
                 $table->date('birthday')->nullable();//生日
                 $table->string('addres')->nullable();//地址
@@ -181,10 +184,10 @@ class AllTable extends Migration
             Schema::create('System_Base_Type', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name');
-                $table->integer('eid')->defalut(0);//默认为0表示系统
+                $table->integer('eid')->default(0);//默认为0表示系统
                 $table->string('code')->unique();
                 $table->string('abstract')->nullable();
-                $table->integer('state')->defalut(0);//0系统、1自定义
+                $table->integer('state')->default(0);//0系统、1自定义
                 $table->timestamps();
             });
         }
@@ -196,7 +199,7 @@ class AllTable extends Migration
                 $table->integer('eid');
                 $table->text('name');
                 $table->text('value');
-                $table->integer('sort')->defalut(0);
+                $table->integer('sort')->default(0);
                 $table->timestamps();
             });
         }

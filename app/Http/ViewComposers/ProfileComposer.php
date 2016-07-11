@@ -22,7 +22,6 @@ class ProfileComposer
      */
     public function __construct()
     {
-        // Dependencies automatically resolved by service container...
         $this->user = Auth::user();
     }
 
@@ -34,7 +33,7 @@ class ProfileComposer
      */
     public function compose(View $view)
     {
-        $view->with('user', $this->user);
+//        $view->with('user', $this->user);
 //        $view->with('config', $this->user->enterprise->config);
 //        $view->with('enterprise', $this->user->enterprise);
     }

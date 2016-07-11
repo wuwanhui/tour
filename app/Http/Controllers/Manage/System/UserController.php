@@ -36,37 +36,28 @@ class UserController extends BaseController
     }
 
 
-    public function getCreate()
+    public function create(Request $request)
     {
         $user = new User();
         $enterprises = Enterprise::all();
         $roles = Role::all();
+        if ($request->isMethod('post')) {
+            $input = $request->all();
+            $user->fill($input);
+            $user->password = bcrypt($request->input('password'));
+            $user->save();
+            $roles = $request->input('role_id');
+            $user->roles()->sync(ArrayUtil::ArrayStringToInt($roles));
+            if ($user) {
+                return Redirect('/manage/system/user/');
+            } else {
+                return Redirect::back()->withInput()->withErrors('保存失败！');
+            }
+        }
+
         return view('manage.system.user.create', compact('user', 'enterprises', 'roles'), ['model' => 'system', 'menu' => 'user']);
     }
 
-    public function postCreate(Request $request)
-    {
-        $user = new User();
-        $validator = Validator::make($request->all(), $user->createRules(), $user->messages());
-        if ($validator->fails()) {
-            return redirect('/manage/system/user/create')
-                ->withInput()
-                ->withErrors($validator);
-        }
-        $user->eid = $request->input('eid');
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->password = bcrypt($request->input('password'));
-
-        $roles = $request->input('role_id');
-        $user->save();
-        $user->roles()->sync(ArrayUtil::ArrayStringToInt($roles));
-        if ($user) {
-            return Redirect('/manage/system/user/');
-        } else {
-            return Redirect::back()->withInput()->withErrors('保存失败！');
-        }
-    }
 
     public function getEdit($id)
     {

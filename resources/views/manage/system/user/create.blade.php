@@ -30,12 +30,11 @@
                                            class="col-xs-2 control-label label-required">所属企业：</label>
                                     <div class="col-xs-10">
                                         <select name="eid" class="form-control">
-                                            <option value=" 0" style="color: #002a80;">新增企业</option>
                                             @foreach($enterprises as $item)
                                                 <option value="{{$item->id}}">{{$item->name}}</option>
                                             @endforeach
                                         </select>
-
+                                        <a href="{{url('/manage/system/enterprise/create')}}">新增企业</a>
 
                                     </div>
                                 </div>
@@ -45,7 +44,7 @@
                                 <div class="col-xs-10">
                                     <input id="name" name="name" class="form-control" type="text"
                                            value="{{$user->name}}"
-                                           style="width: 300px;"/>
+                                           style="width: 100px;"/>
 
                                 </div>
                             </div>
@@ -60,7 +59,16 @@
 
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="mobile"
+                                       class="col-xs-2 control-label label-required">手机号：</label>
+                                <div class="col-xs-10">
+                                    <input id="mobile" name="mobile" class="form-control"
+                                           style="width: 300px;"
+                                           value="{{$user->mobile}}" type="text"/>
 
+                                </div>
+                            </div>
 
                             <div class="form-group">
                                 <label for="password"
@@ -72,6 +80,17 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <label for="state"
+                                       class="col-xs-2 control-label label-required">状态：</label>
+                                <div class="col-xs-10">
+                                    <select name="state" class="form-control">
+                                        <option value="0">正常</option>
+                                        <option value="1">锁定</option>
+                                    </select>
+
+                                </div>
+                            </div>
                             @if($roles!=null&&count($roles)>0)
                                 <legend>角色列表</legend>
                                 <table class="table table-bordered table-hover  table-condensed">
