@@ -22,18 +22,17 @@ a {
     color: #666666;
     outline: none;
     text-decoration: none;
+    outline: none;
+    blr: expression(this.onFocus = this.blur ())
 }
 
-a {
-    blr: expression(this.onFocus = this.blur ())
+a:hover {
+    text-decoration: underline;
+    text-decoration: none;
 }
 
 a:link, a:visited, a:active, a:hover {
     color: #333;
-}
-
-a:hover {
-    text-decoration: none;
 }
 
 a.btn-primary {
@@ -161,3 +160,4 @@ table.table tbody a {
 input[type=file] {
     border-width: 0px;
 }
+

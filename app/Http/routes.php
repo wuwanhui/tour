@@ -33,6 +33,13 @@ Route::group(['prefix' => 'manage', 'namespace' => 'Manage', 'middleware' => ['m
      * 主页
      */
     Route::get('/', function () {
+        return view('manage.main');
+    });
+
+    /**
+     * 主页
+     */
+    Route::get('/home', function () {
         return view('manage.home');
     });
     /**
@@ -161,11 +168,19 @@ Route::group(['prefix' => 'manage', 'namespace' => 'Manage', 'middleware' => ['m
  */
 Route::group(['prefix' => 'supplier', 'namespace' => 'Supplier', 'middleware' => ['supplier']], function () {
 
+    /**
+     * 主页
+     */
+    Route::get('/', function () {
+        return view('supplier.main');
+    });
 
     /**
      * 主页
      */
-    Route::get('/', 'HomeController@index');
+    Route::get('/home', function () {
+        return view('supplier.home');
+    });
 
     /**
      * 业务中心

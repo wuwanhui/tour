@@ -1,20 +1,25 @@
-@extends('layouts.manage')
+@extends('layouts.page')
 @section("script")
 
 @endsection
 
 @section('content')
-    <div class="page-content-side">
-        <div class="page-content-side-nav">系统管理</div>
-        <div class="page-content-side-menu">
-            <a href="/manage/system/enterprise/" target="main">企业管理</a>
-            <a href="/manage/system/user/" target="main">用户管理</a>
-            <a href="/manage/system/role/" target="main">角色管理</a> <a
-                    href="/manage/system/permission/" target="main">权限管理</a>
-            <a
-                    href="/manage/system/base/" target="main">基础数据</a>
-
+    <div class="page-list" style="margin-left: 10px;">
+        <div class="panel panel-default">
+            <div class="panel-heading">Panel heading without title</div>
+            <div class="panel-body">
+                Panel content
+            </div>
         </div>
 
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Panel title</h3>
+            </div>
+            <div class="panel-body">
+                Panel content
+            </div>
+        </div>
+        <div class="well">...</div>
     </div>
 @endsection

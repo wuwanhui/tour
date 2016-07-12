@@ -41,34 +41,40 @@
     </div>
 
     <div class="page-content">
-        @if(isset($model))
-            <div class="page-content-side">
-                <?php if( $model === 'system'){ ?>
-                <div class="page-content-side-nav">系统管理</div>
-                <div class="page-content-side-menu">
-                    <a href="/manage/system/enterprise/" target="main">企业管理</a>
-                    <a href="/manage/system/user/" target="main">用户管理</a>
-                    <a href="/manage/system/role/" target="main">角色管理</a> <a
-                            href="/manage/system/permission/" target="main">权限管理</a>
-                    <a
-                            href="/manage/system/base/" target="main">基础数据</a>
-
-                </div>
-
-                <?php }?>
-            </div>
-        @endif
-            @yield('content')
+        @yield('content')
         <div class="page-content-area">
-            <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" name="main"></iframe>
-            </div>
+            <iframe id="main" name="main" src="{{url("/manage/home")}}" frameBorder="0"
+                    width="100%" scrolling="auto"
+                    height="100%"></iframe>
         </div>
-        <div class="clear"></div>
     </div>
     <div class="page-footer">重庆爱旅游科技有限公司</div>
 </div>
+
+
+<script src="{{ asset('/resources/js/angularJs/angular1.5.5.min.js') }}"></script>
+<script src="{{ asset('/resources/js/angularJs/angular-messages.min.js') }}"></script>
+<script src="{{ asset('/resources/js/angularJs/angularBase.js') }}"></script>
+<script src="{{ asset('/resources/js/jquery-2.1.1.min.js') }}"></script>
+<script src="{{ asset('/resources/js/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('/resources/js/layer/layer.js') }}"></script>
+<script src="{{ asset('/resources/js/common.js') }}"></script>
+
 <script type="text/javascript">
+
+    $(function () {
+        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+        //iframe层-父子操作
+
+        parent.layer.iframeAuto(index);
+        $(".page-content-side-menu a").click(function () {
+            $(".page-content-side-menu a").removeClass("active");
+            $(this).addClass("active");
+
+        });
+
+
+    });
     //系统退出
     function exit() {
         //询问框
@@ -94,14 +100,6 @@
 
     }
 </script>
-
-<script src="{{ asset('/resources/js/angularJs/angular1.5.5.min.js') }}"></script>
-<script src="{{ asset('/resources/js/angularJs/angular-messages.min.js') }}"></script>
-<script src="{{ asset('/resources/js/angularJs/angularBase.js') }}"></script>
-<script src="{{ asset('/resources/js/jquery-2.1.1.min.js') }}"></script>
-<script src="{{ asset('/resources/js/bootstrap/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('/resources/js/layer/layer.js') }}"></script>
-<script src="{{ asset('/resources/js/common.js') }}"></script>
 @yield('script')
 </body>
 </html>

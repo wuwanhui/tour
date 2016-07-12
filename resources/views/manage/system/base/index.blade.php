@@ -7,7 +7,7 @@
     <div class="page-list">
         <div class="row page-list-header">
             <div class="col-xs-8 text-left">
-                <h4>数据字典维<d/h4>
+                <h4>数据字典维</h4>
             </div>
             <div class="col-xs-4 text-right">
 
@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="col-md-10">
-                @if($baseType->name!='')
+                @if(isset($baseType)&& $baseType->name!='')
                     <form method="Post" class="form-inline">
                         <fieldset>
                             <legend>"{{$baseType->name}}"基础数据明细</legend>

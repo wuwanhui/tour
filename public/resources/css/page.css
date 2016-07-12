@@ -59,6 +59,7 @@
 }
 
 .container-fluid {
+    padding: 0px;
 }
 
 .panel .panel-heading {
@@ -230,10 +231,15 @@ span.a {
  * 系统布局
  */
 .page {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
     background-color: #f2f2f2;
     margin-top: 0px;
     margin-bottom: 0px;
-    min-height: 500px;
+
 }
 
 .page-header {
@@ -316,9 +322,10 @@ span.a {
     left: 200px;
     float: left;
     line-height: 40px;
+    cursor: pointer ;
 }
 
-.page-header-nav-menu a {
+.page-header-nav-menu span {
     color: #ffffff;
     display: inline-block;
     padding-right: 15px;
@@ -326,11 +333,11 @@ span.a {
     font-size: 15px;
 }
 
-.page-header-nav-menu a:HOVER {
+.page-header-nav-menu span:HOVER {
     color: #31464b;
 }
 
-.page-header-nav-menu a.active {
+.page-header-nav-menu span.active {
     background-color: #222d32;
     color: #ffffff;
 }
@@ -378,19 +385,21 @@ span.a {
 }
 
 .page-content {
-    min-height: 500px;
+    top: 70px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
 
 }
 
 .page-content-side {
     width: 180px;
     background-color: #222d32;
-    min-height: 500px;
-    position: relative;
-    top: 70px;
-    bottom: 0px;
-    float: left;
     position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
 }
 
 .page-content-side-nav {
@@ -410,6 +419,7 @@ span.a {
 }
 
 .page-content-side-menu {
+    display: none;
     border-top-color: #222d32;
     border-top-width: 1px;
     border-top-style: solid;
@@ -438,8 +448,8 @@ span.a {
 }
 
 .page-content-side a.active {
-    color: #4d5f85;
-    background-color: #fefefe;
+    color: #3c3c3c;
+    background-color: #f2f2f2;
     -moz-border-radius: 2px; /* Gecko browsers */
     -webkit-border-radius: 2px;
     border-radius: 2px 0px 0px 2px;
@@ -470,49 +480,16 @@ span.a {
 }
 
 .page-content-area {
-    width: auto;
-    padding: 5px;
-    margin: 0px 0px 0px 190px;
+    position: absolute;
+    left: 190px;
+    right: 0px;
+    top: 0px;
+    bottom: 10px;
     background-color: #FFFFFF;
-
 }
 
-.page-content .page-list {
-    padding: 5px;
-}
+.page-content-area .main {
 
-.page-content .page-list-search {
-    margin-bottom: 10px;
-    border-bottom-color: #e1e1e1;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    padding-bottom: 10px;
-}
-
-.page-content .page-list-search .input-group {
-    padding-bottom: 10px;
-}
-
-.page-content .page-input {
-    padding-bottom: 10px;
-}
-
-.page-content .page-input .page-input-btn {
-    padding-bottom: 5px;
-    border-bottom-color: #e1e1e1;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: #e1e1e1;
-}
-
-.page-content .page-input .page-input-content {
-    padding: 5px;
-}
-
-.page-content .page-input .page-input-content .control-label {
-    min-width: 100px;
-    max-width: 200px;
-    color: #747474;
 }
 
 .page-footer {
@@ -532,7 +509,7 @@ span.a {
  * 列表页
  */
 .page-list {
-    padding: 5px;
+    padding-top: 10px;
 }
 
 .page-list-header {
@@ -569,6 +546,7 @@ span.a {
  * 新增编辑页
  */
 .page-input {
+    padding-top: 10px;
     background-color: #FFFFFF;
 }
 
