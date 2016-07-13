@@ -227,12 +227,12 @@ Route::group(['prefix' => 'supplier', 'namespace' => 'Supplier', 'middleware' =>
          * 权限管理
          */
         Route::group(['prefix' => 'weixin'], function () {
-            Route::get('/', 'WeixinController@index', ['model' => 'Weixin', 'menu' => 'permission']);
-            Route::get('/send', 'WeixinController@getSend', ['model' => 'Weixin', 'menu' => 'permission']);
-            Route::post('/create', 'WeixinController@postCreate', ['model' => 'Weixin', 'menu' => 'permission']);
-            Route::get('/edit/{id}', 'WeixinController@getEdit', ['model' => 'Weixin', 'menu' => 'permission']);
-            Route::post('/edit', 'WeixinController@postEdit', ['model' => 'Weixin', 'menu' => 'permission']);
-            Route::get('/delete/{id}', 'WeixinController@delete', ['model' => 'Weixin', 'menu' => 'permission']);
+            Route::get('/', 'WeixinController@index');
+            Route::get('/send', 'WeixinController@getSend');
+            Route::post('/create', 'WeixinController@postCreate');
+            Route::get('/edit/{id}', 'WeixinController@getEdit');
+            Route::post('/edit', 'WeixinController@postEdit');
+            Route::get('/delete/{id}', 'WeixinController@delete');
         });
 
     });
@@ -264,7 +264,17 @@ Route::group(['prefix' => 'supplier', 'namespace' => 'Supplier', 'middleware' =>
             return view('supplier/resources/index', ['model' => 'resources', 'menu' => 'config']);
 
         });
+        /**
+         *航空公司
+         */
+        Route::group(['prefix' => 'airways'], function () {
 
+            Route::get('/', 'AirwaysController@index');
+            Route::any('/create', 'AirwaysController@create');
+            Route::any('/edit/{id}', 'AirwaysController@edit');
+            Route::get('/delete/{id}', 'AirwaysController@delete');
+
+        });
 
     });
 

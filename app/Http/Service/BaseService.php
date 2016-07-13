@@ -16,6 +16,7 @@ class BaseService
     private $enterprise = null;
     private $config = null;
     private $eid = 0;
+    private $uid = 0;
 
     public function __construct()
     {
@@ -43,6 +44,17 @@ class BaseService
     {
         if ($this->user) {
             return $this->user->eid;
+        }
+    }
+
+    /**
+     * 获取用户ID
+     * @return mixed
+     */
+    public function uid()
+    {
+        if ($this->user) {
+            return $this->user->id;
         }
     }
 
@@ -108,6 +120,5 @@ class BaseService
         }
     }
 
-   
 
 }

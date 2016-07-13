@@ -242,6 +242,30 @@ class AllTable extends Migration
             });
 
         }
+
+
+        /**
+         * 资源中心-航空公司
+         */
+        if (!Schema::hasTable('Resources_Airways')) {
+            Schema::create('Resources_Airways', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('eid');
+                $table->string('name');
+                $table->string('linkman');
+                $table->string('mobile');
+                $table->string('tel');
+                $table->string('fax');
+                $table->text('abstract');
+                $table->integer('createid');
+                $table->integer('editid');
+                $table->integer('sort')->default(0);
+                $table->integer('state')->default(0);
+                $table->timestamps();
+                $table->softDeletes();  
+            });
+
+        }
     }
 
     /**

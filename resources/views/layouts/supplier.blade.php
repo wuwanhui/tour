@@ -49,125 +49,6 @@
         </div>
     </div>
     <div class="page-content">
-        <div class="page-content-side">
-            <div class="business">
-                <div class="page-content-side-nav">业务中心</div>
-                <div class="page-content-side-menu ">
-                    <a target="main" href="/supplier/activity/">增加团队</a> <a
-                            target="main" href="/supplier/analysis/">增加散拼</a> <a
-                            target="main" href="/supplier/analysis/">团队操作</a> <a
-                            target="main" href="/supplier/analysis/">订单列表</a> <a
-                            target="main" href="/supplier/analysis/">到账认领</a> <a
-                            target="main" href="/supplier/analysis/">收款记录</a> <a
-                            target="main" href="/supplier/analysis/">付款记录</a>
-                    <hr/>
-                    <a target="main" href="/supplier/activity/">控位管理</a> <a
-                            target="main" href="/supplier/analysis/">团队成本</a>
-                </div>
-            </div>
-            <div class="business">
-                <div class="page-content-side-nav">客户关系</div>
-                <div class="page-content-side-menu customer">
-                    <a target="main" href="/supplier/crm/directories/">资源名录</a> <a
-                            target="main" href="/supplier/crm/customer/">客户档案</a> <a
-                            target="main" href="/supplier/crm/following/">联系记录</a> <a
-                            target="main" href="/supplier/crm/orders/">订单管理</a> <a
-                            target="main" href="/supplier/crm/product/">产品管理</a> <a
-                            target="main" href="/supplier/crm/logs/">业务分析</a>
-                </div>
-            </div>
-            <div class="business">
-                <div class="page-content-side-nav">微信营销</div>
-                <div class="page-content-side-menu weixin">
-                    <a target="main" href="/supplier/weixin/concern/">关注记录</a> <a
-                            target="main" href="/supplier/weixin/menu/">个性菜单</a> <a
-                            target="main" href="/supplier/weixin/template/">信息模板</a> <a
-                            target="main" href="/supplier/weixin/groups/">分组管理</a> <a
-                            target="main" href="/supplier/weixin/scene/">营销场景</a> <a
-                            target="main" href="/supplier/weixin/kf/">多客服</a><a
-                            target="main" href="/supplier/weixin/config/">参数配置</a>
-                </div>
-            </div>
-            <div class="business">
-                <div class="page-content-side-nav">财务结算</div>
-                <div class="page-content-side-menu finance">
-                    <a target="main" href="/supplier/finance/detailed/">单团明细台帐</a> <a
-                            target="main" href="/supplier/finance/detailed/">封团结算审核</a> <a
-                            target="main" href="/supplier/finance/detailed/">付款管理</a> <a
-                            target="main" href="/supplier/finance/detailed/">付款审核</a> <a
-                            target="main" href="/supplier/finance/detailed/">收款管理</a> <a
-                            target="main" href="/supplier/finance/detailed/">发票管理</a> <a
-                            target="main" href="/supplier/finance/detailed/">现金日记帐</a> <a
-                            target="main" href="/supplier/finance/detailed/">科目管理</a> <a
-                            target="main" href="/supplier/finance/detailed/">绩效管理</a> <a
-                            target="main" href="/supplier/finance/detailed/">积分管理</a>
-                    <hr/>
-                    <a target="main" href="#/supplier/finance/analysis/">财务分析</a>
-                </div>
-            </div>
-            <div class="resources">
-                <div class="page-content-side-nav">资源中心</div>
-                <div class="page-content-side-menu ">
-                    <a target="main" href="/supplier/system/config/">线路资源 </a> <a
-                            target="main" href="/supplier/system/config/">导游领队 </a>
-                    <hr>
-                    <a target="main" href="/supplier/system/enterprise/">航空公司</a> <a
-                            target="main" href="/supplier/system/depts/">地接社</a> <a
-                            target="main" href="/supplier/system/user/">酒店</a> <a
-                            target="main" href="/supplier/system/roles/">景区</a> <a
-                            target="main" href="/supplier/system/logs/">车队</a> <a
-                            target="main" href="/supplier/system/admin/">签证</a> <a
-                            target="main" href="/supplier/system/admin/">保险</a>
-                </div>
-            </div>
-            <div class="report">
-                <div class="page-content-side-nav">统计报表</div>
-                <div class="page-content-side-menu ">
-                    <a target="main" href="/supplier/system/config/">月收客分析</a><a
-                            target="main" href="/supplier/system/enterprise/">月销售统计</a> <a
-                            target="main" href="/supplier/system/depts/">按线路统计</a> <a
-                            target="main" href="/supplier/system/user/">按地区统计</a> <a
-                            target="main" href="/supplier/system/roles/">大社贡献率</a> <a
-                            target="main" href="/supplier/system/logs/">回访统计</a>
-                    <hr>
-                    <a target="main" href="/supplier/system/admin/">日收客销售报表</a> <a
-                            target="main" href="/supplier/system/admin/">月绩效表</a>
-                </div>
-            </div>
-            <div class="system">
-                <div class="page-content-side-nav">系统设置</div>
-                <div class="page-content-side-menu ">
-
-                    <a target="main" href="/supplier/system/config/">系统参数</a><a
-                            target="main" href="/supplier/system/enterprise/">企业信息</a> <a
-                            target="main" href="/supplier/system/dept/">部门管理</a> <a
-                            target="main" href="/supplier/system/user/">用户管理</a> <a
-                            target="main" href="/supplier/system/role/">角色管理</a> <a
-                            target="main" href="/supplier/system/base/">基础数据</a> <a
-                            target="main" href="/supplier/system/logs/">信息模板</a> <a
-                            target="main" href="/supplier/system/tags/">标签管理</a> <a
-                            target="main" href="/supplier/system/model/">模块权限</a>
-                    <hr>
-                    <a target="main" href="/supplier/system/admin/">日志分析报表</a>
-                </div>
-            </div>
-            <div class="docking">
-                <div class="page-content-side-nav">三方对接</div>
-                <div class="page-content-side-menu ">
-                    <a target="main" href="/supplier/system/config/">系统参数</a><a
-                            target="main" href="/supplier/system/enterprise/">企业信息</a> <a
-                            target="main" href="/supplier/system/depts/">部门管理</a> <a
-                            target="main" href="/supplier/system/user/">用户管理</a> <a
-                            target="main" href="/supplier/system/roles/">角色管理</a> <a
-                            target="main" href="/supplier/system/logs/">基础数据</a> <a
-                            target="main" href="/supplier/system/logs/">信息模板</a> <a
-                            target="main" href="/supplier/system/logs/">信息模板</a> <a
-                            target="main" href="/supplier/system/logs/">模块权限</a>
-                    <hr>
-                    <a target="main" href="/supplier/system/admin/">日志分析报表</a>
-                </div>
-            </div>
-        </div>
         @yield('content')
         <div class="page-content-area">
             <iframe id="main" name="main" src="{{url("/supplier/home")}}" frameBorder="0"
@@ -193,7 +74,7 @@
         $(".page-header-nav-menu span").click(function () {
             $(".page-header-nav-menu span").removeClass("active");
             $(this).addClass("active");
-            $(".page-content-side-menu").hide();
+            $(".submenu").hide();
             var name = $(this).attr("name");
             //alert($(this).attr("name"));
             $("." + name + "").show();
@@ -202,6 +83,10 @@
         $(".page-content-side-nav").click(function () {
             $(".page-content-side-menu").hide();
             $(this).next().show();
+        });
+        $(".page-content-side-menu a").click(function () {
+            $(".page-content-side-menu a").removeClass("active");
+            $(this).addClass("active");
         });
 
     });

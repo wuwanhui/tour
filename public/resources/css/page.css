@@ -322,7 +322,7 @@ span.a {
     left: 200px;
     float: left;
     line-height: 40px;
-    cursor: pointer ;
+    cursor: pointer;
 }
 
 .page-header-nav-menu span {
@@ -419,7 +419,6 @@ span.a {
 }
 
 .page-content-side-menu {
-    display: none;
     border-top-color: #222d32;
     border-top-width: 1px;
     border-top-style: solid;
@@ -430,6 +429,22 @@ span.a {
     -moz-border-radius: 5px; /* Gecko browsers */
     -webkit-border-radius: 5px;
     border-radius: 5px;
+}
+
+.page-content-side-menu a {
+
+}
+
+.submenu {
+    display: none;
+}
+
+.page-content-side-menu a.active {
+    color: #3c3c3c;
+    background-color: #f2f2f2;
+    -moz-border-radius: 2px; /* Gecko browsers */
+    -webkit-border-radius: 2px;
+    border-radius: 2px 0px 0px 2px;
 }
 
 .page-content-side a {

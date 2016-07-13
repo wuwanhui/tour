@@ -30,11 +30,11 @@
                 {{Base::user('name')}}（管理员）
             </div>
             <div class="page-header-nav-menu">
-                <a href="/manage/enterprise/" <?php echo(isset($model) && $model === 'business' ? ' class="active"' : '');?>>企业中心</a>
-                <a href="/manage/customer/" <?php echo(isset($model) && $model === 'customer' ? ' class="active"' : '');?>>资源中心</a>
-                <a href="/manage/finance/" <?php echo(isset($model) && $model === 'finance' ? ' class="active"' : '');?>>产品调度</a>
-                <a href="/manage/system/" <?php echo(isset($model) && $model === 'system' ? ' class="active"' : '');?>>系统管理</a>
-                <a href="/manage/docking/" <?php echo(isset($model) && $model === 'docking' ? ' class="active"' : '');?> >三方对接</a>
+              <span name="enterprise"> 企业中心
+                 </span><span name="customer"> 资源中心
+                 </span><span name="finance">产品调度
+                 </span><span name="system"> 系统管理
+                 </span><span name="docking"> 三方对接 </span>
             </div>
             <div class="clear"></div>
         </div>
@@ -63,16 +63,19 @@
 <script type="text/javascript">
 
     $(function () {
-        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-        //iframe层-父子操作
-
-        parent.layer.iframeAuto(index);
-        $(".page-content-side-menu a").click(function () {
-            $(".page-content-side-menu a").removeClass("active");
+        $(".page-header-nav-menu span").click(function () {
+            $(".page-header-nav-menu span").removeClass("active");
             $(this).addClass("active");
-
+            $(".page-content-side-menu").hide();
+            var name = $(this).attr("name");
+            //alert($(this).attr("name"));
+            $("." + name + "").show();
         });
 
+        $(".page-content-side-nav").click(function () {
+            $(".page-content-side-menu").hide();
+            $(this).next().show();
+        });
 
     });
     //系统退出
