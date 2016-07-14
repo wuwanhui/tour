@@ -73,11 +73,11 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="abstract"
-                                   class="col-xs-2 control-label label-required">描述：</label>
+                            <label for="remark"
+                                   class="col-xs-2 control-label label-required">备注：</label>
                             <div class="col-xs-10">
-                                <textarea id="abstract" name="abstract" class="form-control"
-                                          style="width: 1005px;height: 120px;">{{$airways->abstract}}</textarea>
+                                <textarea id="remark" name="remark" class="form-control"
+                                          style="width: 1005px;height: 120px;">{{$airways->remark}}</textarea>
 
                             </div>
                         </div>

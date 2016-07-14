@@ -5,7 +5,7 @@
 @section('content')
     <div class="  page-input">
         <form class="form-horizontal" method="Post"
-              enctype="multipart/form-data" action="{{url('/supplier/resources/airways/edit/'.$airways->id)}}">
+              enctype="multipart/form-data" action="{{url('/supplier/resources/line/edit/'.$line->id)}}">
             <div class="row page-input-header">
                 <div class="col-xs-2  text-left">
                     <button type="button" class="btn btn-default"
@@ -26,7 +26,7 @@
                             <label for="name" class="col-xs-2 control-label label-required">航空公司：</label>
                             <div class="col-xs-10">
                                 <input id="name" name="name" class="form-control" type="text"
-                                       value="{{$airways->name}}"
+                                       value="{{$line->name}}"
                                        style="width: 500px;"/>
 
                             </div>
@@ -38,7 +38,7 @@
                             <div class="col-xs-10">
                                 <input id="linkman" name="linkman" class="form-control"
                                        style="width: 200px;"
-                                       value="{{$airways->linkman}}" type="text"/>
+                                       value="{{$line->linkman}}" type="text"/>
 
                             </div>
                         </div>
@@ -48,7 +48,7 @@
                             <div class="col-xs-10">
                                 <input id="mobile" name="mobile" class="form-control"
                                        style="width: 300px;"
-                                       value="{{$airways->mobile}}" type="text"/>
+                                       value="{{$line->mobile}}" type="text"/>
 
                             </div>
                         </div>
@@ -58,7 +58,7 @@
                             <div class="col-xs-10">
                                 <input id="tel" name="tel" class="form-control"
                                        style="width: 300px;"
-                                       value="{{$airways->tel}}" type="text"/>
+                                       value="{{$line->tel}}" type="text"/>
 
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                             <div class="col-xs-10">
                                 <input id="fax" name="fax" class="form-control"
                                        style="width: 300px;"
-                                       value="{{$airways->fax}}" type="text"/>
+                                       value="{{$line->fax}}" type="text"/>
 
                             </div>
                         </div>
@@ -77,7 +77,7 @@
                                    class="col-xs-2 control-label label-required">备注：</label>
                             <div class="col-xs-10">
                                 <textarea id="remark" name="remark" class="form-control"
-                                          style="width: 1005px;height: 120px;">{{$airways->remark}}</textarea>
+                                          style="width: 1005px;height: 120px;">{{$line->remark}}</textarea>
 
                             </div>
                         </div>

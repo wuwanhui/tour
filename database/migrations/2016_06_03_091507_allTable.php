@@ -245,6 +245,230 @@ class AllTable extends Migration
 
 
         /**
+         * 资源中心-线路资源
+         */
+        if (!Schema::hasTable('Resources_Line')) {
+            Schema::create('Resources_Line', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('eid');
+                $table->string('name');
+                $table->text('remark');//备注
+                $table->integer('createid');//增加者
+                $table->integer('editid');//编辑者
+                $table->integer('sort')->default(0);//排序
+                $table->integer('state')->default(0);//状态
+                $table->timestamps();
+                $table->softDeletes();
+            });
+
+        }
+
+        /**
+         * 资源中心-导游领队
+         */
+        if (!Schema::hasTable('Resources_Guide')) {
+            Schema::create('Resources_Guide', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('eid');
+                $table->string('name');//姓名
+                $table->string('sex');//性别
+                $table->string('mobile');//手机号
+                $table->string('email');//电子邮件
+                $table->string('id_cards');//身份证号
+                $table->text('remark');//备注
+                $table->integer('createid');//增加者
+                $table->integer('editid');//编辑者
+                $table->integer('sort')->default(0);//排序
+                $table->integer('state')->default(0);//状态
+                $table->timestamps();
+                $table->softDeletes();
+            });
+
+        }
+        /**
+         * 资源中心-航空公司
+         */
+        if (!Schema::hasTable('Resources_Airways')) {
+            Schema::create('Resources_Airways', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('eid');
+                $table->string('name');
+                $table->string('linkman');
+                $table->string('mobile');
+                $table->string('tel');
+                $table->string('fax');
+                $table->text('remark');//备注
+                $table->integer('createid');//增加者
+                $table->integer('editid');//编辑者
+                $table->integer('sort')->default(0);//排序
+                $table->integer('state')->default(0);//状态
+                $table->timestamps();
+                $table->softDeletes();
+            });
+
+        }
+        /**
+         * 资源中心-地接社
+         */
+        if (!Schema::hasTable('Resources_Intourist')) {
+            Schema::create('Resources_Intourist', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('eid');
+                $table->string('name');
+                $table->text('alias');
+                $table->string('linkman');
+                $table->string('mobile');
+                $table->string('tel');
+                $table->string('fax');
+                $table->string('email');
+                $table->text('remark');//备注
+                $table->integer('createid');//增加者
+                $table->integer('editid');//编辑者
+                $table->integer('sort')->default(0);//排序
+                $table->integer('state')->default(0);//状态
+                $table->timestamps();
+                $table->softDeletes();
+            });
+
+        }
+        /**
+         * 资源中心-酒店
+         */
+        if (!Schema::hasTable('Resources_Hotel')) {
+            Schema::create('Resources_Hotel', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('eid');
+                $table->string('name');
+                $table->string('linkman');
+                $table->string('mobile');
+                $table->string('tel');
+                $table->string('fax');
+                $table->string('star');//星级
+                $table->string('addres');//地址
+                $table->string('service_content');//服务内容
+                $table->text('remark');//备注
+                $table->integer('createid');//增加者
+                $table->integer('editid');//编辑者
+                $table->integer('sort')->default(0);//排序
+                $table->integer('state')->default(0);//状态
+                $table->timestamps();
+                $table->softDeletes();
+            });
+
+        }
+        /**
+         * 资源中心-景区
+         */
+        if (!Schema::hasTable('Resources_Scenic')) {
+            Schema::create('Resources_Scenic', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('eid');
+                $table->string('name');//名称
+                $table->string('linkman');
+                $table->string('mobile');
+                $table->string('tel');
+                $table->string('fax');
+                $table->string('star');//星级
+                $table->string('addres');//地址
+                $table->text('remark');//备注
+                $table->integer('createid');//增加者
+                $table->integer('editid');//编辑者
+                $table->integer('sort')->default(0);//排序
+                $table->integer('state')->default(0);//状态
+                $table->timestamps();
+                $table->softDeletes();
+            });
+
+        }
+        /**
+         * 资源中心-车队
+         */
+        if (!Schema::hasTable('Resources_Fleet')) {
+            Schema::create('Resources_Fleet', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('eid');
+                $table->string('name');
+                $table->string('linkman');
+                $table->string('mobile');
+                $table->string('tel');
+                $table->string('fax');
+                $table->text('remark');//备注
+                $table->integer('createid');//增加者
+                $table->integer('editid');//编辑者
+                $table->integer('sort')->default(0);//排序
+                $table->integer('state')->default(0);//状态
+                $table->timestamps();
+                $table->softDeletes();
+            });
+
+        }
+        /**
+         * 资源中心-签证
+         */
+        if (!Schema::hasTable('Resources_Visa')) {
+            Schema::create('Resources_Visa', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('eid');
+                $table->string('name');
+                $table->string('linkman');
+                $table->string('mobile');
+                $table->string('tel');
+                $table->string('fax');
+                $table->text('remark');//备注
+                $table->integer('createid');//增加者
+                $table->integer('editid');//编辑者
+                $table->integer('sort')->default(0);//排序
+                $table->integer('state')->default(0);//状态
+                $table->timestamps();
+                $table->softDeletes();
+            });
+
+        }
+        /**
+         * 资源中心-保险公司
+         */
+        if (!Schema::hasTable('Resources_Insurance')) {
+            Schema::create('Resources_Insurance', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('eid');
+                $table->string('name');
+                $table->string('linkman');
+                $table->string('mobile');
+                $table->string('tel');
+                $table->string('fax');
+                $table->text('remark');//备注
+                $table->integer('createid');//增加者
+                $table->integer('editid');//编辑者
+                $table->integer('sort')->default(0);//排序
+                $table->integer('state')->default(0);//状态
+                $table->timestamps();
+                $table->softDeletes();
+            });
+
+        }
+        /**
+         * 资源中心-航空公司
+         */
+        if (!Schema::hasTable('Resources_Airways')) {
+            Schema::create('Resources_Airways', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('eid');
+                $table->string('name');
+                $table->string('linkman');
+                $table->string('mobile');
+                $table->string('tel');
+                $table->string('fax');
+                $table->text('remark');//备注
+                $table->integer('createid');//增加者
+                $table->integer('editid');//编辑者
+                $table->integer('sort')->default(0);//排序
+                $table->integer('state')->default(0);//状态
+                $table->timestamps();
+                $table->softDeletes();
+            });
+
+        }
+        /**
          * 资源中心-航空公司
          */
         if (!Schema::hasTable('Resources_Airways')) {
@@ -262,7 +486,30 @@ class AllTable extends Migration
                 $table->integer('sort')->default(0);
                 $table->integer('state')->default(0);
                 $table->timestamps();
-                $table->softDeletes();  
+                $table->softDeletes();
+            });
+
+        }
+
+        /**
+         * 资源中心-航空公司
+         */
+        if (!Schema::hasTable('Resources_Airways')) {
+            Schema::create('Resources_Airways', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('eid');
+                $table->string('name');
+                $table->string('linkman');
+                $table->string('mobile');
+                $table->string('tel');
+                $table->string('fax');
+                $table->text('abstract');
+                $table->integer('createid');
+                $table->integer('editid');
+                $table->integer('sort')->default(0);
+                $table->integer('state')->default(0);
+                $table->timestamps();
+                $table->softDeletes();
             });
 
         }

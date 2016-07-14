@@ -265,6 +265,31 @@ Route::group(['prefix' => 'supplier', 'namespace' => 'Supplier', 'middleware' =>
 
         });
         /**
+         *线路资源
+         */
+        Route::group(['prefix' => 'line'], function () {
+
+            Route::get('/', 'LineController@index');
+            Route::any('/create', 'LineController@create');
+            Route::any('/edit/{id}', 'LineController@edit');
+            Route::get('/delete/{id}', 'LineController@delete');
+
+        });
+
+        /**
+         *导游领队
+         */
+        Route::group(['prefix' => 'guide'], function () {
+
+            Route::get('/', 'GuideController@index');
+            Route::any('/create', 'GuideController@create');
+            Route::any('/edit/{id}', 'GuideController@edit');
+            Route::get('/delete/{id}', 'GuideController@delete');
+
+        });
+
+
+        /**
          *航空公司
          */
         Route::group(['prefix' => 'airways'], function () {
@@ -275,6 +300,85 @@ Route::group(['prefix' => 'supplier', 'namespace' => 'Supplier', 'middleware' =>
             Route::get('/delete/{id}', 'AirwaysController@delete');
 
         });
+
+
+        /**
+         *地接社
+         */
+        Route::group(['prefix' => 'intourist'], function () {
+
+            Route::get('/', 'IntouristController@index');
+            Route::any('/create', 'IntouristController@create');
+            Route::any('/edit/{id}', 'IntouristController@edit');
+            Route::get('/delete/{id}', 'IntouristController@delete');
+
+        });
+
+
+        /**
+         *酒店
+         */
+        Route::group(['prefix' => 'hotel'], function () {
+
+            Route::get('/', 'HotelController@index');
+            Route::any('/create', 'HotelController@create');
+            Route::any('/edit/{id}', 'HotelController@edit');
+            Route::get('/delete/{id}', 'HotelController@delete');
+
+        });
+
+
+        /**
+         *景区
+         */
+        Route::group(['prefix' => 'scenic'], function () {
+
+            Route::get('/', 'ScenicController@index');
+            Route::any('/create', 'ScenicController@create');
+            Route::any('/edit/{id}', 'ScenicController@edit');
+            Route::get('/delete/{id}', 'ScenicController@delete');
+
+        });
+
+
+        /**
+         *车队
+         */
+        Route::group(['prefix' => 'fleet'], function () {
+
+            Route::get('/', 'FleetController@index');
+            Route::any('/create', 'FleetController@create');
+            Route::any('/edit/{id}', 'FleetController@edit');
+            Route::get('/delete/{id}', 'FleetController@delete');
+
+        });
+
+
+        /**
+         *签证
+         */
+        Route::group(['prefix' => 'visa'], function () {
+
+            Route::get('/', 'VisaController@index');
+            Route::any('/create', 'VisaController@create');
+            Route::any('/edit/{id}', 'VisaController@edit');
+            Route::get('/delete/{id}', 'VisaController@delete');
+
+        });
+
+
+        /**
+         *保险公司
+         */
+        Route::group(['prefix' => 'insurance'], function () {
+
+            Route::get('/', 'InsuranceController@index');
+            Route::any('/create', 'InsuranceController@create');
+            Route::any('/edit/{id}', 'InsuranceController@edit');
+            Route::get('/delete/{id}', 'InsuranceController@delete');
+
+        });
+
 
     });
 

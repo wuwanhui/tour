@@ -28,14 +28,14 @@
             <div class="col-md-12">
                 <form method="Post" class="form-inline">
                     <fieldset>
-                        <legend>航空公司列表</legend>
+                        <legend>车队列表</legend>
                         <table class="table table-bordered table-hover  table-condensed">
                             <thead>
                             <tr style="text-align: center" class="text-center">
                                 <th style="width: 20px"><input type="checkbox"
                                                                name="CheckAll" value="Checkid"/></th>
                                 <th style="width: 80px;"><a href="">编号</a></th>
-                                <th><a href="">航空公司</a></th>
+                                <th><a href="">车队名称</a></th>
                                 <th><a href="">联系人</a></th>
                                 <th><a href="">手机</a></th>
                                 <th><a href="">电话</a></th>
@@ -45,7 +45,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($airways as $item)
+                            @foreach($fleets as $item)
                                 <tr>
                                     <td><input type="checkbox" value="{{$item->id}} "
                                                name="id"/></td>
@@ -59,10 +59,10 @@
                                         {{$item->state==0?"正常":"禁用"}}</td>
 
                                     <td style="text-align: center"><a
-                                                href="{{url('/supplier/resources/airways/edit/'.$item->id)}}">编辑</a>
+                                                href="{{url('/supplier/resources/fleet/edit/'.$item->id)}}">编辑</a>
                                         |
                                         <a
-                                                href="{{url('/supplier/resources/airways/delete/'.$item->id)}}">删除</a>
+                                                href="{{url('/supplier/resources/fleet/delete/'.$item->id)}}">删除</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -80,7 +80,7 @@
                 </button>
             </div>
             <div class="col-xs-6 text-right">
-                {!! $airways->links() !!}
+                {!! $fleets->links() !!}
             </div>
         </div>
     </div>
