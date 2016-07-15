@@ -5,10 +5,9 @@
 
 @section('content')
     <div class="page-list">
-
         <div class="row page-list-header">
             <div class="col-xs-8 text-left">
-                <a href="{{url('/supplier/resources/airways/create/')}}"
+                <a href="{{url('/supplier/resources/airways/flight/create/')}}"
                    class="btn btn-primary">新增</a>
             </div>
             <div class="col-xs-4 text-right">
@@ -25,18 +24,17 @@
                 </form>
             </div>
         </div>
-
         <div class="row page-list-body">
-
             <div class="col-md-12">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="/supplier/resources/airways/">航空公司</a>
+                    <li><a href="/supplier/resources/airways/">航空公司</a>
                     </li>
-                    <li><a href="/supplier/resources/airways/flight/">班次管理</a>
+                    <li class="active"><a href="/supplier/resources/airways/flight/">班次管理</a>
                     </li>
                 </ul>
                 <br/>
                 <form method="Post" class="form-inline">
+
                     <table class="table table-bordered table-hover  table-condensed">
                         <thead>
                         <tr style="text-align: center" class="text-center">
@@ -53,7 +51,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($airways as $item)
+                        @foreach($flights as $item)
                             <tr>
                                 <td><input type="checkbox" value="{{$item->id}} "
                                            name="id"/></td>
@@ -67,10 +65,10 @@
                                     {{$item->state==0?"正常":"禁用"}}</td>
 
                                 <td style="text-align: center"><a
-                                            href="{{url('/supplier/resources/airways/edit/'.$item->id)}}">编辑</a>
+                                            href="{{url('/supplier/resources/airways/flight/edit/'.$item->id)}}">编辑</a>
                                     |
                                     <a
-                                            href="{{url('/supplier/resources/airways/delete/'.$item->id)}}">删除</a>
+                                            href="{{url('/supplier/resources/airways/flight/delete/'.$item->id)}}">删除</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -88,7 +86,7 @@
                 </button>
             </div>
             <div class="col-xs-6 text-right">
-                {!! $airways->links() !!}
+                {!! $flights->links() !!}
             </div>
         </div>
     </div>

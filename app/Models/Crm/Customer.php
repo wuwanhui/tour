@@ -1,23 +1,23 @@
 <?php
-namespace App\Models\Resources;
+namespace App\Models\Crm;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * 航空公司
+ * 客户档案
  * @package App\Models
  */
-class Line extends Model
+class Customer extends Model
 {
     use SoftDeletes;
 
 
-    protected $table = 'Resources_Line';//表名
+    protected $table = 'Crm_Customer';//表名
     protected $primaryKey = "id";//主键
 
 
-    protected $fillable = ['eid', 'name', 'days', 'headerh_image', 'shopping', 'characteristic', 'service_standards', 'considerations', 'attachment', 'remark', 'createid', 'editid', 'sort', 'state'];
+    protected $fillable = ['eid', 'pid', 'name', 'person_liable', 'mobile', 'tel', 'fax', 'qq', 'email', 'addres', 'commissioner_id', 'remark', 'createid', 'editid', 'sort', 'state'];
     protected $dates = ['deleted_at'];
 
     public function __construct()
@@ -73,5 +73,12 @@ class Line extends Model
         ];
     }
 
+    /**
+     * 所属专员
+     */
+    public function commissioner()
+    {
+        return $this->belongsTo('App\Models\System\User', 'commissioner_id');
+    }
 
 }

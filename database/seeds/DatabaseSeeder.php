@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
 
         //系统参数
         $config = new \App\Models\System\Config();
-        $config->name = "重庆元佑科技有限公司";
+        $config->name = "千番旅行";
         $enterprise->config()->save($config);
 
         //管理员
@@ -29,5 +29,23 @@ class DatabaseSeeder extends Seeder
         $user->password = bcrypt('admin');
 
         $enterprise->users()->save($user);
+
+        //基础资料分类
+        $basTypee = new \App\Models\System\BaseType();
+        $basTypee->name = '购物类型';
+        $basTypee->code = 'shopping';
+        $basTypee->save();
+        //基础资料
+        $baseDate = new \App\Models\System\BaseData();
+        $baseDate->name = '购物行程';
+        $baseDate->value = '1';
+        $basTypee->datas()->save($baseDate);
+        //基础资料
+        $baseDate = new \App\Models\System\BaseData();
+        $baseDate->name = '非购物行程';
+        $baseDate->value = '0';
+        $basTypee->datas()->save($baseDate);
+
+
     }
 }

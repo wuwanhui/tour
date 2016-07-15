@@ -5,19 +5,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * 航空公司
+ * 航班信息
  * @package App\Models
  */
-class Line extends Model
+class Airways_Flight extends Model
 {
     use SoftDeletes;
 
 
-    protected $table = 'Resources_Line';//表名
+    protected $table = 'Airways_Flight';//表名
     protected $primaryKey = "id";//主键
 
 
-    protected $fillable = ['eid', 'name', 'days', 'headerh_image', 'shopping', 'characteristic', 'service_standards', 'considerations', 'attachment', 'remark', 'createid', 'editid', 'sort', 'state'];
+    protected $fillable = ['eid', 'airways_id', 'course', 'shift', 'departure_time', 'arrivala_time', 'remark', 'createid', 'editid', 'sort', 'state'];
     protected $dates = ['deleted_at'];
 
     public function __construct()
@@ -44,7 +44,7 @@ class Line extends Model
     public function createRules()
     {
         return [
-            'name' => 'required|unique:Resources_Line|max:255|min:2',
+            'hift' => 'required|unique:Airways_Flight|max:255|min:2',
         ];
     }
 
@@ -56,7 +56,7 @@ class Line extends Model
     public function editRules()
     {
         return [
-            'name' => 'required|max:255|min:2',
+            'hift' => 'required|max:255|min:2',
         ];
     }
 
@@ -68,10 +68,16 @@ class Line extends Model
     public function messages()
     {
         return [
-            'name.required' => '名称不能为空',
-            'name.unique' => '名称不能相同',
+            'hift.required' => '班次不能为空',
+            'hift.unique' => '班次不能相同',
         ];
     }
 
-
+    /**
+     * 航空公司
+     */
+    public function airways()
+    {
+        return $this->belongsTo('App\Models\Resources\Airways', 'airways_id');
+    }
 }

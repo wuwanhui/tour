@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Supplier\Resources;
+namespace App\Http\Controllers\Supplier\Crm;
 
 use App\Http\Controllers\Supplier\BaseController;
 use App\Http\Facades\Base;
-use App\Models\Resources\Line;
+use App\Models\Crm\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Mockery\CountValidator\Exception;
 
-class LineController extends BaseController
+class CustomerController extends BaseController
 {
 
     /**
@@ -19,35 +19,35 @@ class LineController extends BaseController
      */
     public function index()
     {
-        $lines = Line::where('eid', Base::eid())->orderBy('created_at', 'desc')->paginate($this->pageSize);
-        return view('supplier.resources.line.index', compact('lines'));
+        $customers = Customer::where('eid', Base::eid())->orderBy('created_at', 'desc')->paginate($this->pageSize);
+        return view('supplier.crm.customer.index', compact('customers'));
     }
 
 
     public function create(Request $request)
     {
         try {
-            $line = new Line();
+            $customer = new Customer();
             if ($request->isMethod('post')) {
                 $input = Input::all();
 
-                $validator = Validator::make($input, $line->createRules(), $line->messages());
+                $validator = Validator::make($input, $customer->createRules(), $customer->messages());
                 if ($validator->fails()) {
-                    return redirect('/supplier/resources/line/create')
+                    return redirect('/supplier/crm/customer/create')
                         ->withInput()
                         ->withErrors($validator);
                 }
-                $line->fill($input);
-                $line->eid = Base::eid();
-                $line->createid = Base::uid();
-                $line->save();
-                if ($line) {
-                    return redirect('/supplier/resources/line/')->withSuccess('保存成功！');
+                $customer->fill($input);
+                $customer->eid = Base::eid();
+                $customer->createid = Base::uid();
+                $customer->save();
+                if ($customer) {
+                    return redirect('/supplier/crm/customer/')->withSuccess('保存成功！');
                 } else {
                     return Redirect::back()->withErrors('保存失败！');
                 }
             }
-            return view('supplier.resources.line.create', compact('line'));
+            return view('supplier.crm.customer.create', compact('customer'));
         } catch (Exception $ex) {
             return Redirect::back()->withInput()->withErrors('异常！' . $ex->getMessage());
         }
@@ -56,29 +56,29 @@ class LineController extends BaseController
     public function edit(Request $request, $id)
     {
         try {
-            $line = Line::find($id);
-            if (!$line) {
+            $customer = Customer::find($id);
+            if (!$customer) {
                 return Redirect::back()->withErrors('数据加载失败！');
             }
             if ($request->isMethod('post')) {
                 $input = Input::all();
 
-                $validator = Validator::make($input, $line->editRules(), $line->messages());
+                $validator = Validator::make($input, $customer->editRules(), $customer->messages());
                 if ($validator->fails()) {
-                    return redirect('/supplier/resources/line/edit/' . $id)
+                    return redirect('/supplier/crm/customer/edit/' . $id)
                         ->withInput()
                         ->withErrors($validator);
                 }
-                $line->fill($input);
-                $line->editid = Base::uid();
-                $line->save();
-                if ($line) {
-                    return redirect('/supplier/resources/line/')->withSuccess('更新成功！');
+                $customer->fill($input);
+                $customer->editid = Base::uid();
+                $customer->save();
+                if ($customer) {
+                    return redirect('/supplier/crm/customer/')->withSuccess('更新成功！');
                 } else {
                     return Redirect::back()->withErrors('更新失败！');
                 }
             }
-            return view('supplier.resources.line.edit', compact('line'));
+            return view('supplier.crm.customer.edit', compact('customer'));
         } catch (Exception $ex) {
             return Redirect::back()->withInput()->withErrors('异常！' . $ex->getMessage());
         }
@@ -87,12 +87,12 @@ class LineController extends BaseController
     public function copy($id)
     {
         try {
-            $line = Line::find($id);
-            if (!$line) {
+            $customer = Customer::find($id);
+            if (!$customer) {
                 return Redirect::back()->withErrors('数据加载失败！');
             }
-            $line->name .= "（复制）";
-            return view('supplier.resources.line.create', compact('line'));
+            $customer->name .= "（复制）";
+            return view('supplier.crm.customer.create', compact('customer'));
         } catch (Exception $ex) {
             return Redirect::back()->withInput()->withErrors('异常！' . $ex->getMessage());
         }
@@ -100,9 +100,9 @@ class LineController extends BaseController
 
     public function delete($id)
     {
-        $Line = Line::find($id);
-        if ($Line->delete()) {
-            return redirect('/supplier/resources/line/')->withSuccess('删除成功！');
+        $Customer = Customer::find($id);
+        if ($Customer->delete()) {
+            return redirect('/supplier/crm/customer/')->withSuccess('删除成功！');
         } else {
             return Redirect::back()->withErrors('数据加载失败！');
         }

@@ -200,15 +200,26 @@ Route::group(['prefix' => 'supplier', 'namespace' => 'Supplier', 'middleware' =>
     /**
      * 客户关系
      */
-    Route::group(['prefix' => 'customer', 'namespace' => 'Customer'], function () {
+    Route::group(['prefix' => 'crm', 'namespace' => 'Crm'], function () {
         /**
          * 主页
          */
         Route::get('/', function () {
-            return view('supplier/customer/index', ['model' => 'customer', 'menu' => 'config']);
+            return view('supplier/crm/index');
 
         });
+        /**
+         *客户档案
+         */
+        Route::group(['prefix' => 'customer'], function () {
 
+            Route::get('/', 'CustomerController@index');
+            Route::any('/create', 'CustomerController@create');
+            Route::any('/edit/{id}', 'CustomerController@edit');
+            Route::any('/copy/{id}', 'CustomerController@copy');
+            Route::get('/delete/{id}', 'CustomerController@delete');
+
+        });
 
     });
 
@@ -272,6 +283,7 @@ Route::group(['prefix' => 'supplier', 'namespace' => 'Supplier', 'middleware' =>
             Route::get('/', 'LineController@index');
             Route::any('/create', 'LineController@create');
             Route::any('/edit/{id}', 'LineController@edit');
+            Route::any('/copy/{id}', 'LineController@copy');
             Route::get('/delete/{id}', 'LineController@delete');
 
         });
@@ -298,7 +310,17 @@ Route::group(['prefix' => 'supplier', 'namespace' => 'Supplier', 'middleware' =>
             Route::any('/create', 'AirwaysController@create');
             Route::any('/edit/{id}', 'AirwaysController@edit');
             Route::get('/delete/{id}', 'AirwaysController@delete');
+            /**
+             *航空班次
+             */
+            Route::group(['prefix' => 'flight'], function () {
 
+                Route::get('/{aid?}', 'Airways_FlightController@index');
+                Route::any('/create', 'Airways_FlightController@create');
+                Route::any('/edit/{id}', 'Airways_FlightController@edit');
+                Route::get('/delete/{id}', 'Airways_FlightController@delete');
+
+            });
         });
 
 

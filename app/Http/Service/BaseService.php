@@ -95,6 +95,7 @@ class BaseService
         }
     }
 
+
     /**
      * 获取企业参数配置
      * @param $key
@@ -115,9 +116,7 @@ class BaseService
     public function data($key)
     {
         $baseType = BaseType::where('code', $key)->first();
-        if ($baseType) {
-            return $baseType->datas();
-        }
+        return $baseType;
     }
 
 

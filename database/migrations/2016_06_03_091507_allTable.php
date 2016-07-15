@@ -245,13 +245,48 @@ class AllTable extends Migration
 
 
         /**
+         * 客户中心-客户档案
+         */
+        if (!Schema::hasTable('Crm_Customer')) {
+            Schema::create('Crm_Customer', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('eid');
+                $table->integer('pid');//所属企业
+                $table->string('name');//客户名称
+                $table->string('person_liable');//责任人
+                $table->string('mobile');//手机号
+                $table->string('tel');//电话
+                $table->string('fax');//传真
+                $table->string('qq');//QQ号
+                $table->string('email');//电子邮件
+                $table->string('addres');//联系地址
+                $table->integer('commissioner_id');//服务专员
+                $table->text('remark');//备注
+                $table->integer('createid');//增加者
+                $table->integer('editid');//编辑者
+                $table->integer('sort')->default(0);//排序
+                $table->integer('state')->default(0);//状态
+                $table->timestamps();
+                $table->softDeletes();
+            });
+
+        }
+
+        /**
          * 资源中心-线路资源
          */
         if (!Schema::hasTable('Resources_Line')) {
             Schema::create('Resources_Line', function (Blueprint $table) {
                 $table->increments('id');
                 $table->integer('eid');
-                $table->string('name');
+                $table->string('name');//线路名称
+                $table->string('days');//行程天数
+                $table->string('headerh_image');//标题图片
+                $table->string('shopping');//购物类型（购物团、非购物团）
+                $table->text('characteristic');//行程特色
+                $table->text('service_standards');//服务标准
+                $table->text('considerations');//注意事项
+                $table->string('attachment');//行程附件
                 $table->text('remark');//备注
                 $table->integer('createid');//增加者
                 $table->integer('editid');//编辑者
@@ -307,6 +342,30 @@ class AllTable extends Migration
             });
 
         }
+
+        /**
+         * 资源中心-航班班次管理
+         */
+        if (!Schema::hasTable('Airways_Flight')) {
+            Schema::create('Airways_Flight', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('eid');
+                $table->integer('airways_id');//所属航班
+                $table->string('course');//航向(如：重庆-北京)
+                $table->string('shift');//班次
+                $table->time('departure_time');//起飞时间
+                $table->time('arrivala_time');//到达时间
+                $table->text('remark');//备注
+                $table->integer('createid');//增加者
+                $table->integer('editid');//编辑者
+                $table->integer('sort')->default(0);//排序
+                $table->integer('state')->default(0);//状态
+                $table->timestamps();
+                $table->softDeletes();
+            });
+
+        }
+
         /**
          * 资源中心-地接社
          */
