@@ -42,10 +42,10 @@
                                                            name="CheckAll" value="Checkid"/></th>
                             <th style="width: 80px;"><a href="">编号</a></th>
                             <th><a href="">航空公司</a></th>
-                            <th><a href="">联系人</a></th>
-                            <th><a href="">手机</a></th>
-                            <th><a href="">电话</a></th>
-                            <th><a href="">传真</a></th>
+                            <th><a href="">航向</a></th>
+                            <th><a href="">航班号/班次</a></th>
+                            <th><a href="">起飞时间</a></th>
+                            <th><a href="">到达时间</a></th>
                             <th><a href="">状态</a></th>
                             <th style="width: 120px;">操作</th>
                         </tr>
@@ -56,11 +56,11 @@
                                 <td><input type="checkbox" value="{{$item->id}} "
                                            name="id"/></td>
                                 <td style="text-align: center">{{$item->id}} </td>
-                                <td>{{$item->name}} </td>
-                                <td style="text-align: center">{{$item->linkman}}</td>
-                                <td style="text-align: center">{{$item->mobile}}</td>
-                                <td style="text-align: center">{{$item->tel}}</td>
-                                <td style="text-align: center">{{$item->fax}}</td>
+                                <td>{{$item->airways->name}} </td>
+                                <td style="text-align: center">{{$item->course}}</td>
+                                <td style="text-align: center">{{$item->shift}}</td>
+                                <td style="text-align: center">{{$item->departure_time}}</td>
+                                <td style="text-align: center">{{$item->arrivala_time}}</td>
                                 <td style="text-align: center">
                                     {{$item->state==0?"正常":"禁用"}}</td>
 

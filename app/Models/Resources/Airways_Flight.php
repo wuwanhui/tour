@@ -44,7 +44,7 @@ class Airways_Flight extends Model
     public function createRules()
     {
         return [
-            'hift' => 'required|unique:Airways_Flight|max:255|min:2',
+            'shift' => 'required|unique:Airways_Flight|max:255|min:2',
         ];
     }
 
@@ -68,8 +68,8 @@ class Airways_Flight extends Model
     public function messages()
     {
         return [
-            'hift.required' => '班次不能为空',
-            'hift.unique' => '班次不能相同',
+            'shift.required' => '班次不能为空',
+            'shift.unique' => '班次不能相同',
         ];
     }
 

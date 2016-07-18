@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Supplier\Resources;
 use App\Http\Controllers\Supplier\BaseController;
 use App\Http\Facades\Base;
 use App\Models\Resources\Airways;
+use App\Models\Resources\Airways_Flight;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -17,12 +18,13 @@ class Airways_FlightController extends BaseController
     /**
      * 主页
      */
-    public function index($aid = 0)
+    public function index(Request $request)
     {
-        if ($aid == 0) {
-            $flights = Airways::where('eid', Base::eid())->orderBy('created_at', 'desc')->paginate($this->pageSize);
+        $aid = $request->aid;
+        if (isset($aid)) {
+            $flights = Airways_Flight::where('eid', Base::eid())->where('airways_id', $aid)->orderBy('created_at', 'desc')->paginate($this->pageSize);
         } else {
-            $flights = Airways::where('eid', Base::eid())->where('airways_id', $aid)->orderBy('created_at', 'desc')->paginate($this->pageSize);
+            $flights = Airways_Flight::where('eid', Base::eid())->orderBy('created_at', 'desc')->paginate($this->pageSize);
         }
         return view('supplier.resources.airways.flight.index', compact('flights'));
     }
@@ -31,7 +33,16 @@ class Airways_FlightController extends BaseController
     public function create(Request $request)
     {
         try {
-            $flight = new Airways();
+            $flight = new Airways_Flight();
+            $flight->airways_id = $request->aid;
+            if (!isset($flight->airways_id)){
+                $airways=Airways::all();
+                if (count($airways)==0){
+                    return redirect('/supplier/resources/airways')
+                        ->withInput()
+                        ->withErrors('你还没有增加航空公司,请先增加航空公司再增加航班信息!');
+                }
+            }
             if ($request->isMethod('post')) {
                 $input = Input::all();
 
@@ -51,7 +62,7 @@ class Airways_FlightController extends BaseController
                     return Redirect::back()->withErrors('保存失败！');
                 }
             }
-            return view('supplier.resources.airways.flight.create', compact('flight'));
+            return view('supplier.resources.airways.flight.create', compact('airways','flight'));
         } catch (Exception $ex) {
             return Redirect::back()->withInput()->withErrors('异常！' . $ex->getMessage());
         }
@@ -60,7 +71,7 @@ class Airways_FlightController extends BaseController
     public function edit(Request $request, $id)
     {
         try {
-            $flight = Airways::find($id);
+            $flight = Airways_Flight::find($id);
             if (!$flight) {
                 return Redirect::back()->withErrors('数据加载失败！');
             }
@@ -91,7 +102,7 @@ class Airways_FlightController extends BaseController
 
     public function delete($id)
     {
-        $flight = Airways::find($id);
+        $flight = Airways_Flight::find($id);
         if ($flight->delete()) {
             return redirect('/supplier/resources/airways/flight/')->withSuccess('删除成功！');
         } else {

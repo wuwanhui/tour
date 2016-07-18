@@ -30,14 +30,13 @@
                 吴红（管理员）
             </div>
             <div class="page-header-nav-menu">
-                <span name="business">业务中心</span>
-                <span name="customer">客服关系</span>
-                <span name="weixin">微信营销</span>
+                <span name="sale">销售中心</span>
+                <span name="operation">计调操作</span>
+                <span name="customer">客户关系</span>
                 <span name="finance">财务结算</span>
                 <span name="resources">资源中心</span>
                 <span name="report">统计报表</span>
                 <span name="system">系统管理</span>
-                <span name="docking">三方对接</span>
 
             </div>
             <form class="page-header-nav-search">

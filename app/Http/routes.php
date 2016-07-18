@@ -315,7 +315,8 @@ Route::group(['prefix' => 'supplier', 'namespace' => 'Supplier', 'middleware' =>
              */
             Route::group(['prefix' => 'flight'], function () {
 
-                Route::get('/{aid?}', 'Airways_FlightController@index');
+
+                Route::get('/', 'Airways_FlightController@index');
                 Route::any('/create', 'Airways_FlightController@create');
                 Route::any('/edit/{id}', 'Airways_FlightController@edit');
                 Route::get('/delete/{id}', 'Airways_FlightController@delete');

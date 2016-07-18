@@ -49,7 +49,7 @@
                             <th><a href="">电话</a></th>
                             <th><a href="">传真</a></th>
                             <th><a href="">状态</a></th>
-                            <th style="width: 120px;">操作</th>
+                            <th style="width: 160px;">操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -67,6 +67,8 @@
                                     {{$item->state==0?"正常":"禁用"}}</td>
 
                                 <td style="text-align: center"><a
+                                            href="{{url('/supplier/resources/airways/flight?aid='.$item->id)}}">班次({{count($item->flights)}})</a>
+                                    | <a
                                             href="{{url('/supplier/resources/airways/edit/'.$item->id)}}">编辑</a>
                                     |
                                     <a

@@ -73,5 +73,11 @@ class Airways extends Model
         ];
     }
 
-
+    /**
+     * 所有班次
+     */
+    public function flights()
+    {
+        return $this->hasMany('App\Models\Resources\Airways_Flight', "airways_id");
+    }
 }

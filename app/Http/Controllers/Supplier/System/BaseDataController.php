@@ -21,7 +21,7 @@ class BaseDataController extends BaseController
         $baseTypes = BaseType::all();
         if ($tid == 0) {
             $baseType = BaseType::first();
-            $baseDatas = BaseData::where('','')->orderBy('created_at', 'desc')->paginate($this->pageSize);
+            $baseDatas = BaseData::orderBy('created_at', 'desc')->paginate($this->pageSize);
         } else {
             $baseType = BaseType::find($tid);
             $baseDatas = BaseData::where('tid', $tid)->paginate($this->pageSize);

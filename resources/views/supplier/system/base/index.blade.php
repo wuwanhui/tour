@@ -7,7 +7,7 @@
     <div class="page-list">
         <div class="row page-list-header">
             <div class="col-xs-8 text-left">
-                <h4>数据字典维<d/h4>
+                <h4>数据字典维护</h4>
             </div>
             <div class="col-xs-4 text-right">
 
@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="row page-list-body">
-            <div class="col-md-2 text-center">
+            <div class="col-md-3 text-center">
                 <div class="panel panel-default">
                     <!-- Default panel contents -->
                     <div class="panel-heading">基础数据分类</div>
@@ -32,7 +32,7 @@
                         <ul class="list-group">
                             @foreach($baseTypes as $item)
                                 <li class="list-group-item"><a
-                                            href="{{url('/manage/system/base/list/'.$item->id)}}"> {{$item->name}}
+                                            href="{{url('/supplier/system/base/list/'.$item->id)}}"> {{$item->name}}
                                         ({{$item->code}})
 
                                     </a><span class="badge">{{count($item->datas)}}</span></li>
@@ -42,7 +42,7 @@
 
                 </div>
             </div>
-            <div class="col-md-10">
+            <div class="col-md-9">
                 @if($baseType->name!='')
                     <form method="Post" class="form-inline">
                         <fieldset>
@@ -72,9 +72,9 @@
                                         <td style="text-align: center">{{$item->sort}} </td>
 
                                         <td style="text-align: center"><a
-                                                    href="{{url('/manage/system/base/edit/'.$item->id)}}">编辑</a> |
+                                                    href="{{url('/supplier/system/base/edit/'.$item->id)}}">编辑</a> |
                                             <a
-                                                    href="{{url('/manage/system/base/delete/'.$item->id)}}">删除</a>
+                                                    href="{{url('/supplier/system/base/delete/'.$item->id)}}">删除</a>
                                         </td>
                                     </tr>
                                 @endforeach

@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
 
         $enterprise->users()->save($user);
 
-        //基础资料分类
+        //基础资料分类-购物类型
         $basTypee = new \App\Models\System\BaseType();
         $basTypee->name = '购物类型';
         $basTypee->code = 'shopping';
@@ -44,6 +44,17 @@ class DatabaseSeeder extends Seeder
         $baseDate = new \App\Models\System\BaseData();
         $baseDate->name = '非购物行程';
         $baseDate->value = '0';
+        $basTypee->datas()->save($baseDate);
+
+        //基础资料分类-集合地
+        $basTypee = new \App\Models\System\BaseType();
+        $basTypee->name = '集合地';
+        $basTypee->code = 'rendezvous';
+        $basTypee->save();
+        //基础资料
+        $baseDate = new \App\Models\System\BaseData();
+        $baseDate->name = '重庆';
+        $baseDate->value = '重庆市江北机场';
         $basTypee->datas()->save($baseDate);
 
 

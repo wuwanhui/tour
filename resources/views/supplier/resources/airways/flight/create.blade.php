@@ -5,7 +5,7 @@
 @section('content')
     <div class="  page-input">
         <form class="form-horizontal" method="Post"
-              enctype="multipart/form-data" action="{{url('/supplier/resources/airways/create')}}">
+              enctype="multipart/form-data" action="{{url('/supplier/resources/airways/flight/create')}}">
             <div class="row page-input-header">
                 <div class="col-xs-2  text-left">
                     <button type="button" class="btn btn-default"
@@ -22,62 +22,71 @@
                         <legend>基本信息</legend>
                         {!! csrf_field() !!}
 
+                        @if(isset($airways))
+                            <div class="form-group">
+                                <label for="airways_id"
+                                       class="col-xs-2 control-label label-required">所属航空公司：</label>
+                                <div class="col-xs-10">
+                                    <select name="airways_id" class="form-control">
+                                        @foreach($airways as $item)
+                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <a href="{{url('/supplier/resources/airways/create')}}">新增航空公司</a>
+
+                                </div>
+                            </div>
+                        @else
+                            <input type="hidden" name="airways_id" value="{{$flight->airways_id}}">
+                        @endif
+
                         <div class="form-group">
-                            <label for="name" class="col-xs-2 control-label label-required">航空公司：</label>
+                            <label for="course" class="col-xs-2 control-label label-required">航向：</label>
                             <div class="col-xs-10">
-                                <input id="name" name="name" class="form-control" type="text"
-                                       value="{{$airways->name}}"
-                                       style="width: 500px;"/>
+                                <input id="course" name="course" class="form-control" type="text"
+                                       value="{{$flight->course}}"
+                                       style="width: 300px;" placeholder="如:重庆-北京"/>
 
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="linkman"
-                                   class="col-xs-2 control-label label-required">联系人：</label>
+                            <label for="shift"
+                                   class="col-xs-2 control-label label-required">航班号/班次：</label>
                             <div class="col-xs-10">
-                                <input id="linkman" name="linkman" class="form-control"
-                                       style="width: 200px;"
-                                       value="{{$airways->linkman}}" type="text"/>
-
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="mobile"
-                                   class="col-xs-2 control-label label-required">手机号：</label>
-                            <div class="col-xs-10">
-                                <input id="mobile" name="mobile" class="form-control"
+                                <input id="shift" name="shift" class="form-control"
                                        style="width: 300px;"
-                                       value="{{$airways->mobile}}" type="text"/>
+                                       value="{{$flight->shift}}" type="text"/>
 
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="tel"
-                                   class="col-xs-2 control-label label-required">联系电话：</label>
+                            <label for="departure_time"
+                                   class="col-xs-2 control-label label-required">起飞时间：</label>
                             <div class="col-xs-10">
-                                <input id="tel" name="tel" class="form-control"
+                                <input id="departure_time" name="departure_time" class="form-control"
                                        style="width: 300px;"
-                                       value="{{$airways->tel}}" type="text"/>
+                                       value="{{$flight->departure_time}}" type="text"/>
 
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="fax"
-                                   class="col-xs-2 control-label label-required">传真：</label>
+                            <label for="arrivala_time"
+                                   class="col-xs-2 control-label label-required">到达时间：</label>
                             <div class="col-xs-10">
-                                <input id="fax" name="fax" class="form-control"
+                                <input id="arrivala_time" name="arrivala_time" class="form-control"
                                        style="width: 300px;"
-                                       value="{{$airways->fax}}" type="text"/>
+                                       value="{{$flight->arrivala_time}}" type="text"/>
 
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label for="remark"
                                    class="col-xs-2 control-label label-required">备注：</label>
                             <div class="col-xs-10">
                                 <textarea id="remark" name="remark" class="form-control"
-                                          style="width: 1005px;height: 120px;">{{$airways->remark}}</textarea>
+                                          style="width: 1005px;height: 120px;">{{$flight->remark}}</textarea>
 
                             </div>
                         </div>

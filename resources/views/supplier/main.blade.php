@@ -4,19 +4,35 @@
 
 @section('content')
     <div class="page-content-side">
-        <div class="business submenu">
-            <div class="page-content-side-nav">业务中心</div>
+        <div class="sale submenu">
+            <div class="page-content-side-nav">销售中心</div>
             <div class="page-content-side-menu ">
-                <a target="main" href="/supplier/activity/">增加团队</a> <a
-                        target="main" href="/supplier/analysis/">增加散拼</a> <a
-                        target="main" href="/supplier/analysis/">团队操作</a> <a
-                        target="main" href="/supplier/analysis/">订单列表</a> <a
-                        target="main" href="/supplier/analysis/">到账认领</a> <a
-                        target="main" href="/supplier/analysis/">收款记录</a> <a
-                        target="main" href="/supplier/analysis/">付款记录</a>
+                <a target="main" href="/supplier/activity/">增加散拼团</a>
+                <a target="main"
+                   href="/supplier/activity/">增加独立成团</a> <a
+                        target="main" href="/supplier/activity/">增加自由行</a>
                 <hr/>
+                <a
+                        target="main" href="/supplier/analysis/">收客订单</a> <a
+                        target="main" href="/supplier/analysis/">收款记录</a> <a
+                        target="main" href="/supplier/analysis/">到账认领</a> <a
+                        target="main" href="/supplier/analysis/">催款中心</a>
+
+            </div>
+        </div>
+        <div class="operation submenu">
+            <div class="page-content-side-nav">计调操作</div>
+            <div class="page-content-side-menu ">
+                <a target="main" href="/supplier/analysis/">团队操作</a>
                 <a target="main" href="/supplier/activity/">控位管理</a> <a
-                        target="main" href="/supplier/analysis/">团队成本</a>
+                        target="main" href="/supplier/analysis/">地接计划</a>
+                <hr/>
+                <a
+                        target="main" href="/supplier/analysis/">付款管理</a> <a
+                        target="main" href="/supplier/analysis/">收款管理</a>
+                <a
+                        target="main" href="/supplier/analysis/">团队核算</a><hr/><a
+                        target="main" href="/supplier/analysis/">变更审核</a>
             </div>
         </div>
         <div class="customer submenu">
