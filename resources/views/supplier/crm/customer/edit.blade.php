@@ -69,7 +69,7 @@
                                    class="col-xs-2 control-label label-required">行程特色：</label>
                             <div class="col-xs-10">
                                 <textarea id="characteristic" name="characteristic" class="form-control"
-                                          style="width: 1005px;height: 120px;">{{$line->characteristic}}</textarea>
+                                          style="width: 100%;height: 120px;">{{$line->characteristic}}</textarea>
 
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                                    class="col-xs-2 control-label label-required">服务标准：</label>
                             <div class="col-xs-10">
                                 <textarea id="service_standards" name="service_standards" class="form-control"
-                                          style="width: 1005px;height: 120px;">{{$line->service_standards}}</textarea>
+                                          style="width: 100%;height: 120px;">{{$line->service_standards}}</textarea>
 
                             </div>
                         </div>
@@ -88,7 +88,7 @@
                                    class="col-xs-2 control-label label-required">注意事项：</label>
                             <div class="col-xs-10">
                                 <textarea id="considerations" name="considerations" class="form-control"
-                                          style="width: 1005px;height: 120px;">{{$line->considerations}}</textarea>
+                                          style="width: 100%;height: 120px;">{{$line->considerations}}</textarea>
 
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                                    class="col-xs-2 control-label label-required">备注：</label>
                             <div class="col-xs-10">
                                 <textarea id="remark" name="remark" class="form-control"
-                                          style="width: 1005px;height: 120px;">{{$line->remark}}</textarea>
+                                          style="width: 100%;height: 120px;">{{$line->remark}}</textarea>
 
                             </div>
                         </div>

@@ -262,7 +262,38 @@ Route::group(['prefix' => 'supplier', 'namespace' => 'Supplier', 'middleware' =>
 
 
     });
+    /**
+     * 计调中心
+     */
+    Route::group(['prefix' => 'operator', 'namespace' => 'Operator'], function () {
 
+        /**
+         * 主页
+         */
+        Route::get('/', function () {
+            return view('supplier/operator/index', ['model' => 'resources', 'menu' => 'config']);
+
+        });
+
+        /**
+         *控位中心
+         */
+        Route::group(['prefix' => 'control'], function () {
+            /**
+             *控位中心-航空控位
+             */
+            Route::group(['prefix' => 'airways'], function () {
+
+                Route::get('/', 'Control_AirwaysController@index');
+                Route::any('/create', 'Control_AirwaysController@create');
+                Route::any('/edit/{id}', 'Control_AirwaysController@edit');
+                Route::any('/copy/{id}', 'Control_AirwaysController@copy');
+                Route::get('/delete/{id}', 'Control_AirwaysController@delete');
+
+            });
+
+        });
+    });
     /**
      * 资源中心
      */

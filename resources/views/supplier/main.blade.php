@@ -24,14 +24,16 @@
             <div class="page-content-side-nav">计调操作</div>
             <div class="page-content-side-menu ">
                 <a target="main" href="/supplier/analysis/">团队操作</a>
-                <a target="main" href="/supplier/activity/">控位管理</a> <a
+                <a target="main" href="/supplier/operator/control/airways/">控位管理</a> <a
                         target="main" href="/supplier/analysis/">地接计划</a>
                 <hr/>
                 <a
                         target="main" href="/supplier/analysis/">付款管理</a> <a
                         target="main" href="/supplier/analysis/">收款管理</a>
                 <a
-                        target="main" href="/supplier/analysis/">团队核算</a><hr/><a
+                        target="main" href="/supplier/analysis/">团队核算</a>
+                <hr/>
+                <a
                         target="main" href="/supplier/analysis/">变更审核</a>
             </div>
         </div>

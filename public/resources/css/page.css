@@ -167,6 +167,18 @@ legend.show span {
     line-height: 30px;
 }
 
+.table tbody tr.input {
+    padding: 0px;
+
+}
+
+.table tbody input {
+    width: 100%;
+    border: 1px solid transparent;
+    background-color: #f1f1f1;
+    line-height: 26px;
+}
+
 /*!
  * 常用辅助
  */

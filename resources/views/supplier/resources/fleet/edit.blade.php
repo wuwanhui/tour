@@ -77,7 +77,7 @@
                                    class="col-xs-2 control-label label-required">描述：</label>
                             <div class="col-xs-10">
                                 <textarea id="remark" name="remark" class="form-control"
-                                          style="width: 1005px;height: 120px;">{{$fleet->remark}}</textarea>
+                                          style="width: 100%;height: 120px;">{{$fleet->remark}}</textarea>
 
                             </div>
                         </div>
