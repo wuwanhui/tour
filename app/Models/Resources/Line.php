@@ -1,40 +1,43 @@
 <?php
 namespace App\Models\Resources;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\BaseModel;
+use Cache;
 
 /**
  * 航空公司
  * @package App\Models
  */
-class Line extends Model
+class Line extends BaseModel
 {
-    use SoftDeletes;
-
 
     protected $table = 'Resources_Line';//表名
     protected $primaryKey = "id";//主键
 
 
-    protected $fillable = ['eid', 'name', 'days', 'headerh_image', 'shopping', 'characteristic', 'service_standards', 'considerations', 'attachment', 'remark', 'createid', 'editid', 'sort', 'state'];
+    protected $fillable = ['id', 'eid', 'name', 'days', 'headerh_image', 'shopping', 'characteristic', 'service_standards', 'considerations', 'attachment', 'is_control_airways', 'remark', 'createid', 'editid', 'sort', 'state'];
     protected $dates = ['deleted_at'];
+    protected $guarded = [];
+
 
     public function __construct()
     {
 
     }
 
+
     /**
-     * The "booting" method of the model.
-     *
-     * @return void
+     * 获取是否支持控位产品
+     * @param $query
+     * @param $type
+     * @return mixed
      */
-    public static function bootSoftDeletes()
+    public function scopeControlAirways($query, $type)
     {
-        parent::boot();
-        static::addGlobalScope(new SoftDeletingScope());
+
+        return $query->where('is_control_airways', $type);
     }
+
 
     /**
      * 获取应用到请求的验证规则

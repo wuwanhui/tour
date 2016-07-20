@@ -1,6 +1,7 @@
 <?php
 namespace App\Models\Resources;
 
+use App\Scopes\SoftDeletingScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -35,6 +36,7 @@ class Airways extends Model
         parent::boot();
         static::addGlobalScope(new SoftDeletingScope());
     }
+
 
     /**
      * 获取应用到请求的验证规则

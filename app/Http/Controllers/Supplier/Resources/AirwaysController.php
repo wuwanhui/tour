@@ -19,7 +19,7 @@ class AirwaysController extends BaseController
      */
     public function index()
     {
-        $airways = Airways::where('eid', Base::eid())->orderBy('created_at', 'desc')->paginate($this->pageSize);
+        $airways = Airways::onlyTrashed()->where('eid', Base::eid())->orderBy('created_at', 'desc')->paginate($this->pageSize);
         return view('supplier.resources.airways.index', compact('airways'));
     }
 

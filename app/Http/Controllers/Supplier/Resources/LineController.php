@@ -19,7 +19,8 @@ class LineController extends BaseController
      */
     public function index()
     {
-        $lines = Line::where('eid', Base::eid())->orderBy('created_at', 'desc')->paginate($this->pageSize);
+
+        $lines = Line::onlyTrashed()->paginate($this->pageSize);
         return view('supplier.resources.line.index', compact('lines'));
     }
 
@@ -98,16 +99,54 @@ class LineController extends BaseController
         }
     }
 
+    //标记删除
     public function delete($id)
     {
-        $Line = Line::find($id);
-        if ($Line->delete()) {
+        $line = Line::find($id);
+        $line->delete();
+        if ($line->trashed()) {
             return redirect('/supplier/resources/line/')->withSuccess('删除成功！');
         } else {
             return Redirect::back()->withErrors('数据加载失败！');
         }
 
 
+    }
+
+    //还原
+    public function restore($id)
+    {
+        Line::onlyTrashed()->where('id', $id)->restore();
+        return redirect('/supplier/resources/line/')->withSuccess('还原成功！');
+    }
+
+    //强制删除
+    public function forceDelete($id)
+    {
+        Line::onlyTrashed()->where('id', $id)->forceDelete();
+        return redirect('/supplier/resources/line/')->withSuccess('删除成功！');
+    }
+
+    //回收站全选删除
+    public function select_del(Request $request)
+    {
+        $select_id = $request->select_id;
+        foreach ($select_id as $v) {
+            $article = Line::onlyTrashed()->find($v);
+            $article->forceDelete();
+        }
+        return redirect('/supplier/resources/line/')->withSuccess('删除成功！');
+    }
+
+    //回收站全选还原
+    public function select_restore(Request $request)
+    {
+        $select_id = $request->select_id;
+        foreach ($select_id as $v) {
+            $article = Line::onlyTrashed()->find($v);
+            $article->restore();
+        }
+        return redirect('/supplier/resources/line/')->withSuccess('还原成功！');
     }
 
 }

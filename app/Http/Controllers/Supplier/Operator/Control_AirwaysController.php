@@ -38,7 +38,7 @@ class Control_AirwaysController extends BaseController
                 $airways->line_id = $linkid;
 
             } else {
-                $lines = Line::where('eid', Base::eid())->orderBy('created_at', 'desc')->paginate($this->pageSize);
+                $lines = Line::Eid()->ControlAirways(0)->orderBy('created_at', 'desc')->paginate($this->pageSize);
             }
             if ($request->isMethod('post')) {
                 $input = Input::all();

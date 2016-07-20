@@ -1,11 +1,12 @@
-@extends('layouts.page')
+@extends('layouts.app')
 
 @section('content')
 
     <div class="container page-login">
         <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
             {{ csrf_field() }}
-            <div class="modal show " id="LoginForm" aria-labelledby="myModalLabel" data-backdrop="static"  style="padding-top: 200px;">
+            <div class="modal show " id="LoginForm" aria-labelledby="myModalLabel" data-backdrop="static"
+                 style="padding-top: 200px;">
                 <div class="modal-dialog">
                     <div class="modal-content"
                          style="border-top-width: 5px; border-top-color: #336699; border-top-style: solid;">
@@ -49,7 +50,13 @@
                                 <div class="col-xs-6 text-right">
                                     <a class="btn btn-link" href="{{ url('/password/reset') }}">找加密码？</a></div>
                             </div>
-
+                            @if (session('message'))
+                                <div class="alert alert-success">
+                                    {{ session('message') }}
+                                </div>
+                            @endif
+                            @include('common.success')
+                            @include('common.errors')
 
                         </div>
                         <div class="modal-footer">

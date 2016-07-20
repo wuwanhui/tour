@@ -49,6 +49,17 @@
 
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="is_control_airways"
+                                   class="col-xs-2 control-label label-required">飞机控位：</label>
+                            <div class="col-xs-10">
+                                <select id="is_control_airways" name="is_control_airways" class="form-control">
+                                    <option value="0" {{ $line->is_control_airways==0?"selected":""}} >否</option>
+                                    <option value="1" {{ $line->is_control_airways==1?"selected":""}}>是</option>
+                                </select>
+
+                            </div>
+                        </div>
                         @if($shopping=Base::data('shopping'))
                             <div class="form-group">
                                 <label for="shopping"

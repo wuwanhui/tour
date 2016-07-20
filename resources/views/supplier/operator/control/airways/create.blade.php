@@ -31,7 +31,7 @@
                                             <option value="{{$item->id}}">{{$item->name}}</option>
                                         @endforeach
                                     </select>
-                                    <a href="{{url('/supplier/resources/airways/create')}}">新增线路资源</a>
+                                    <a href="{{url('/supplier/resources/line/create')}}">新增线路资源</a>
 
                                 </div>
                             </div>
