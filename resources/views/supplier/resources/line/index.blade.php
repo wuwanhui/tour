@@ -38,6 +38,7 @@
                                 <th><a href="">线路名称</a></th>
                                 <th><a href="">购物行程</a></th>
 
+                                <th><a href="">飞机控位</a></th>
                                 <th><a href="">状态</a></th>
                                 <th style="width: 160px;">操作</th>
                             </tr>
@@ -50,6 +51,8 @@
                                     <td style="text-align: center">{{$item->id}} </td>
                                     <td>{{$item->name}} </td>
                                     <td style="text-align: center">   {{$item->shopping==0?"非购物行程":"购物行程"}}</td>
+                                    <td style="text-align: center">
+                                        {{$item->is_control_airways==0?"否":"是"}}</td>
                                     <td style="text-align: center">
                                         {{$item->state==0?"正常":"禁用"}}</td>
 

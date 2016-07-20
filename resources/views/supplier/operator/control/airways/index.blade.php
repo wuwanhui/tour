@@ -46,7 +46,7 @@
                             <th><a href="">线路</a></th>
                             <th><a href="">去程</a></th>
                             <th><a href="">回程</a></th>
-                            <th><a href="">天数</a></th>
+                            <th><a href="">控位数</a></th>
                             <th><a href="">折扣费用</a></th>
                             <th><a href="">状态</a></th>
                             <th style="width: 160px;">操作</th>
@@ -58,22 +58,28 @@
                                 <td><input type="checkbox" value="{{$item->id}} "
                                            name="id"/></td>
                                 <td style="text-align: center">{{$item->id}} </td>
-                                <td>{{$item->name}} </td>
-                                <td style="text-align: center">{{$item->linkman}}</td>
-                                <td style="text-align: center">{{$item->mobile}}</td>
-                                <td style="text-align: center">{{$item->tel}}</td>
+                                <td>{{$item->line()->name}} </td>
+                                <td>{{$item->start_course}} <br/>
+                                  班次:{{$item->start_shift}}
+                                </td>
+                                <td>{{$item->back_course}} <br/>
+                                    班次:{{$item->back_shift}}
+                                </td>
+                                <td style="text-align: center">{{$item->control_num}}</td>
+                                <td style="text-align: center">{{$item->adult_price}}<br/>
+                                儿童:{{$item->child_price}}</td>
                                 <td style="text-align: center">{{$item->fax}}</td>
                                 <td style="text-align: center">
                                     {{$item->state==0?"正常":"禁用"}}</td>
 
                                 <td style="text-align: center"><a
-                                            href="{{url('/supplier/resources/airways/flight?aid='.$item->id)}}">班次({{count($item->flights)}}
+                                            href="{{url('/supplier/operator/control/airways/transfer?aid='.$item->id)}}">中转机({{count($item->flights)}}
                                         )</a>
                                     | <a
-                                            href="{{url('/supplier/resources/airways/edit/'.$item->id)}}">编辑</a>
+                                            href="{{url('/supplier/operator/control/airways/edit/'.$item->id)}}">编辑</a>
                                     |
                                     <a
-                                            href="{{url('/supplier/resources/airways/delete/'.$item->id)}}">删除</a>
+                                            href="{{url('/supplier/operator/control/airways/delete/'.$item->id)}}">删除</a>
                                 </td>
                             </tr>
                         @endforeach

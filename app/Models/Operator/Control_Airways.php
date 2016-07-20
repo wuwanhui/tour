@@ -17,7 +17,7 @@ class Control_Airways extends Model
     protected $primaryKey = "id";//主键
 
 
-    protected $fillable = ['eid', 'line_id', 'back_days', 'start_flightid', 'start_date', 'start_course', 'start_shift', 'start_departure_time', 'start_arrivala_time', 'back_flightid', 'back_date', 'back_course', 'back_shift', 'back_departure_time', 'back_arrivala_time', 'control_num', 'drawers_limited', 'adult_price', 'child_price', 'control_state', 'remark', 'createid', 'editid', 'sort', 'state'];
+    protected $fillable = ['eid', 'line_id', 'back_days', 'start_date', 'start_flight_id', 'start_course', 'start_shift', 'start_departure_time', 'start_arrivala_time', 'back_date', 'back_flightid', 'back_course', 'back_shift', 'back_departure_time', 'back_arrivala_time', 'control_num', 'drawers_limited', 'adult_price', 'child_price', 'control_state', 'remark', 'createid', 'editid', 'sort', 'state'];
     protected $dates = ['deleted_at'];
 
     public function __construct()
@@ -44,7 +44,8 @@ class Control_Airways extends Model
     public function createRules()
     {
         return [
-            'shift' => 'required|unique:Airways_Flight|max:255|min:2',
+            'line_id' => 'required',
+            'start_date' => 'required|max:255|min:2',
         ];
     }
 
@@ -56,7 +57,7 @@ class Control_Airways extends Model
     public function editRules()
     {
         return [
-            'hift' => 'required|max:255|min:2',
+            'start_date' => 'required|max:255|min:2',
         ];
     }
 
@@ -68,9 +69,16 @@ class Control_Airways extends Model
     public function messages()
     {
         return [
-            'shift.required' => '班次不能为空',
-            'shift.unique' => '班次不能相同',
+            'line_id.required' => '线路资源不能为空',
+            'start_date.required' => '航班时间不能为空',
         ];
+    }
+    /**
+     * 关联线路
+     */
+    public function line()
+    {
+        return $this->belongsTo('App\Models\Resources\Line', 'line_id');
     }
 
     /**
@@ -86,7 +94,7 @@ class Control_Airways extends Model
      */
     public function transfers()
     {
-        return $this->hasMany('App\Models\Operator\Control_Airways_Transfers', "ca_id");
+        return $this->hasMany('App\Models\Operator\Control_Airways_Transfer', "control_airways_id");
     }
 
 

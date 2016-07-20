@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Supplier\Operator;
 use App\Http\Controllers\Supplier\BaseController;
 use App\Http\Facades\Base;
 use App\Models\Operator\Control_Airways;
+use App\Models\Resources\Line;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -32,6 +33,13 @@ class Control_AirwaysController extends BaseController
     {
         try {
             $airways = new Control_Airways();
+            $linkid = $request->linkid;
+            if ($linkid) {
+                $airways->line_id = $linkid;
+
+            } else {
+                $lines = Line::where('eid', Base::eid())->orderBy('created_at', 'desc')->paginate($this->pageSize);
+            }
             if ($request->isMethod('post')) {
                 $input = Input::all();
 
@@ -44,14 +52,18 @@ class Control_AirwaysController extends BaseController
                 $airways->fill($input);
                 $airways->eid = Base::eid();
                 $airways->createid = Base::uid();
-                $airways->save();
+                $arrayDay = explode(',', $airways->start_date);
+                foreach ($arrayDay as $item) {
+                    $airways->start_date = $item;
+                    $airways->save();
+                }
                 if ($airways) {
                     return redirect('/supplier/operator/control/airways/')->withSuccess('保存成功！');
                 } else {
                     return Redirect::back()->withErrors('保存失败！');
                 }
             }
-            return view('supplier.operator.control.airways.create', compact('airways'));
+            return view('supplier.operator.control.airways.create', compact('lines', 'airways'));
         } catch (Exception $ex) {
             return Redirect::back()->withInput()->withErrors('异常！' . $ex->getMessage());
         }

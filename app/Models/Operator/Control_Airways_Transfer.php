@@ -8,16 +8,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * 航班控位-中转记录
  * @package App\Models
  */
-class Control_Airways_Transfers extends Model
+class Control_Airways_Transfer extends Model
 {
     use SoftDeletes;
 
 
-    protected $table = 'Control_Airways_Transfers';//表名
+    protected $table = 'Control_Airways_Transfer';//表名
     protected $primaryKey = "id";//主键
 
 
-    protected $fillable = ['eid', 'line_id', 'back_days', 'start_flightid', 'start_date', 'start_course', 'start_shift', 'start_departure_time', 'start_arrivala_time', 'back_flightid', 'back_date', 'back_course', 'back_shift', 'back_departure_time', 'back_arrivala_time', 'control_num', 'drawers_limited', 'adult_price', 'child_price', 'control_state', 'remark', 'createid', 'editid', 'sort', 'state'];
+    protected $fillable = ['eid', 'control_airways_id', 'control_day', 'transfer_type', 'transfer_date', 'transfer_flight_id', 'transfer_course', 'transfer_shift', 'transfer_departure_time', 'transfer_arrivala_time', 'remark', 'createid', 'editid', 'sort', 'state'];
     protected $dates = ['deleted_at'];
 
     public function __construct()
@@ -44,7 +44,7 @@ class Control_Airways_Transfers extends Model
     public function createRules()
     {
         return [
-            'shift' => 'required|unique:Airways_Flight|max:255|min:2',
+            'transfer_course' => 'required|max:255|min:2',
         ];
     }
 
@@ -56,7 +56,7 @@ class Control_Airways_Transfers extends Model
     public function editRules()
     {
         return [
-            'hift' => 'required|max:255|min:2',
+            'transfer_course' => 'required|max:255|min:2',
         ];
     }
 
@@ -68,26 +68,19 @@ class Control_Airways_Transfers extends Model
     public function messages()
     {
         return [
-            'shift.required' => '班次不能为空',
-            'shift.unique' => '班次不能相同',
+            'transfer_course.required' => '中转航向不能为空',
         ];
     }
 
     /**
-     * 航空公司
+     * 所属控位
      */
-    public function airways()
+    public function control_airways()
     {
-        return $this->belongsTo('App\Models\Resources\Airways', 'airways_id');
+        return $this->belongsTo('App\Models\Operator\Control_Airways', 'control_airways_id');
     }
 
-    /**
-     * 中转记录
-     */
-    public function transfers()
-    {
-        return $this->hasMany('App\Models\Operator\Control_Airways_Transfers', "ca_id");
-    }
+
 
 
 }

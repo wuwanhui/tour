@@ -1,14 +1,15 @@
 <?php
 namespace App\Models\Crm;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Http\Facades\Base;
+use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * 客户档案
  * @package App\Models
  */
-class Customer extends Model
+class Customer extends BaseModel
 {
     use SoftDeletes;
 
@@ -35,6 +36,14 @@ class Customer extends Model
         parent::boot();
         static::addGlobalScope(new SoftDeletingScope());
     }
+
+    /**
+     * 本地作用域(获取当前我创建的客户)
+     * @param $query
+     * @return mixed
+     */
+    public function scopeCreate($query) {
+        return $query->where('createid', Base::eid()); }
 
     /**
      * 获取应用到请求的验证规则

@@ -253,21 +253,22 @@ class AllTable extends Migration
                 $table->integer('line_id');//关联线路资源
                 $table->string('back_days');//返回天数
 
-                $table->integer('start_flightid');//去程班次ID
                 $table->string('start_date');//出发日期
+                $table->integer('start_flight_id');//去程班次ID
                 $table->string('start_course');//航向(如：重庆-北京)
                 $table->string('start_shift');//班次
                 $table->time('start_departure_time');//起飞时间
                 $table->time('start_arrivala_time');//到达时间
 
-                $table->integer('back_flightid');//返程班次ID
                 $table->string('back_date');//返程日期
+                $table->integer('back_flight_id');//返程班次ID
                 $table->string('back_course');//航向(如：重庆-北京)
                 $table->string('back_shift');//班次
                 $table->time('back_departure_time');//起飞时间
                 $table->time('back_arrivala_time');//到达时间
                 $table->integer('control_num');//控位数
                 $table->integer('drawers_limited');//出票时限（小时）
+
                 $table->decimal('adult_price');//成人价
                 $table->decimal('child_price');//儿童价
                 $table->integer('control_state')->default(0);//控位状态（0未出票，1已出票，2已暂停，3已取消）
@@ -281,6 +282,36 @@ class AllTable extends Migration
             });
 
         }
+
+        /**
+         * 航班控位-中转
+         */
+        if (!Schema::hasTable('Control_Airways_Transfer')) {
+            Schema::create('Control_Airways_Transfer', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('eid');
+                $table->integer('control_airways_id');//航空控位ID
+                $table->integer('control_day');//第几天
+                $table->integer('transfer_type');//0表示去程中转,1表示回程中转
+
+                $table->string('transfer_date');//出发日期
+                $table->integer('transfer_flight_id');//去程班次ID
+                $table->string('transfer_course');//航向(如：重庆-北京)
+                $table->string('transfer_shift');//班次
+                $table->time('transfer_departure_time');//起飞时间
+                $table->time('transfer_arrivala_time');//到达时间
+
+                $table->text('remark');//备注
+                $table->integer('createid');//增加者
+                $table->integer('editid');//编辑者
+                $table->integer('sort')->default(0);//排序
+                $table->integer('state')->default(0);//状态
+                $table->timestamps();
+                $table->softDeletes();
+            });
+
+        }
+
 
         /**
          * 客户中心-客户档案
@@ -325,6 +356,7 @@ class AllTable extends Migration
                 $table->text('service_standards');//服务标准
                 $table->text('considerations');//注意事项
                 $table->string('attachment');//行程附件
+                $table->integer('is_control_airways');//是否航空控位(0不需要,1需求)
                 $table->text('remark');//备注
                 $table->integer('createid');//增加者
                 $table->integer('editid');//编辑者
@@ -543,73 +575,7 @@ class AllTable extends Migration
             });
 
         }
-        /**
-         * 资源中心-航空公司
-         */
-        if (!Schema::hasTable('Resources_Airways')) {
-            Schema::create('Resources_Airways', function (Blueprint $table) {
-                $table->increments('id');
-                $table->integer('eid');
-                $table->string('name');
-                $table->string('linkman');
-                $table->string('mobile');
-                $table->string('tel');
-                $table->string('fax');
-                $table->text('remark');//备注
-                $table->integer('createid');//增加者
-                $table->integer('editid');//编辑者
-                $table->integer('sort')->default(0);//排序
-                $table->integer('state')->default(0);//状态
-                $table->timestamps();
-                $table->softDeletes();
-            });
-
-        }
-        /**
-         * 资源中心-航空公司
-         */
-        if (!Schema::hasTable('Resources_Airways')) {
-            Schema::create('Resources_Airways', function (Blueprint $table) {
-                $table->increments('id');
-                $table->integer('eid');
-                $table->string('name');
-                $table->string('linkman');
-                $table->string('mobile');
-                $table->string('tel');
-                $table->string('fax');
-                $table->text('abstract');
-                $table->integer('createid');
-                $table->integer('editid');
-                $table->integer('sort')->default(0);
-                $table->integer('state')->default(0);
-                $table->timestamps();
-                $table->softDeletes();
-            });
-
-        }
-
-        /**
-         * 资源中心-航空公司
-         */
-        if (!Schema::hasTable('Resources_Airways')) {
-            Schema::create('Resources_Airways', function (Blueprint $table) {
-                $table->increments('id');
-                $table->integer('eid');
-                $table->string('name');
-                $table->string('linkman');
-                $table->string('mobile');
-                $table->string('tel');
-                $table->string('fax');
-                $table->text('abstract');
-                $table->integer('createid');
-                $table->integer('editid');
-                $table->integer('sort')->default(0);
-                $table->integer('state')->default(0);
-                $table->timestamps();
-                $table->softDeletes();
-            });
-
-        }
+       
     }
 
     /**
