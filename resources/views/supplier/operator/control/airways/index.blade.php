@@ -44,10 +44,10 @@
                                                            name="CheckAll" value="Checkid"/></th>
                             <th style="width: 80px;"><a href="">编号</a></th>
                             <th><a href="">线路</a></th>
-                            <th><a href="">去程</a></th>
-                            <th><a href="">回程</a></th>
-                            <th><a href="">控位数</a></th>
-                            <th><a href="">折扣费用</a></th>
+                            <th style="width: 180px;"><a href="">去程</a></th>
+                            <th style="width: 180px;"><a href="">回程</a></th>
+                            <th style="width: 160px;"><a href="">控位数</a></th>
+                            <th style="width: 160px;"><a href="">销售/成本价格</a></th>
                             <th><a href="">状态</a></th>
                             <th style="width: 160px;">操作</th>
                         </tr>
@@ -58,17 +58,27 @@
                                 <td><input type="checkbox" value="{{$item->id}} "
                                            name="id"/></td>
                                 <td style="text-align: center">{{$item->id}} </td>
-                                <td>{{$item->line()->name}} </td>
-                                <td>{{$item->start_course}} <br/>
-                                  班次:{{$item->start_shift}}
+                                <td>{{$item->line->name}} </td>
+                                <td><p class="text-info">航程：{{$item->start_course}} {{$item->start_shift}}</p>
+                                    <p class="text-info">日期：{{$item->start_date}}</p>
+                                    <p class="text-info">时间：{{$item->start_departure_time}}
+                                        -{{$item->start_arrivala_time}}</p>
+
                                 </td>
-                                <td>{{$item->back_course}} <br/>
-                                    班次:{{$item->back_shift}}
+                                <td>
+                                    @if(isset($item->back_course))
+                                        <p class="text-info">航程：{{$item->back_course or '无指定回程'}} {{$item->back_shift}}</p>  <p
+                                                class="text-info">
+                                            日期：{{$item->back_date}}</p>
+                                        <p class="text-info">时间：{{$item->back_departure_time}}
+                                            -{{$item->back_arrivala_time}}</p>
+                                    @endif
                                 </td>
-                                <td style="text-align: center">{{$item->control_num}}</td>
-                                <td style="text-align: center">{{$item->adult_price}}<br/>
-                                儿童:{{$item->child_price}}</td>
-                                <td style="text-align: center">{{$item->fax}}</td>
+                                <td style="text-align: center"><p class="text-success">计划数：{{$item->control_num}}</p>
+                                    <p class="text-danger">确认数：{{$item->control_num}}</p>
+                                    <p class="text-info">占位数：{{$item->control_num}}</p></td>
+                                <td style="text-align: center"><p class="text-info">成人：{{$item->adult_price}}</p>
+                                    <p class="text-info">儿童：{{$item->child_price}}</p></td>
                                 <td style="text-align: center">
                                     {{$item->state==0?"正常":"禁用"}}</td>
 

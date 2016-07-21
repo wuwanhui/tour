@@ -8,6 +8,7 @@ use App\Models\Resources\Airways;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Mockery\CountValidator\Exception;
 
@@ -17,9 +18,13 @@ class AirwaysController extends BaseController
     /**
      * 主页
      */
-    public function index()
+    public function index(Request $request)
     {
+
         $airways = Airways::onlyTrashed()->where('eid', Base::eid())->orderBy('created_at', 'desc')->paginate($this->pageSize);
+        if (isset($request->json)) {
+            return Response::json($airways);
+        }
         return view('supplier.resources.airways.index', compact('airways'));
     }
 

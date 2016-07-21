@@ -26,6 +26,9 @@ class Airways_FlightController extends BaseController
         } else {
             $flights = Airways_Flight::where('eid', Base::eid())->orderBy('created_at', 'desc')->paginate($this->pageSize);
         }
+        if (isset($request->json)) {
+            return Response::json($flights);
+        }
         return view('supplier.resources.airways.flight.index', compact('flights'));
     }
 

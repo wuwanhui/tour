@@ -17,9 +17,12 @@ class FleetController extends BaseController
     /**
      * 主页
      */
-    public function index()
+    public function index(Request $request)
     {
         $fleets = Fleet::where('eid', Base::eid())->orderBy('created_at', 'desc')->paginate($this->pageSize);
+        if (isset($request->json)) {
+            return Response::json($fleets);
+        }
         return view('supplier.resources.fleet.index', compact('fleets'));
     }
 

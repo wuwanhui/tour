@@ -24,7 +24,7 @@ class Control_AirwaysController extends BaseController
      */
     public function index()
     {
-        $airways = Control_Airways::where('eid', Base::eid())->orderBy('created_at', 'desc')->paginate($this->pageSize);
+        $airways = Control_Airways::Eid()->orderBy('created_at', 'desc')->paginate($this->pageSize);
         return view('supplier.operator.control.airways.index', compact('airways'));
     }
 
@@ -32,32 +32,33 @@ class Control_AirwaysController extends BaseController
     public function create(Request $request)
     {
         try {
-            $airways = new Control_Airways();
+            $control_airways = new Control_Airways();
             $linkid = $request->linkid;
             if ($linkid) {
-                $airways->line_id = $linkid;
+                $control_airways->line_id = $linkid;
 
             } else {
                 $lines = Line::Eid()->ControlAirways(0)->orderBy('created_at', 'desc')->paginate($this->pageSize);
             }
+            $lines = Line::Eid()->ControlAirways(0)->orderBy('created_at', 'desc')->paginate($this->pageSize);
             if ($request->isMethod('post')) {
                 $input = Input::all();
 
-                $validator = Validator::make($input, $airways->createRules(), $airways->messages());
+                $validator = Validator::make($input, $control_airways->createRules(), $control_airways->messages());
                 if ($validator->fails()) {
                     return redirect('/supplier/operator/control/airways/create')
                         ->withInput()
                         ->withErrors($validator);
                 }
-                $airways->fill($input);
-                $airways->eid = Base::eid();
-                $airways->createid = Base::uid();
-                $arrayDay = explode(',', $airways->start_date);
+                $control_airways->fill($input);
+                $control_airways->eid = Base::eid();
+                $control_airways->createid = Base::uid();
+                $arrayDay = explode(',', $control_airways->start_date);
                 foreach ($arrayDay as $item) {
-                    $airways->start_date = $item;
-                    $airways->save();
+                    $control_airways->start_date = $item;
+                    $control_airways->save();
                 }
-                if ($airways) {
+                if ($control_airways) {
                     return redirect('/supplier/operator/control/airways/')->withSuccess('保存成功！');
                 } else {
                     return Redirect::back()->withErrors('保存失败！');
@@ -72,23 +73,23 @@ class Control_AirwaysController extends BaseController
     public function edit(Request $request, $id)
     {
         try {
-            $airways = Control_Airways::find($id);
-            if (!$airways) {
+            $control_airways = Control_Airways::find($id);
+            if (!$control_airways) {
                 return Redirect::back()->withErrors('数据加载失败！');
             }
             if ($request->isMethod('post')) {
                 $input = Input::all();
 
-                $validator = Validator::make($input, $airways->editRules(), $airways->messages());
+                $validator = Validator::make($input, $control_airways->editRules(), $control_airways->messages());
                 if ($validator->fails()) {
                     return redirect('/supplier/operator/control/airways/edit/' . $id)
                         ->withInput()
                         ->withErrors($validator);
                 }
-                $airways->fill($input);
-                $airways->editid = Base::uid();
-                $airways->save();
-                if ($airways) {
+                $control_airways->fill($input);
+                $control_airways->editid = Base::uid();
+                $control_airways->save();
+                if ($control_airways) {
                     return redirect('/supplier/operator/control/airways/')->withSuccess('保存成功！');
                 } else {
                     return Redirect::back()->withErrors('保存失败！');
@@ -103,8 +104,8 @@ class Control_AirwaysController extends BaseController
 
     public function delete($id)
     {
-        $airways = Control_Airways::find($id);
-        if ($airways->delete()) {
+        $control_airways = Control_Airways::find($id);
+        if ($control_airways->delete()) {
             return redirect('/supplier/operator/control/airways/')->withSuccess('删除成功！');
         } else {
             return Redirect::back()->withErrors('数据加载失败！');

@@ -1,20 +1,17 @@
 <?php
 namespace App\Models\Operator;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\BaseModel;
 
 /**
  * 航班控位
  * @package App\Models
  */
-class Control_Airways extends Model
+class Control_Airways extends BaseModel
 {
-    use SoftDeletes;
 
 
     protected $table = 'Control_Airways';//表名
-    protected $primaryKey = "id";//主键
 
 
     protected $fillable = ['eid', 'line_id', 'back_days', 'start_date', 'start_flight_id', 'start_course', 'start_shift', 'start_departure_time', 'start_arrivala_time', 'back_date', 'back_flightid', 'back_course', 'back_shift', 'back_departure_time', 'back_arrivala_time', 'control_num', 'drawers_limited', 'adult_price', 'child_price', 'control_state', 'remark', 'createid', 'editid', 'sort', 'state'];
@@ -73,6 +70,7 @@ class Control_Airways extends Model
             'start_date.required' => '航班时间不能为空',
         ];
     }
+
     /**
      * 关联线路
      */
@@ -88,7 +86,7 @@ class Control_Airways extends Model
     {
         return $this->belongsTo('App\Models\Resources\Airways', 'airways_id');
     }
-    
+
     /**
      * 中转记录
      */

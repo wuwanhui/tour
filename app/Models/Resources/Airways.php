@@ -1,21 +1,18 @@
 <?php
 namespace App\Models\Resources;
 
+use App\Models\BaseModel;
 use App\Scopes\SoftDeletingScope;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * 航空公司
  * @package App\Models
  */
-class Airways extends Model
+class Airways extends BaseModel
 {
-    use SoftDeletes;
-
 
     protected $table = 'Resources_Airways';//表名
-    protected $primaryKey = "id";//主键
 
 
     protected $fillable = ['eid', 'name', 'linkman', 'mobile', 'tel', 'fax', 'abstract', 'createid', 'editid', 'sort', 'state'];
