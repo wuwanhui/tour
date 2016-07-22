@@ -13,11 +13,12 @@
             </div>
             <div class="col-xs-4 text-right">
 
-                <form method="get" cssClass="form-horizontal">
+                <form class="form-horizontal" method="get"
+                      enctype="multipart/form-data" action="{{url('/supplier/operator/control/airways')}}">
                     <div class="input-group">
 
                         <input type="text" class="form-control" placeholder="关键字"
-                               name="key" value=""> <span class="input-group-btn">
+                               name="key" value="{{request('key')}}"> <span class="input-group-btn">
 								<button class="btn btn-default" type="submit">搜索</button>
 							</span>
 
@@ -67,7 +68,8 @@
                                 </td>
                                 <td>
                                     @if(isset($item->back_course))
-                                        <p class="text-info">航程：{{$item->back_course or '无指定回程'}} {{$item->back_shift}}</p>  <p
+                                        <p class="text-info">
+                                            航程：{{$item->back_course or '无指定回程'}} {{$item->back_shift}}</p>  <p
                                                 class="text-info">
                                             日期：{{$item->back_date}}</p>
                                         <p class="text-info">时间：{{$item->back_departure_time}}

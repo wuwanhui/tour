@@ -581,4 +581,24 @@ Route::group(['prefix' => 'supplier', 'namespace' => 'Supplier', 'middleware' =>
 
 });
 
-
+/**
+ * 接口相关
+ */
+Route::group(['prefix' => 'api', 'middleware' => ['api'], 'namespace' => 'API'], function () {
+    Route::group(['prefix' => 'v1.0'], function () {
+        Route::get('/', 'APIController@index');
+        Route::group(['prefix' => 'system'], function () {
+            Route::resource('api', 'APIController');
+        });
+        Route::group(['prefix' => 'resources'], function () {
+            Route::resource('airways', 'AirwaysController');
+            Route::resource('airways/flight', 'Airways_FlightController');
+        });
+        Route::group(['prefix' => 'operator'], function () {
+            Route::resource('api', 'APIController');
+        });
+        Route::group(['prefix' => 'crm'], function () {
+            Route::resource('api', 'APIController');
+        });
+    });
+});

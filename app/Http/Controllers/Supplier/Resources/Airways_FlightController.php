@@ -38,9 +38,9 @@ class Airways_FlightController extends BaseController
         try {
             $flight = new Airways_Flight();
             $flight->airways_id = $request->aid;
-            if (!isset($flight->airways_id)){
-                $airways=Airways::all();
-                if (count($airways)==0){
+            if (!isset($flight->airways_id)) {
+                $airways = Airways::all();
+                if (count($airways) == 0) {
                     return redirect('/supplier/resources/airways')
                         ->withInput()
                         ->withErrors('你还没有增加航空公司,请先增加航空公司再增加航班信息!');
@@ -65,7 +65,7 @@ class Airways_FlightController extends BaseController
                     return Redirect::back()->withErrors('保存失败！');
                 }
             }
-            return view('supplier.resources.airways.flight.create', compact('airways','flight'));
+            return view('supplier.resources.airways.flight.create', compact('airways', 'flight'));
         } catch (Exception $ex) {
             return Redirect::back()->withInput()->withErrors('异常！' . $ex->getMessage());
         }
@@ -95,6 +95,9 @@ class Airways_FlightController extends BaseController
                 } else {
                     return Redirect::back()->withErrors('保存失败！');
                 }
+            }
+            if (isset($request->json)) {
+                return Response::json(flights);
             }
             return view('supplier.resources.airways.flight.edit', compact('flight'));
         } catch (Exception $ex) {

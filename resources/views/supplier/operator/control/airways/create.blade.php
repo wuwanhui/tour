@@ -1,20 +1,25 @@
 @extends('layouts.page')
 @section("script")
     <script>
-        app.controller('myCtrl', function ($scope, $http) {
-            $scope.back_date = $scope.start_date + " " + $scope.start_date;
-            $http.get("{{url('/supplier/resources/airways?json')}}")
-                    .success(function (response) {
-                        $scope.airways = response.data;
-                    });
-            $scope.toggle = function () {
-                $scope.myVar = !$scope.myVar;
-            };
+        app.controller('myCtrl', function ($scope, $http, TourService) {
+            TourService.getAirwaysList().success(function (result) {
+                $scope.airwaysList = result.data;
+            })
+
+
+            $scope.AirwayChange = function (id) {
+                TourService.getFlightList(id).success(function (result) {
+                    $scope.flightList = result.data;
+                })
+            }
+
         });
     </script>
 @endsection
 @section('content')
+
     <div class="page-input" ng-controller="myCtrl">
+
         <form class="form-horizontal" method="Post"
               enctype="multipart/form-data" action="{{url('/supplier/operator/control/airways/create')}}">
             <div class="row page-input-header">
@@ -129,16 +134,27 @@
                                 <div class="form-group">
                                     <label for="start_date"
                                            class="col-xs-2 control-label label-required">航空公司：</label>
-                                    <div class="col-xs-10">
+                                    <div class="col-xs-4">
 
-                                        <select class="form-control">
-                                            <option  value=""></option>
-                                            <option ng-repeat="item in airways"
+                                        <select class="form-control" ng-model="airways"
+                                                ng-change="AirwayChange(airways)">
+                                            <option>请选择航空公司</option>
+                                            <option ng-repeat="item in airwaysList"
                                                     value="@{{item.id}}">@{{item.name}}</option>
                                         </select>
 
                                     </div>
+                                    <label for="start_date"
+                                           class="col-xs-2 control-label label-required">参考班次：</label>
+                                    <div class="col-xs-4">
 
+                                        <select class="form-control" ng-model="flight">
+                                            <option>请选择班次</option>
+                                            <option ng-repeat="item in flightList"
+                                                    value="@{{item.id}}">@{{item.name}}</option>
+                                        </select>
+
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="start_date"

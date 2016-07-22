@@ -13,11 +13,11 @@
             </div>
             <div class="col-xs-4 text-right">
 
-                <form method="get" cssClass="form-horizontal">
+                <form class="form-horizontal" method="get"
+                      enctype="multipart/form-data" action="{{url('/supplier/resources/airways')}}">
                     <div class="input-group">
-
                         <input type="text" class="form-control" placeholder="关键字"
-                               name="key" value=""> <span class="input-group-btn">
+                               name="key" value="{{request('key')}}"> <span class="input-group-btn">
 								<button class="btn btn-default" type="submit">搜索</button>
 							</span>
 
@@ -67,7 +67,8 @@
                                     {{$item->state==0?"正常":"禁用"}}</td>
 
                                 <td style="text-align: center"><a
-                                            href="{{url('/supplier/resources/airways/flight?aid='.$item->id)}}">班次({{count($item->flights)}})</a>
+                                            href="{{url('/supplier/resources/airways/flight?aid='.$item->id)}}">班次({{count($item->flights)}}
+                                        )</a>
                                     | <a
                                             href="{{url('/supplier/resources/airways/edit/'.$item->id)}}">编辑</a>
                                     |

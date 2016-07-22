@@ -20,16 +20,29 @@ class AirwaysController extends BaseController
      */
     public function index(Request $request)
     {
+        $query = Airways::onlyTrashed();
+        $query->where('eid', Base::eid());
 
-        $airways = Airways::onlyTrashed()->where('eid', Base::eid())->orderBy('created_at', 'desc')->paginate($this->pageSize);
-        if (isset($request->json)) {
-            return Response::json($airways);
+        if (isset($request->key)) {
+            $this->key = $request->key;
+
+            $query->where(function ($query) {
+                $query->orWhere('name', 'like', '%' . $this->key . '%');
+                $query->orWhere('linkman', 'like', '%' . $this->key . '%');
+                $query->orWhere('mobile', 'like', '%' . $this->key . '%');
+                $query->orWhere('tel', 'like', '%' . $this->key . '%');
+
+            });
         }
+
+        $airways = $query->orderBy('created_at', 'desc')->paginate($this->pageSize);
+
         return view('supplier.resources.airways.index', compact('airways'));
     }
 
 
-    public function create(Request $request)
+    public
+    function create(Request $request)
     {
         try {
             $airways = new Airways();
@@ -58,7 +71,8 @@ class AirwaysController extends BaseController
         }
     }
 
-    public function edit(Request $request, $id)
+    public
+    function edit(Request $request, $id)
     {
         try {
             $airways = Airways::find($id);
@@ -90,7 +104,8 @@ class AirwaysController extends BaseController
     }
 
 
-    public function delete($id)
+    public
+    function delete($id)
     {
         $airways = Airways::find($id);
         if ($airways->delete()) {

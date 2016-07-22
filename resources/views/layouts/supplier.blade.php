@@ -61,6 +61,7 @@
 
 <script src="{{ asset('/resources/js/angularJs/angular1.5.5.min.js') }}"></script>
 <script src="{{ asset('/resources/js/angularJs/angular-messages.min.js') }}"></script>
+<script src="{{ asset('/resources/js/angularJs/angularService.js') }}"></script>
 <script src="{{ asset('/resources/js/angularJs/angularBase.js') }}"></script>
 <script src="{{ asset('/resources/js/jquery-2.1.1.min.js') }}"></script>
 <script src="{{ asset('/resources/js/bootstrap/js/bootstrap.min.js') }}"></script>
